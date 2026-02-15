@@ -1,0 +1,191 @@
+/* =========================================
+   1. 變數定義 (Variables)
+   ========================================= */
+:root {
+    --nav-width: 200px;
+    --global-sidebar-width: 0px; 
+    --nav-top-offset: 94px;
+    
+    /* 深色風格配色 */
+    --nav-bg-color: #262626;
+    --nav-text-color: #cdcdcd;
+    --nav-text-active: #ffffff;
+    --nav-active-bg: #0069ff;
+    --nav-hover-bg: #333333;
+    --nav-border-color: #3e3e3e;
+}
+
+/* =========================================
+   2. 左側導航欄容器
+   ========================================= */
+.bb-vertical-nav-container {
+    position: fixed !important;
+    top: var(--nav-top-offset) !important;
+    left: var(--global-sidebar-width) !important;
+    width: var(--nav-width) !important;
+    bottom: 0 !important;
+    
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    background-color: var(--nav-bg-color) !important;
+    border-right: 1px solid #000000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.3) !important;
+}
+
+/* 強制重置列表樣式 */
+.bb-vertical-nav-container ul,
+.bb-vertical-nav-container li {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* =========================================
+   3. 按鈕/連結樣式 (含圖標設定)
+   ========================================= */
+.bb-vertical-nav-container a,
+.bb-vertical-nav-container button { 
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important; /* 確保圖標與文字垂直置中 */
+    justify-content: flex-start !important;
+    
+    color: var(--nav-text-color) !important;
+    font-family: "Segoe UI", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    text-align: left !important;
+    
+    padding: 12px 20px !important;
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--nav-border-color) !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    
+    box-sizing: border-box !important;
+    transition: background 0.2s ease, padding-left 0.2s ease !important;
+}
+
+/* Google Material Icon 樣式 */
+.bb-nav-icon {
+    font-size: 20px !important;
+    margin-right: 12px !important; /* 圖標與文字的間距 */
+    color: inherit !important;     /* 跟隨文字顏色 */
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* 懸停效果 */
+.bb-vertical-nav-container a:hover,
+.bb-vertical-nav-container button:hover {
+    background-color: var(--nav-hover-bg) !important;
+    color: var(--nav-text-active) !important;
+    padding-left: 25px !important;
+}
+
+/* =========================================
+   4. 選中狀態 (Active State)
+   ========================================= */
+.bb-vertical-nav-container .active,
+.bb-vertical-nav-container a.active,
+.bb-vertical-nav-container button.active,
+.bb-vertical-nav-container [aria-current="page"] {
+    background-color: var(--nav-active-bg) !important;
+    color: var(--nav-text-active) !important;
+    border-bottom: 1px solid var(--nav-active-bg) !important;
+}
+
+.bb-vertical-nav-container *::after,
+.bb-vertical-nav-container *::before {
+    display: none !important;
+}
+
+/* =========================================
+   5. 自定義底部鏈接 (Custom Bottom Link)
+   ========================================= */
+.bb-custom-bottom-link {
+    border-top: 1px solid #444 !important; /* 頂部分隔線 */
+    border-bottom: none !important;
+    background-color: rgba(0,0,0,0.2) !important; /* 稍微深一點的背景 */
+
+    /* 新增 首頁的nav*/
+
+    width: 100% !important; /* 確保填滿 */
+    box-sizing: border-box !important;
+    display: flex !important; /* 確保內容對齊 */
+    align-items: center !important;
+    color: #cdcdcd !important; /* 確保在 Global Nav 上文字顏色正確 */
+    text-decoration: none !important;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    font-family: "Segoe UI", sans-serif !important;
+    transition: background 0.2s ease !important;
+
+
+
+
+}
+.bb-custom-bottom-link + .bb-custom-bottom-link {
+    border-top: 1px solid #333 !important;
+}
+
+.bb-custom-bottom-link:hover {
+    background-color: var(--nav-active-bg) !important;
+    color: #ffffff !important;
+}
+
+/* 新增確保圖標樣式一致 */
+.bb-nav-icon {
+    font-size: 20px !important;
+    margin-right: 12px !important;
+    color: inherit !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+
+/* =========================================
+   6. 內容推擠 & Banner (維持不變)
+   ========================================= */
+body.bb-vertical-nav-active main,
+body.bb-vertical-nav-active .content-wrapper,
+body.bb-vertical-nav-active #main-content-scroll-container {
+    margin-left: var(--nav-width) !important; 
+    width: auto !important;
+}
+
+bb-base-course-card .course-banner {
+    background-image: none !important;
+    background-color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    overflow: hidden !important;
+}
+
+.bb-custom-banner-text {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    font-family: 'Segoe UI', Tahoma, sans-serif !important;
+    text-align: center !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+    font-size: clamp(14px, 1.5vw, 24px) !important;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

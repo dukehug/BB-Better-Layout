@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "BB Better Layout",
+  "version": "2.2",
+  "description": "Modernize Blackboard with a grid layout, text banners, and a vertical sidebar.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["*://*.blackboard.com/*"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.blackboard.com/*"],
+      "css": ["styles.css"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
