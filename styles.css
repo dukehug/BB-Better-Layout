@@ -154,13 +154,25 @@
 
 
 /* =========================================
-   6. 內容推擠 & Banner (維持不變)
+   6. 內容推擠 & Banner 
    ========================================= */
 body.bb-vertical-nav-active main,
 body.bb-vertical-nav-active .content-wrapper,
 body.bb-vertical-nav-active #main-content-scroll-container {
     margin-left: var(--nav-width) !important; 
     width: auto !important;
+}
+
+/* fix courses section with menu banner issue*/
+body.bb-vertical-nav-active [bb-cache-compilation="base-courses"],
+body.bb-vertical-nav-active .base-courses-container.route-view-container {
+    padding-left: 32px !important;
+    margin-left: 0 !important;
+}
+
+body.bb-vertical-nav-active #main-content-inner {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
 }
 
 bb-base-course-card .course-banner {
