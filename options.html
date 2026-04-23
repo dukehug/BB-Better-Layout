@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BB Better Layout — Keyboard Shortcuts</title>
+  <style>
+    /* ===== 全局重置 ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* ===== 卡片容器 ===== */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.10);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+
+    /* ===== 頂部標題欄 ===== */
+    .card-header {
+      background: #262626;
+      color: #fff;
+      padding: 24px 28px;
+    }
+    .card-header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
+    .card-header p {
+      font-size: 13px;
+      color: #a0a0a0;
+      margin-top: 4px;
+    }
+
+    /* ===== 提示區域 ===== */
+    .hint {
+      background: #f0f7ff;
+      border-left: 3px solid #0069FF;
+      margin: 20px 24px 0;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    /* ===== 快捷鍵表格 ===== */
+    .table-wrap {
+      padding: 20px 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #888;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    tbody tr {
+      border-bottom: 1px solid #f3f3f3;
+    }
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+    tbody td {
+      padding: 12px 0;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    tbody td:first-child {
+      color: #333;
+    }
+    tbody td:last-child {
+      text-align: right;
+    }
+
+    /* ===== 快捷鍵徽章 ===== */
+    .shortcut-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      background: #f3f4f6;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+      user-select: none;
+    }
+    .shortcut-badge:hover {
+      background: #e8f0fe;
+      border-color: #0069FF;
+      color: #0069FF;
+    }
+    .shortcut-badge.recording {
+      background: #fff3cd;
+      border-color: #f59e0b;
+      color: #92400e;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .5; }
+    }
+
+    /* ===== 底部按鈕區 ===== */
+    .card-footer {
+      padding: 16px 24px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s, opacity .15s;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid #ddd;
+      color: #555;
+    }
+    .btn-ghost:hover { background: #f3f4f6; }
+
+    /* ===== 狀態消息 ===== */
+    .status-msg {
+      font-size: 13px;
+      font-weight: 500;
+      margin-left: auto;
+      transition: opacity .4s ease;
+      opacity: 0;
+    }
+    .status-msg.success { color: #1e8e3e; }
+    .status-msg.error   { color: #d93025; }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- 頂部標題 -->
+    <div class="card-header">
+      <h1>⌨️ Keyboard Shortcuts</h1>
+      <p>BB Better Layout — Customize your navigation keys</p>
+    </div>
+
+    <!-- 使用提示 -->
+    <div class="hint">
+      <strong>How to change:</strong> Click any shortcut badge, then press your desired key combination.<br>
+      At least one modifier key (<kbd>Ctrl</kbd> / <kbd>Alt</kbd> / <kbd>Shift</kbd>) is required.<br>
+      Press <kbd>Esc</kbd> to cancel recording.
+    </div>
+
+    <!-- 快捷鍵表格 -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th style="text-align:right">Shortcut</th>
+          </tr>
+        </thead>
+        <tbody id="shortcuts-tbody">
+          <!-- 由 options.js 動態生成 -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 底部操作欄 -->
+    <div class="card-footer">
+      <button id="reset-btn" class="btn btn-ghost">Reset to Defaults</button>
+      <span id="status-msg" class="status-msg"></span>
+    </div>
+
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
