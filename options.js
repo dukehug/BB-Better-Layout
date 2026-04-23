@@ -8,7 +8,7 @@
 // （options 頁面無法直接 import content script）
 // ------------------------------------------
 const DEFAULT_SHORTCUTS = {
-  search:      { key: 'f', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Focus Course Search' },
+  search:      { key: 'k', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Focus Course Search' },
   institution: { key: '1', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Institution Page'    },
   activity:    { key: '2', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Activity'            },
   courses:     { key: '3', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Courses'             },
@@ -137,7 +137,8 @@ function renderTable() {
 // ------------------------------------------
 // 存儲：保存到 chrome.storage.sync
 // ------------------------------------------
-function saveShortcuts() {
+// cb 可選，用於 resetToDefaults 時傳入自定義回調
+function saveShortcuts(cb) {
   // 只保存按鍵字段，label 由 shortcuts.js 內置
   const toSave = {};
   for (const [id, s] of Object.entries(currentShortcuts)) {
@@ -145,16 +146,21 @@ function saveShortcuts() {
   }
 
   chrome.storage.sync.set({ bbShortcuts: toSave }, () => {
-    showStatus('Saved!', 'success');
+    if (cb) {
+      cb();
+    } else {
+      showStatus('Saved! Shortcut is active immediately.', 'success');
+    }
   });
 }
 
 // ------------------------------------------
 // 重置：恢復所有快捷鍵為默認值
+// 顯式保存（而非 remove），確保 onChanged 觸發讓頁面內容腳本立即生效
 // ------------------------------------------
 function resetToDefaults() {
   currentShortcuts = structuredClone(DEFAULT_SHORTCUTS);
-  chrome.storage.sync.remove('bbShortcuts', () => {
+  saveShortcuts(() => {
     renderTable();
     showStatus('Reset to defaults.', 'success');
   });
