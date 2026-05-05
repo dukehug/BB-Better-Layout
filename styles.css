@@ -1,0 +1,402 @@
+/* =========================================
+   1. 自定義變量 (Custom Variables)
+   這些是我們擴展自己的變量，與 Blackboard 的 --palette-* 系統並列
+   ========================================= */
+:root {
+    --nav-width: 200px;
+    --global-sidebar-width: 0px;
+    --nav-top-offset: 94px;
+
+    /* 導航欄（默認深色風格，與原始設計保持一致） */
+    --nav-bg-color:     #262626;
+    --nav-text-color:   #cdcdcd;
+    --nav-text-active:  #ffffff;
+    --nav-active-bg:    #0069ff;
+    --nav-hover-bg:     #333333;
+    --nav-border-color: #3e3e3e;
+
+    /* 課程 Banner */
+    --banner-bg:            #ffffff;
+    --banner-text:          #000000;
+    --banner-section-color: #888888;
+
+    /* 底部自定義鏈接 */
+    --bottom-link-text:   #cdcdcd;
+    --bottom-link-border: #444444;
+    --bottom-link-bg:     rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   2. 主題：Blackboard 自帶的 .mode-dark 啟用全局深色
+   我們的主題類只需覆蓋需要調整的 --palette-* 和導航變量
+   ========================================= */
+
+/* --- Default Dark ---
+   直接使用 Blackboard 原生 .mode-dark，導航欄保持默認深色
+   不需要額外的 CSS class，content.js 只添加 .mode-dark 即可
+   但為了讓 Banner 配色正確，補上導航相關變量 */
+html.mode-dark {
+    --banner-bg:            #3d3d3d;
+    --banner-text:          #ffffff;
+    --banner-section-color: #8cadff;
+    --bottom-link-text:     #cdcdcd;
+    --bottom-link-border:   #444444;
+    --bottom-link-bg:       rgba(0,0,0,0.2);
+}
+
+/* --- Nord Dark ---
+   基於 .mode-dark，用 Nord Polar Night + Frost 調色板覆蓋 */
+html.bb-theme-nord-dark {
+    /* Blackboard palette 覆蓋 */
+    --palette-background-default: #2e3440;
+    --palette-background-paper:   #3b4252;
+    --palette-background-b1:      #3b4252;
+    --palette-background-b2:      #434c5e;
+    --palette-background-b3:      #2e3440;
+    --palette-background-b4:      #4c566a;
+    --palette-background-b5:      #4c566a;
+    --palette-text-primary:       #eceff4;
+    --palette-text-secondary:     #d8dee9;
+    --palette-text-hint:          #88c0d0;
+    --palette-text-disabled:      #4c566a;
+    --palette-border-main:        #434c5e;
+    --palette-border-dark:        #4c566a;
+    --palette-divider:            rgba(216,222,233,0.15);
+    --palette-action-active:      #d8dee9;
+    --palette-action-hover:       #eceff4;
+    --palette-link-active:        #88c0d0;
+    --palette-link-hover:         #81a1c1;
+    --palette-link-selected:      #88c0d0;
+    /* 導航欄 */
+    --nav-bg-color:         #2e3440;
+    --nav-text-color:       #d8dee9;
+    --nav-text-active:      #eceff4;
+    --nav-active-bg:        #5e81ac;
+    --nav-hover-bg:         #3b4252;
+    --nav-border-color:     #434c5e;
+    --banner-bg:            #3b4252;
+    --banner-text:          #eceff4;
+    --banner-section-color: #88c0d0;
+    --bottom-link-text:     #d8dee9;
+    --bottom-link-border:   #434c5e;
+    --bottom-link-bg:       rgba(0,0,0,0.12);
+}
+
+/* --- Tokyo Night Dark ---
+   基於 .mode-dark，用 Tokyo Night 調色板覆蓋 */
+html.bb-theme-tokyo-dark {
+    --palette-background-default: #1a1b26;
+    --palette-background-paper:   #24283b;
+    --palette-background-b1:      #24283b;
+    --palette-background-b2:      #1f2335;
+    --palette-background-b3:      #1a1b26;
+    --palette-background-b4:      #292e42;
+    --palette-background-b5:      #3b4261;
+    --palette-text-primary:       #c0caf5;
+    --palette-text-secondary:     #a9b1d6;
+    --palette-text-hint:          #7aa2f7;
+    --palette-text-disabled:      #3b4261;
+    --palette-border-main:        #292e42;
+    --palette-border-dark:        #3b4261;
+    --palette-divider:            rgba(169,177,214,0.15);
+    --palette-action-active:      #a9b1d6;
+    --palette-action-hover:       #c0caf5;
+    --palette-link-active:        #7aa2f7;
+    --palette-link-hover:         #2ac3de;
+    --palette-link-selected:      #7aa2f7;
+    /* 導航欄 */
+    --nav-bg-color:         #1a1b26;
+    --nav-text-color:       #a9b1d6;
+    --nav-text-active:      #c0caf5;
+    --nav-active-bg:        #3d59a1;
+    --nav-hover-bg:         #292e42;
+    --nav-border-color:     #292e42;
+    --banner-bg:            #24283b;
+    --banner-text:          #c0caf5;
+    --banner-section-color: #7aa2f7;
+    --bottom-link-text:     #a9b1d6;
+    --bottom-link-border:   #292e42;
+    --bottom-link-bg:       rgba(0,0,0,0.2);
+}
+
+/* --- Blue Dark (GitHub-style) --- */
+html.bb-theme-blue-dark {
+    --palette-background-default: #0d1117;
+    --palette-background-paper:   #161b22;
+    --palette-background-b1:      #161b22;
+    --palette-background-b2:      #21262d;
+    --palette-background-b3:      #0d1117;
+    --palette-background-b4:      #30363d;
+    --palette-background-b5:      #484f58;
+    --palette-text-primary:       #e6edf3;
+    --palette-text-secondary:     #8b949e;
+    --palette-text-hint:          #58a6ff;
+    --palette-text-disabled:      #484f58;
+    --palette-border-main:        #30363d;
+    --palette-border-dark:        #484f58;
+    --palette-divider:            rgba(139,148,158,0.15);
+    --palette-action-active:      #8b949e;
+    --palette-action-hover:       #e6edf3;
+    --palette-link-active:        #58a6ff;
+    --palette-link-hover:         #79c0ff;
+    --palette-link-selected:      #58a6ff;
+    /* 導航欄 */
+    --nav-bg-color:         #0d1117;
+    --nav-text-color:       #8b949e;
+    --nav-text-active:      #e6edf3;
+    --nav-active-bg:        #1f6feb;
+    --nav-hover-bg:         #161b22;
+    --nav-border-color:     #21262d;
+    --banner-bg:            #161b22;
+    --banner-text:          #e6edf3;
+    --banner-section-color: #58a6ff;
+    --bottom-link-text:     #8b949e;
+    --bottom-link-border:   #21262d;
+    --bottom-link-bg:       rgba(0,0,0,0.3);
+}
+
+/* --- Arc Dark (macOS / Arc Browser style) --- */
+html.bb-theme-arc-dark {
+    --palette-background-default: #1c1c1e;
+    --palette-background-paper:   #2c2c2e;
+    --palette-background-b1:      #2c2c2e;
+    --palette-background-b2:      #3a3a3c;
+    --palette-background-b3:      #1c1c1e;
+    --palette-background-b4:      #48484a;
+    --palette-background-b5:      #636366;
+    --palette-text-primary:       #ffffff;
+    --palette-text-secondary:     rgba(235,235,245,0.6);
+    --palette-text-hint:          #0a84ff;
+    --palette-text-disabled:      rgba(235,235,245,0.3);
+    --palette-border-main:        #3a3a3c;
+    --palette-border-dark:        #48484a;
+    --palette-divider:            rgba(235,235,245,0.12);
+    --palette-action-active:      rgba(235,235,245,0.6);
+    --palette-action-hover:       #ffffff;
+    --palette-link-active:        #0a84ff;
+    --palette-link-hover:         #409cff;
+    --palette-link-selected:      #0a84ff;
+    /* 導航欄 */
+    --nav-bg-color:         #1c1c1e;
+    --nav-text-color:       rgba(235,235,245,0.6);
+    --nav-text-active:      #ffffff;
+    --nav-active-bg:        #0077ed;
+    --nav-hover-bg:         #2c2c2e;
+    --nav-border-color:     #3a3a3c;
+    --banner-bg:            #2c2c2e;
+    --banner-text:          #ffffff;
+    --banner-section-color: #0a84ff;
+    --bottom-link-text:     rgba(235,235,245,0.6);
+    --bottom-link-border:   #3a3a3c;
+    --bottom-link-bg:       rgba(0,0,0,0.2);
+}
+
+/* --- Nord Snow Storm (Light theme) ---
+   不使用 .mode-dark，保持 Blackboard 原生亮色，僅調整調色板 */
+html.bb-theme-nord-snow {
+    --palette-background-default: #eceff4;
+    --palette-background-paper:   #ffffff;
+    --palette-background-b1:      #ffffff;
+    --palette-background-b2:      #eceff4;
+    --palette-background-b3:      #e5e9f0;
+    --palette-background-b4:      #d8dee9;
+    --palette-text-primary:       #2e3440;
+    --palette-text-secondary:     #4c566a;
+    --palette-text-hint:          #5e81ac;
+    --palette-border-main:        #d8dee9;
+    --palette-link-active:        #5e81ac;
+    --palette-link-hover:         #81a1c1;
+    --palette-link-selected:      #5e81ac;
+    /* 導航欄 */
+    --nav-bg-color:         #e5e9f0;
+    --nav-text-color:       #4c566a;
+    --nav-text-active:      #2e3440;
+    --nav-active-bg:        #5e81ac;
+    --nav-hover-bg:         #d8dee9;
+    --nav-border-color:     #d8dee9;
+    --banner-bg:            #eceff4;
+    --banner-text:          #2e3440;
+    --banner-section-color: #5e81ac;
+    --bottom-link-text:     #4c566a;
+    --bottom-link-border:   #d8dee9;
+    --bottom-link-bg:       rgba(0,0,0,0.04);
+}
+
+/* =========================================
+   3. 左側導航欄容器
+   ========================================= */
+.bb-vertical-nav-container {
+    position: fixed !important;
+    top: var(--nav-top-offset) !important;
+    left: var(--global-sidebar-width) !important;
+    width: var(--nav-width) !important;
+    bottom: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: var(--nav-bg-color) !important;
+    border-right: 1px solid var(--nav-border-color) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.3) !important;
+    /* 主題切換時平滑過渡 */
+    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+.bb-vertical-nav-container ul,
+.bb-vertical-nav-container li {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* =========================================
+   4. 導航按鈕/鏈接
+   ========================================= */
+.bb-vertical-nav-container a,
+.bb-vertical-nav-container button {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    color: var(--nav-text-color) !important;
+    font-family: "Segoe UI", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    text-align: left !important;
+    padding: 12px 20px !important;
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--nav-border-color) !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
+    transition: background 0.2s ease, padding-left 0.2s ease !important;
+}
+
+.bb-nav-icon {
+    font-size: 20px !important;
+    margin-right: 12px !important;
+    color: inherit !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.bb-vertical-nav-container a:hover,
+.bb-vertical-nav-container button:hover {
+    background-color: var(--nav-hover-bg) !important;
+    color: var(--nav-text-active) !important;
+    padding-left: 25px !important;
+}
+
+/* =========================================
+   5. 選中狀態
+   ========================================= */
+.bb-vertical-nav-container .active,
+.bb-vertical-nav-container a.active,
+.bb-vertical-nav-container button.active,
+.bb-vertical-nav-container [aria-current="page"] {
+    background-color: var(--nav-active-bg) !important;
+    color: var(--nav-text-active) !important;
+    border-bottom: 1px solid var(--nav-active-bg) !important;
+}
+
+.bb-vertical-nav-container *::after,
+.bb-vertical-nav-container *::before {
+    display: none !important;
+}
+
+/* =========================================
+   6. 底部自定義鏈接
+   ========================================= */
+.bb-custom-bottom-link {
+    border-top: 1px solid var(--bottom-link-border) !important;
+    border-bottom: none !important;
+    background-color: var(--bottom-link-bg) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    color: var(--bottom-link-text) !important;
+    text-decoration: none !important;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    font-family: "Segoe UI", sans-serif !important;
+    transition: background 0.2s ease !important;
+}
+.bb-custom-bottom-link + .bb-custom-bottom-link {
+    border-top: 1px solid var(--bottom-link-border) !important;
+}
+.bb-custom-bottom-link:hover {
+    background-color: var(--nav-active-bg) !important;
+    color: #ffffff !important;
+}
+
+/* =========================================
+   7. 內容推擠
+   ========================================= */
+body.bb-vertical-nav-active main,
+body.bb-vertical-nav-active .content-wrapper,
+body.bb-vertical-nav-active #main-content-scroll-container {
+    margin-left: var(--nav-width) !important;
+    width: auto !important;
+}
+
+body.bb-vertical-nav-active [bb-cache-compilation="base-courses"],
+body.bb-vertical-nav-active .base-courses-container.route-view-container {
+    padding-left: 32px !important;
+    margin-left: 0 !important;
+}
+
+body.bb-vertical-nav-active #main-content-inner {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* =========================================
+   8. 課程 Banner
+   ========================================= */
+bb-base-course-card .course-banner {
+    background-image: none !important;
+    background-color: var(--banner-bg) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+    border-bottom: 1px solid var(--nav-border-color) !important;
+    overflow: hidden !important;
+    gap: 4px !important;
+    transition: background-color 0.3s ease !important;
+}
+
+/* 課程名稱主標題 */
+.bb-custom-banner-text {
+    color: var(--banner-text) !important;
+    font-weight: 700 !important;
+    font-family: 'Segoe UI', Tahoma, sans-serif !important;
+    text-align: center !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+    font-size: clamp(12px, 1.4vw, 20px) !important;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Section Number 小標籤 */
+.bb-course-section-number {
+    color: var(--banner-section-color) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace !important;
+    letter-spacing: 0.5px !important;
+    opacity: 0.9 !important;
+}

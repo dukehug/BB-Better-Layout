@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BB Better Layout — Settings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 20px;
+    }
+
+    /* ===== 通用卡片 ===== */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.10);
+      width: 100%;
+      max-width: 580px;
+      overflow: hidden;
+    }
+
+    /* ===== 卡片標題欄 ===== */
+    .card-header {
+      background: #262626;
+      color: #fff;
+      padding: 20px 24px;
+    }
+    .card-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
+    .card-header p {
+      font-size: 12px;
+      color: #a0a0a0;
+      margin-top: 3px;
+    }
+
+    /* ===== 卡片主體 ===== */
+    .card-body {
+      padding: 20px 24px;
+    }
+
+    /* ===== 提示框 ===== */
+    .hint {
+      background: #f0f7ff;
+      border-left: 3px solid #0069FF;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    /* ===== 主題選擇器：色塊網格 ===== */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .theme-swatch {
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 12px 10px;
+      cursor: pointer;
+      transition: border-color .15s, transform .1s, box-shadow .15s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      user-select: none;
+    }
+    .theme-swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .theme-swatch.active {
+      border-color: #0069FF;
+      box-shadow: 0 0 0 3px rgba(0,105,255,.2);
+    }
+
+    /* 色塊預覽條 */
+    .swatch-preview {
+      height: 36px;
+      border-radius: 6px;
+      display: flex;
+      overflow: hidden;
+    }
+    .swatch-preview span {
+      flex: 1;
+    }
+
+    /* 主題名稱 */
+    .swatch-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+
+    /* 選中勾選標記 */
+    .swatch-check {
+      font-size: 14px;
+      text-align: center;
+      height: 16px;
+      color: #0069FF;
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .theme-swatch.active .swatch-check { opacity: 1; }
+
+    /* ===== 快捷鍵表格 ===== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #888;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    tbody tr { border-bottom: 1px solid #f3f3f3; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td {
+      padding: 12px 0;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    tbody td:last-child { text-align: right; }
+
+    /* ===== 快捷鍵徽章 ===== */
+    .shortcut-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      background: #f3f4f6;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+      user-select: none;
+    }
+    .shortcut-badge:hover {
+      background: #e8f0fe;
+      border-color: #0069FF;
+      color: #0069FF;
+    }
+    .shortcut-badge.recording {
+      background: #fff3cd;
+      border-color: #f59e0b;
+      color: #92400e;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .5; }
+    }
+
+    /* ===== 底部按鈕列 ===== */
+    .card-footer {
+      padding: 14px 24px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid #f3f3f3;
+    }
+    .btn {
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid #ddd;
+      color: #555;
+    }
+    .btn-ghost:hover { background: #f3f4f6; }
+
+    /* ===== 全局狀態消息 ===== */
+    #status-msg {
+      font-size: 13px;
+      font-weight: 500;
+      margin-left: auto;
+      transition: opacity .4s ease;
+      opacity: 0;
+    }
+    #status-msg.success { color: #1e8e3e; }
+    #status-msg.error   { color: #d93025; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== 主題選擇卡片 ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>🎨 Appearance</h2>
+      <p>Select a color theme — takes effect immediately on all open Blackboard tabs</p>
+    </div>
+    <div class="card-body">
+      <div class="theme-grid" id="theme-grid">
+        <!-- 由 options.js 動態渲染 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 快捷鍵卡片 ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>⌨️ Keyboard Shortcuts</h2>
+      <p>Customize your navigation keys</p>
+    </div>
+    <div class="card-body">
+      <div class="hint">
+        <strong>How to change:</strong> Click any shortcut badge, then press your desired key combination.<br>
+        At least one modifier key (<kbd>Ctrl</kbd> / <kbd>Alt</kbd> / <kbd>Shift</kbd>) is required.
+        Press <kbd>Esc</kbd> to cancel.
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th style="text-align:right">Shortcut</th>
+          </tr>
+        </thead>
+        <tbody id="shortcuts-tbody">
+          <!-- 由 options.js 動態生成 -->
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <button id="reset-btn" class="btn btn-ghost">Reset to Defaults</button>
+      <span id="status-msg"></span>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
