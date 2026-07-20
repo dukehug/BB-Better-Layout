@@ -15,34 +15,29 @@ const THEMES = [
     colors:  ['#ffffff', '#f8f8f8', '#0069ff'],
   },
   {
-    value:   'default-dark',
-    label:   'Default Dark',
-    colors:  ['#262626', '#3d3d3d', '#0069ff'],
-  },
-  {
-    value:   'nord-dark',
-    label:   'Nord Dark',
-    colors:  ['#2e3440', '#3b4252', '#5e81ac'],
-  },
-  {
-    value:   'tokyo-dark',
-    label:   'Tokyo Night',
-    colors:  ['#1a1b26', '#24283b', '#7aa2f7'],
-  },
-  {
-    value:   'blue-dark',
-    label:   'Blue Dark',
-    colors:  ['#0d1117', '#161b22', '#1f6feb'],
-  },
-  {
-    value:   'arc-dark',
-    label:   'Arc Dark',
-    colors:  ['#1c1c1e', '#2c2c2e', '#0077ed'],
-  },
-  {
     value:   'nord-snow',
     label:   'Nord Snow ☀️',
     colors:  ['#e5e9f0', '#eceff4', '#5e81ac'],
+  },
+  {
+    value:   'paper-reading',
+    label:   'Paper Reading 📖',
+    colors:  ['#fffaf0', '#f4ecd8', '#7a4b18'],
+  },
+  {
+    value:   'sage-reading',
+    label:   'Sage Reading 🌿',
+    colors:  ['#fbfdf8', '#edf3e8', '#3f6739'],
+  },
+  {
+    value:   'sky-reading',
+    label:   'Sky Reading 🌤️',
+    colors:  ['#fbfdff', '#edf4f8', '#315f7d'],
+  },
+  {
+    value:   'lavender-reading',
+    label:   'Lavender Reading 🌸',
+    colors:  ['#fdfbff', '#f3eff8', '#67477e'],
   },
 ];
 
@@ -50,14 +45,14 @@ const THEMES = [
 // 快捷鍵默認值（與 shortcuts.js 保持同步）
 // ==========================================
 const DEFAULT_SHORTCUTS = {
-  search:      { key: 'k', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Focus Course Search' },
-  institution: { key: '1', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Institution Page'    },
-  activity:    { key: '2', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Activity'            },
-  courses:     { key: '3', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Courses'             },
-  calendar:    { key: '4', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Calendar'            },
-  messages:    { key: '5', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Messages'            },
-  grades:      { key: '6', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Grades'              },
-  tools:       { key: '7', altKey: true,  ctrlKey: false, shiftKey: false, label: 'Tools'               },
+  search:      { key: 'k', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Focus Course Search' },
+  institution: { key: '1', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Institution Page'    },
+  activity:    { key: '2', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Activity'            },
+  courses:     { key: '3', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Courses'             },
+  calendar:    { key: '4', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Calendar'            },
+  messages:    { key: '5', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Messages'            },
+  grades:      { key: '6', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Grades'              },
+  tools:       { key: '7', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Tools'               },
 };
 
 let currentShortcuts = structuredClone(DEFAULT_SHORTCUTS);
@@ -117,18 +112,31 @@ function selectTheme(themeValue) {
 // ==========================================
 function formatShortcut(shortcut) {
   const parts = [];
+
+  if (shortcut.metaKey)  parts.push('Command');
   if (shortcut.ctrlKey)  parts.push('Ctrl');
   if (shortcut.altKey)   parts.push('Alt');
   if (shortcut.shiftKey) parts.push('Shift');
 
   const keyDisplayMap = {
-    ' ': 'Space', 'arrowup': '↑', 'arrowdown': '↓',
-    'arrowleft': '←', 'arrowright': '→',
-    'escape': 'Esc', 'enter': 'Enter',
-    'backspace': 'Backspace', 'tab': 'Tab', 'delete': 'Del',
+    ' ': 'Space',
+    'arrowup': '↑',
+    'arrowdown': '↓',
+    'arrowleft': '←',
+    'arrowright': '→',
+    'escape': 'Esc',
+    'enter': 'Enter',
+    'backspace': 'Backspace',
+    'tab': 'Tab',
+    'delete': 'Del',
   };
-  const displayKey = keyDisplayMap[shortcut.key.toLowerCase()] || shortcut.key.toUpperCase();
+
+  const displayKey =
+    keyDisplayMap[shortcut.key.toLowerCase()] ||
+    shortcut.key.toUpperCase();
+
   parts.push(displayKey);
+
   return parts.join(' + ');
 }
 
@@ -144,7 +152,7 @@ function startRecording(actionId, badgeEl) {
     e.stopPropagation();
 
     // Esc 取消
-    if (e.key === 'Escape' && !e.altKey && !e.ctrlKey && !e.shiftKey) {
+    if (e.key === 'Escape' && !e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
       badgeEl.textContent = formatShortcut(currentShortcuts[actionId]);
       badgeEl.classList.remove('recording');
       document.removeEventListener('keydown', onKeydown, true);
@@ -156,7 +164,7 @@ function startRecording(actionId, badgeEl) {
 
     // 必須帶 modifier
     if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-      showStatus('⚠️ Please use at least one modifier (Ctrl / Alt / Shift)', 'error');
+      showStatus(  '⚠️ Please use at least one modifier (Command / Ctrl / Alt / Shift)','error');
       return;
     }
 
@@ -165,6 +173,7 @@ function startRecording(actionId, badgeEl) {
       altKey:   e.altKey,
       ctrlKey:  e.ctrlKey,
       shiftKey: e.shiftKey,
+      metaKey:  e.metaKey,
       label:    currentShortcuts[actionId].label,
     };
 
@@ -222,13 +231,26 @@ function renderTable() {
 // ==========================================
 function saveShortcuts(cb) {
   const toSave = {};
-  for (const [id, s] of Object.entries(currentShortcuts)) {
-    toSave[id] = { key: s.key, altKey: s.altKey, ctrlKey: s.ctrlKey, shiftKey: s.shiftKey };
+
+  for (const [id, shortcut] of Object.entries(currentShortcuts)) {
+    toSave[id] = {
+      key: shortcut.key,
+      altKey: shortcut.altKey,
+      ctrlKey: shortcut.ctrlKey,
+      shiftKey: shortcut.shiftKey,
+      metaKey: shortcut.metaKey,
+    };
   }
 
   chrome.storage.sync.set({ bbShortcuts: toSave }, () => {
-    if (cb) cb();
-    else showStatus('✓ Shortcut saved & active immediately', 'success');
+    if (cb) {
+      cb();
+    } else {
+      showStatus(
+        '✓ Shortcut saved & active immediately',
+        'success'
+      );
+    }
   });
 }
 
@@ -268,6 +290,7 @@ chrome.storage.sync.get(['bbShortcuts', 'bbTheme'], (data) => {
           altKey:   saved.altKey   ?? currentShortcuts[key].altKey,
           ctrlKey:  saved.ctrlKey  ?? currentShortcuts[key].ctrlKey,
           shiftKey: saved.shiftKey ?? currentShortcuts[key].shiftKey,
+          metaKey:  saved.metaKey  ?? currentShortcuts[key].metaKey,
         };
       }
     }
@@ -275,9 +298,16 @@ chrome.storage.sync.get(['bbShortcuts', 'bbTheme'], (data) => {
   renderTable();
 
   // --- 主題 ---
-  // 空字符串表示默認主題（null）
+  // 空字符串或已從新版移除的主題，都安全回退到 Default Light。
   const storedTheme = data.bbTheme || null;
-  renderThemeGrid(storedTheme === '' ? null : storedTheme);
+  const isAvailableTheme = THEMES.some(theme => theme.value === storedTheme);
+  const activeTheme = isAvailableTheme ? storedTheme : null;
+
+  if (storedTheme && !isAvailableTheme) {
+    chrome.storage.sync.set({ bbTheme: '' });
+  }
+
+  renderThemeGrid(activeTheme);
 });
 
 // 按鈕事件

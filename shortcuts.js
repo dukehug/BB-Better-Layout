@@ -22,14 +22,14 @@ const BB_NAV_SELECTORS = {
 // label 用於 options 頁面顯示
 // ------------------------------------------
 const BB_DEFAULT_SHORTCUTS = {
-  search:      { key: 'k', altKey: true, ctrlKey: false, shiftKey: false, label: 'Focus Course Search' },
-  institution: { key: '1', altKey: true, ctrlKey: false, shiftKey: false, label: 'Institution Page'    },
-  activity:    { key: '2', altKey: true, ctrlKey: false, shiftKey: false, label: 'Activity'            },
-  courses:     { key: '3', altKey: true, ctrlKey: false, shiftKey: false, label: 'Courses'             },
-  calendar:    { key: '4', altKey: true, ctrlKey: false, shiftKey: false, label: 'Calendar'            },
-  messages:    { key: '5', altKey: true, ctrlKey: false, shiftKey: false, label: 'Messages'            },
-  grades:      { key: '6', altKey: true, ctrlKey: false, shiftKey: false, label: 'Grades'              },
-  tools:       { key: '7', altKey: true, ctrlKey: false, shiftKey: false, label: 'Tools'               },
+  search:      { key: 'k', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Focus Course Search' },
+  institution: { key: '1', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Institution Page'    },
+  activity:    { key: '2', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Activity'            },
+  courses:     { key: '3', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Courses'             },
+  calendar:    { key: '4', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Calendar'            },
+  messages:    { key: '5', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Messages'            },
+  grades:      { key: '6', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Grades'              },
+  tools:       { key: '7', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Tools'               },
 };
 
 // 當前生效的快捷鍵配置（從 storage 加載後覆蓋默認值）
@@ -43,7 +43,8 @@ function bbMatchShortcut(event, shortcut) {
     event.key.toLowerCase() === shortcut.key.toLowerCase() &&
     !!event.altKey   === !!shortcut.altKey  &&
     !!event.ctrlKey  === !!shortcut.ctrlKey &&
-    !!event.shiftKey === !!shortcut.shiftKey
+    !!event.shiftKey === !!shortcut.shiftKey &&
+    !!event.metaKey === !!shortcut.metaKey
   );
 }
 
@@ -104,31 +105,30 @@ function bbFocusCourseSearch() {
 // 事件處理：全局鍵盤監聽
 // ------------------------------------------
 function bbHandleKeydown(event) {
-  const activeEl  = document.activeElement;
+  if (event.isComposing) return;
 
-  // 判斷用戶是否正在文字輸入（導航快捷鍵在輸入狀態下不觸發）
+  const activeEl = document.activeElement;
+
   const isEditing = activeEl && (
-    activeEl.tagName === 'INPUT'    ||
-    activeEl.tagName === 'TEXTAREA' ||
+    activeEl.matches?.(
+      'input, textarea, select, [contenteditable="true"], [role="textbox"]'
+    ) ||
     activeEl.isContentEditable
   );
+
+  if (isEditing) return;
 
   for (const [action, shortcut] of Object.entries(bbCurrentShortcuts)) {
     if (!bbMatchShortcut(event, shortcut)) continue;
 
+    event.preventDefault();
+
     if (action === 'search') {
-      // 搜索快捷鍵：已在搜索框則跳過
-      if (activeEl && activeEl.id === 'courses-overview-filter-search') return;
-      event.preventDefault();
       bbFocusCourseSearch();
-      return;
+    } else {
+      bbNavigateTo(action);
     }
 
-    // 導航快捷鍵：輸入狀態下不觸發
-    if (isEditing) continue;
-
-    event.preventDefault();
-    bbNavigateTo(action);
     return;
   }
 }
@@ -151,6 +151,7 @@ function bbLoadAndSetupShortcuts() {
             altKey:   saved.altKey   ?? bbCurrentShortcuts[key].altKey,
             ctrlKey:  saved.ctrlKey  ?? bbCurrentShortcuts[key].ctrlKey,
             shiftKey: saved.shiftKey ?? bbCurrentShortcuts[key].shiftKey,
+            metaKey:  saved.metaKey  ?? bbCurrentShortcuts[key].metaKey,
           };
         }
       }

@@ -24,172 +24,20 @@
     --bottom-link-text:   #cdcdcd;
     --bottom-link-border: #444444;
     --bottom-link-bg:     rgba(0,0,0,0.2);
+
+    /* Blackboard 頁面元件共用的語意色彩 */
+    --bb-ui-surface:       #ffffff;
+    --bb-ui-surface-hover: rgba(46,52,64,0.08);
+    --bb-ui-field-bg:      #ffffff;
+    --bb-ui-text-primary:  #2e3440;
+    --bb-ui-text-secondary:#4c566a;
+    --bb-ui-text-muted:    #596575;
+    --bb-ui-border:        #d8dee9;
 }
 
 /* =========================================
-   2. 主題：Blackboard 自帶的 .mode-dark 啟用全局深色
-   我們的主題類只需覆蓋需要調整的 --palette-* 和導航變量
+   2. 亮色閱讀主題
    ========================================= */
-
-/* --- Default Dark ---
-   直接使用 Blackboard 原生 .mode-dark，導航欄保持默認深色
-   不需要額外的 CSS class，content.js 只添加 .mode-dark 即可
-   但為了讓 Banner 配色正確，補上導航相關變量 */
-html.mode-dark {
-    --banner-bg:            #3d3d3d;
-    --banner-text:          #ffffff;
-    --banner-section-color: #8cadff;
-    --bottom-link-text:     #cdcdcd;
-    --bottom-link-border:   #444444;
-    --bottom-link-bg:       rgba(0,0,0,0.2);
-}
-
-/* --- Nord Dark ---
-   基於 .mode-dark，用 Nord Polar Night + Frost 調色板覆蓋 */
-html.bb-theme-nord-dark {
-    /* Blackboard palette 覆蓋 */
-    --palette-background-default: #2e3440;
-    --palette-background-paper:   #3b4252;
-    --palette-background-b1:      #3b4252;
-    --palette-background-b2:      #434c5e;
-    --palette-background-b3:      #2e3440;
-    --palette-background-b4:      #4c566a;
-    --palette-background-b5:      #4c566a;
-    --palette-text-primary:       #eceff4;
-    --palette-text-secondary:     #d8dee9;
-    --palette-text-hint:          #88c0d0;
-    --palette-text-disabled:      #4c566a;
-    --palette-border-main:        #434c5e;
-    --palette-border-dark:        #4c566a;
-    --palette-divider:            rgba(216,222,233,0.15);
-    --palette-action-active:      #d8dee9;
-    --palette-action-hover:       #eceff4;
-    --palette-link-active:        #88c0d0;
-    --palette-link-hover:         #81a1c1;
-    --palette-link-selected:      #88c0d0;
-    /* 導航欄 */
-    --nav-bg-color:         #2e3440;
-    --nav-text-color:       #d8dee9;
-    --nav-text-active:      #eceff4;
-    --nav-active-bg:        #5e81ac;
-    --nav-hover-bg:         #3b4252;
-    --nav-border-color:     #434c5e;
-    --banner-bg:            #3b4252;
-    --banner-text:          #eceff4;
-    --banner-section-color: #88c0d0;
-    --bottom-link-text:     #d8dee9;
-    --bottom-link-border:   #434c5e;
-    --bottom-link-bg:       rgba(0,0,0,0.12);
-}
-
-/* --- Tokyo Night Dark ---
-   基於 .mode-dark，用 Tokyo Night 調色板覆蓋 */
-html.bb-theme-tokyo-dark {
-    --palette-background-default: #1a1b26;
-    --palette-background-paper:   #24283b;
-    --palette-background-b1:      #24283b;
-    --palette-background-b2:      #1f2335;
-    --palette-background-b3:      #1a1b26;
-    --palette-background-b4:      #292e42;
-    --palette-background-b5:      #3b4261;
-    --palette-text-primary:       #c0caf5;
-    --palette-text-secondary:     #a9b1d6;
-    --palette-text-hint:          #7aa2f7;
-    --palette-text-disabled:      #3b4261;
-    --palette-border-main:        #292e42;
-    --palette-border-dark:        #3b4261;
-    --palette-divider:            rgba(169,177,214,0.15);
-    --palette-action-active:      #a9b1d6;
-    --palette-action-hover:       #c0caf5;
-    --palette-link-active:        #7aa2f7;
-    --palette-link-hover:         #2ac3de;
-    --palette-link-selected:      #7aa2f7;
-    /* 導航欄 */
-    --nav-bg-color:         #1a1b26;
-    --nav-text-color:       #a9b1d6;
-    --nav-text-active:      #c0caf5;
-    --nav-active-bg:        #3d59a1;
-    --nav-hover-bg:         #292e42;
-    --nav-border-color:     #292e42;
-    --banner-bg:            #24283b;
-    --banner-text:          #c0caf5;
-    --banner-section-color: #7aa2f7;
-    --bottom-link-text:     #a9b1d6;
-    --bottom-link-border:   #292e42;
-    --bottom-link-bg:       rgba(0,0,0,0.2);
-}
-
-/* --- Blue Dark (GitHub-style) --- */
-html.bb-theme-blue-dark {
-    --palette-background-default: #0d1117;
-    --palette-background-paper:   #161b22;
-    --palette-background-b1:      #161b22;
-    --palette-background-b2:      #21262d;
-    --palette-background-b3:      #0d1117;
-    --palette-background-b4:      #30363d;
-    --palette-background-b5:      #484f58;
-    --palette-text-primary:       #e6edf3;
-    --palette-text-secondary:     #8b949e;
-    --palette-text-hint:          #58a6ff;
-    --palette-text-disabled:      #484f58;
-    --palette-border-main:        #30363d;
-    --palette-border-dark:        #484f58;
-    --palette-divider:            rgba(139,148,158,0.15);
-    --palette-action-active:      #8b949e;
-    --palette-action-hover:       #e6edf3;
-    --palette-link-active:        #58a6ff;
-    --palette-link-hover:         #79c0ff;
-    --palette-link-selected:      #58a6ff;
-    /* 導航欄 */
-    --nav-bg-color:         #0d1117;
-    --nav-text-color:       #8b949e;
-    --nav-text-active:      #e6edf3;
-    --nav-active-bg:        #1f6feb;
-    --nav-hover-bg:         #161b22;
-    --nav-border-color:     #21262d;
-    --banner-bg:            #161b22;
-    --banner-text:          #e6edf3;
-    --banner-section-color: #58a6ff;
-    --bottom-link-text:     #8b949e;
-    --bottom-link-border:   #21262d;
-    --bottom-link-bg:       rgba(0,0,0,0.3);
-}
-
-/* --- Arc Dark (macOS / Arc Browser style) --- */
-html.bb-theme-arc-dark {
-    --palette-background-default: #1c1c1e;
-    --palette-background-paper:   #2c2c2e;
-    --palette-background-b1:      #2c2c2e;
-    --palette-background-b2:      #3a3a3c;
-    --palette-background-b3:      #1c1c1e;
-    --palette-background-b4:      #48484a;
-    --palette-background-b5:      #636366;
-    --palette-text-primary:       #ffffff;
-    --palette-text-secondary:     rgba(235,235,245,0.6);
-    --palette-text-hint:          #0a84ff;
-    --palette-text-disabled:      rgba(235,235,245,0.3);
-    --palette-border-main:        #3a3a3c;
-    --palette-border-dark:        #48484a;
-    --palette-divider:            rgba(235,235,245,0.12);
-    --palette-action-active:      rgba(235,235,245,0.6);
-    --palette-action-hover:       #ffffff;
-    --palette-link-active:        #0a84ff;
-    --palette-link-hover:         #409cff;
-    --palette-link-selected:      #0a84ff;
-    /* 導航欄 */
-    --nav-bg-color:         #1c1c1e;
-    --nav-text-color:       rgba(235,235,245,0.6);
-    --nav-text-active:      #ffffff;
-    --nav-active-bg:        #0077ed;
-    --nav-hover-bg:         #2c2c2e;
-    --nav-border-color:     #3a3a3c;
-    --banner-bg:            #2c2c2e;
-    --banner-text:          #ffffff;
-    --banner-section-color: #0a84ff;
-    --bottom-link-text:     rgba(235,235,245,0.6);
-    --bottom-link-border:   #3a3a3c;
-    --bottom-link-bg:       rgba(0,0,0,0.2);
-}
 
 /* --- Nord Snow Storm (Light theme) ---
    不使用 .mode-dark，保持 Blackboard 原生亮色，僅調整調色板 */
@@ -200,10 +48,18 @@ html.bb-theme-nord-snow {
     --palette-background-b2:      #eceff4;
     --palette-background-b3:      #e5e9f0;
     --palette-background-b4:      #d8dee9;
+    --palette-background-b5:      #c8d0dc;
     --palette-text-primary:       #2e3440;
     --palette-text-secondary:     #4c566a;
     --palette-text-hint:          #5e81ac;
+    --palette-text-disabled:      #596575;
     --palette-border-main:        #d8dee9;
+    --palette-border-dark:        #c8d0dc;
+    --palette-divider:            rgba(46,52,64,0.14);
+    --palette-action-active:      #4c566a;
+    --palette-action-hover:       rgba(46,52,64,0.08);
+    --palette-action-selected:    rgba(94,129,172,0.16);
+    --palette-action-disabled:    rgba(76,86,106,0.48);
     --palette-link-active:        #5e81ac;
     --palette-link-hover:         #81a1c1;
     --palette-link-selected:      #5e81ac;
@@ -220,6 +76,302 @@ html.bb-theme-nord-snow {
     --bottom-link-text:     #4c566a;
     --bottom-link-border:   #d8dee9;
     --bottom-link-bg:       rgba(0,0,0,0.04);
+
+    --bb-ui-surface:        var(--palette-background-paper);
+    --bb-ui-surface-hover:  var(--palette-background-b2);
+    --bb-ui-field-bg:       var(--palette-background-paper);
+    --bb-ui-text-primary:   var(--palette-text-primary);
+    --bb-ui-text-secondary: var(--palette-text-secondary);
+    --bb-ui-text-muted:     var(--palette-text-disabled);
+    --bb-ui-border:         var(--palette-border-main);
+}
+
+/* --- Paper Reading（暖色紙張閱讀模式）---
+   同時使用 Nord Snow 的亮色相容層，再以較柔和的米黃色覆蓋。 */
+html.bb-theme-paper {
+    --palette-background-default: #f4ecd8;
+    --palette-background-paper:   #fffaf0;
+    --palette-background-b1:      #fffaf0;
+    --palette-background-b2:      #f4ecd8;
+    --palette-background-b3:      #eadfc8;
+    --palette-background-b4:      #ddceb1;
+    --palette-background-b5:      #cbb991;
+    --palette-text-primary:       #3b3024;
+    --palette-text-secondary:     #655441;
+    --palette-text-hint:          #76572e;
+    --palette-text-disabled:      #746653;
+    --palette-border-main:        #ddceb1;
+    --palette-border-dark:        #cbb991;
+    --palette-divider:            rgba(59,48,36,0.14);
+    --palette-action-active:      #655441;
+    --palette-action-hover:       rgba(59,48,36,0.08);
+    --palette-action-selected:    rgba(122,75,24,0.16);
+    --palette-action-disabled:    rgba(101,84,65,0.48);
+    --palette-link-active:        #7a4b18;
+    --palette-link-hover:         #5c3510;
+    --palette-link-selected:      #7a4b18;
+
+    --nav-bg-color:         #eadfc8;
+    --nav-text-color:       #5d4b37;
+    --nav-text-active:      #fffaf0;
+    --nav-active-bg:        #6f4317;
+    --nav-hover-bg:         #ddceb1;
+    --nav-border-color:     #cbb991;
+    --banner-bg:            #fff3d6;
+    --banner-text:          #3b3024;
+    --banner-section-color: #7a4b18;
+    --bottom-link-text:     #5d4b37;
+    --bottom-link-border:   #cbb991;
+    --bottom-link-bg:       rgba(122,75,24,0.06);
+
+    --bb-ui-surface:        var(--palette-background-paper);
+    --bb-ui-surface-hover:  var(--palette-background-b2);
+    --bb-ui-field-bg:       var(--palette-background-paper);
+    --bb-ui-text-primary:   var(--palette-text-primary);
+    --bb-ui-text-secondary: var(--palette-text-secondary);
+    --bb-ui-text-muted:     var(--palette-text-disabled);
+    --bb-ui-border:         var(--palette-border-main);
+}
+
+/* --- Sage Reading（柔和鼠尾草綠）--- */
+html.bb-theme-sage {
+    --palette-background-default: #edf3e8;
+    --palette-background-paper:   #fbfdf8;
+    --palette-background-b1:      #fbfdf8;
+    --palette-background-b2:      #edf3e8;
+    --palette-background-b3:      #dfe9d8;
+    --palette-background-b4:      #ceddc5;
+    --palette-background-b5:      #b8caaa;
+    --palette-text-primary:       #273426;
+    --palette-text-secondary:     #4d604b;
+    --palette-text-hint:          #4f6f4a;
+    --palette-text-disabled:      #627160;
+    --palette-border-main:        #ceddc5;
+    --palette-border-dark:        #b8caaa;
+    --palette-divider:            rgba(39,52,38,0.14);
+    --palette-action-active:      #4d604b;
+    --palette-action-hover:       rgba(39,52,38,0.08);
+    --palette-action-selected:    rgba(63,103,57,0.16);
+    --palette-action-disabled:    rgba(77,96,75,0.48);
+    --palette-link-active:        #3f6739;
+    --palette-link-hover:         #2f522b;
+    --palette-link-selected:      #3f6739;
+
+    --nav-bg-color:         #dfe9d8;
+    --nav-text-color:       #4d604b;
+    --nav-text-active:      #fbfdf8;
+    --nav-active-bg:        #3f6739;
+    --nav-hover-bg:         #ceddc5;
+    --nav-border-color:     #b8caaa;
+    --banner-bg:            #f4f8f0;
+    --banner-text:          #273426;
+    --banner-section-color: #3f6739;
+    --bottom-link-text:     #4d604b;
+    --bottom-link-border:   #b8caaa;
+    --bottom-link-bg:       rgba(63,103,57,0.06);
+}
+
+/* --- Sky Reading（淡霧藍）--- */
+html.bb-theme-sky {
+    --palette-background-default: #edf4f8;
+    --palette-background-paper:   #fbfdff;
+    --palette-background-b1:      #fbfdff;
+    --palette-background-b2:      #edf4f8;
+    --palette-background-b3:      #dceaf2;
+    --palette-background-b4:      #c8dce8;
+    --palette-background-b5:      #afc7d5;
+    --palette-text-primary:       #263642;
+    --palette-text-secondary:     #4b6070;
+    --palette-text-hint:          #416f8f;
+    --palette-text-disabled:      #5e7180;
+    --palette-border-main:        #c8dce8;
+    --palette-border-dark:        #afc7d5;
+    --palette-divider:            rgba(38,54,66,0.14);
+    --palette-action-active:      #4b6070;
+    --palette-action-hover:       rgba(38,54,66,0.08);
+    --palette-action-selected:    rgba(49,95,125,0.16);
+    --palette-action-disabled:    rgba(75,96,112,0.48);
+    --palette-link-active:        #315f7d;
+    --palette-link-hover:         #244b65;
+    --palette-link-selected:      #315f7d;
+
+    --nav-bg-color:         #dceaf2;
+    --nav-text-color:       #4b6070;
+    --nav-text-active:      #fbfdff;
+    --nav-active-bg:        #315f7d;
+    --nav-hover-bg:         #c8dce8;
+    --nav-border-color:     #afc7d5;
+    --banner-bg:            #f3f8fb;
+    --banner-text:          #263642;
+    --banner-section-color: #315f7d;
+    --bottom-link-text:     #4b6070;
+    --bottom-link-border:   #afc7d5;
+    --bottom-link-bg:       rgba(49,95,125,0.06);
+}
+
+/* --- Lavender Reading（柔和薰衣草紫）--- */
+html.bb-theme-lavender {
+    --palette-background-default: #f3eff8;
+    --palette-background-paper:   #fdfbff;
+    --palette-background-b1:      #fdfbff;
+    --palette-background-b2:      #f3eff8;
+    --palette-background-b3:      #e7def0;
+    --palette-background-b4:      #d7cae4;
+    --palette-background-b5:      #c2b1d3;
+    --palette-text-primary:       #352d3d;
+    --palette-text-secondary:     #5e5268;
+    --palette-text-hint:          #75588c;
+    --palette-text-disabled:      #71657a;
+    --palette-border-main:        #d7cae4;
+    --palette-border-dark:        #c2b1d3;
+    --palette-divider:            rgba(53,45,61,0.14);
+    --palette-action-active:      #5e5268;
+    --palette-action-hover:       rgba(53,45,61,0.08);
+    --palette-action-selected:    rgba(103,71,126,0.16);
+    --palette-action-disabled:    rgba(94,82,104,0.48);
+    --palette-link-active:        #67477e;
+    --palette-link-hover:         #513664;
+    --palette-link-selected:      #67477e;
+
+    --nav-bg-color:         #e7def0;
+    --nav-text-color:       #5e5268;
+    --nav-text-active:      #fdfbff;
+    --nav-active-bg:        #67477e;
+    --nav-hover-bg:         #d7cae4;
+    --nav-border-color:     #c2b1d3;
+    --banner-bg:            #f8f3fb;
+    --banner-text:          #352d3d;
+    --banner-section-color: #67477e;
+    --bottom-link-text:     #5e5268;
+    --bottom-link-border:   #c2b1d3;
+    --bottom-link-bg:       rgba(103,71,126,0.06);
+}
+
+/* =========================================
+   Activity Stream：活動卡 hover 可讀性
+   Blackboard 實際結構：li.stream-item-container > .stream-item-contents
+   ========================================= */
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .stream-item-contents {
+    background-color: var(--bb-ui-surface-hover) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .element-details,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .context a,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .name a {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .timestamp,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .context span {
+    color: var(--bb-ui-text-secondary) !important;
+    opacity: 1 !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .stream-panel-activity-card,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .element-details,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .context,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .name,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover a,
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover span {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .stream-panel-activity-icon {
+    background-color: var(--bb-ui-surface) !important;
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow .stream-item-container .button--secondary {
+    background-color: var(--palette-background-b4) !important;
+    border-color: var(--bb-ui-border) !important;
+    color: var(--bb-ui-text-primary) !important;
+}
+
+/* =========================================
+   Activity Stream Filter
+   Blackboard 實際元件：bb-ui-async-combobox / MuiOutlinedInput
+   ========================================= */
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox .MuiOutlinedInput-root {
+    min-height: 40px !important;
+    background-color: var(--bb-ui-field-bg) !important;
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox input[role="combobox"] {
+    background-color: transparent !important;
+    color: var(--bb-ui-text-primary) !important;
+    cursor: pointer !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox [id^="combobox-value-"],
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox [id^="combobox-value-"] * {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox .MuiOutlinedInput-notchedOutline {
+    border-color: var(--bb-ui-border) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox legend,
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox legend span {
+    padding: 0 3px !important;
+    line-height: 1 !important;
+    background-color: var(--bb-ui-field-bg) !important;
+    color: var(--bb-ui-text-secondary) !important;
+}
+
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox .MuiInputAdornment-root,
+html.bb-route-stream.bb-theme-nord-snow bb-ui-async-combobox .MuiSvgIcon-root {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-theme-nord-snow [role="listbox"] {
+    background-color: var(--bb-ui-field-bg) !important;
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-theme-nord-snow [role="option"] {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-theme-nord-snow [role="option"]:hover,
+html.bb-theme-nord-snow [role="option"][aria-selected="true"] {
+    background-color: var(--bb-ui-surface-hover) !important;
+}
+
+/* =========================================
+   Courses：課程代碼、狀態小字與教授名稱
+   ========================================= */
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .element-details.summary {
+    background-color: var(--bb-ui-surface) !important;
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .js-course-title-element,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .course-title {
+    color: var(--bb-ui-text-primary) !important;
+    opacity: 1 !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .multi-column-course-id,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .course-status,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .status-text,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .basic-info {
+    color: var(--bb-ui-text-secondary) !important;
+    opacity: 1 !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .instructors,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .instructors *,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card bb-username,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card bb-ui-username,
+html.bb-route-courses.bb-theme-nord-snow .course-element-card bb-ui-username * {
+    color: var(--bb-ui-text-primary) !important;
+    opacity: 1 !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
+    border-color: var(--bb-ui-border) !important;
 }
 
 /* =========================================
@@ -238,6 +390,7 @@ html.bb-theme-nord-snow {
     display: flex !important;
     flex-direction: column !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     z-index: 9999 !important;
     box-shadow: 4px 0 10px rgba(0,0,0,0.3) !important;
     /* 主題切換時平滑過渡 */
@@ -259,8 +412,11 @@ html.bb-theme-nord-snow {
 .bb-vertical-nav-container a,
 .bb-vertical-nav-container button {
     width: 100% !important;
+    min-width: 0 !important;
+    min-height: 48px !important;
+    height: auto !important;
     display: flex !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: flex-start !important;
     color: var(--nav-text-color) !important;
     font-family: "Segoe UI", sans-serif !important;
@@ -268,6 +424,10 @@ html.bb-theme-nord-snow {
     font-weight: 500 !important;
     text-decoration: none !important;
     text-align: left !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    line-height: 1.35 !important;
     padding: 12px 20px !important;
     margin: 0 !important;
     border: none !important;
@@ -281,9 +441,21 @@ html.bb-theme-nord-snow {
 .bb-nav-icon {
     font-size: 20px !important;
     margin-right: 12px !important;
+    margin-top: 1px !important;
     color: inherit !important;
     display: inline-flex !important;
     align-items: center !important;
+    flex: 0 0 auto !important;
+}
+
+/* Blackboard 有時會在鏈接內再包一層 span；一併解除單行限制。 */
+.bb-vertical-nav-container a :not(.bb-nav-icon),
+.bb-vertical-nav-container button :not(.bb-nav-icon) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
 }
 
 .bb-vertical-nav-container a:hover,
@@ -399,4 +571,68 @@ bb-base-course-card .course-banner {
     font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace !important;
     letter-spacing: 0.5px !important;
     opacity: 0.9 !important;
+}
+
+/* =========================================
+   9. Back to top
+   ========================================= */
+#bb-back-to-top {
+    position: fixed !important;
+    right: 24px !important;
+    bottom: 80px !important;
+    z-index: 10001 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    border: 1px solid var(--bb-ui-border, #d8dee9) !important;
+    border-radius: 50% !important;
+    background: var(--bb-ui-text-primary, #2e3440) !important;
+    color: var(--bb-ui-surface, #ffffff) !important;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.24) !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 27px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.92);
+    transition: opacity 160ms ease, visibility 160ms ease, transform 160ms ease, filter 160ms ease;
+}
+
+#bb-back-to-top.bb-back-to-top-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+#bb-back-to-top.bb-back-to-top-visible:hover {
+    filter: brightness(0.9);
+    transform: translateY(0) scale(1.06);
+}
+
+#bb-back-to-top:focus-visible {
+    outline: 3px solid var(--bb-ui-accent, #5e81ac) !important;
+    outline-offset: 3px !important;
+}
+
+@media (max-width: 600px) {
+    #bb-back-to-top {
+        right: 16px !important;
+        bottom: 72px !important;
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 24px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #bb-back-to-top {
+        transition: none;
+    }
 }

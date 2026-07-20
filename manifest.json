@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BB Better Layout",
-  "version": "2.4",
+  "version": "2.5",
   "description": "Modernize Blackboard with a grid layout, text banners, a vertical sidebar, and keyboard shortcuts.",
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["*://*.blackboard.com/*"],
