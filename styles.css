@@ -340,6 +340,57 @@ html.bb-theme-nord-snow [role="option"][aria-selected="true"] {
 }
 
 /* =========================================
+   Roster：使用者頭像 Showcard
+   Blackboard 原生名片會以頭像按鈕為定位基準；改為視窗正中央。
+   ========================================= */
+html.bb-route-roster [role="dialog"].usercard.showcard {
+    position: fixed !important;
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 50% !important;
+    width: 500px !important;
+    min-width: 500px !important;
+    max-width: 500px !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    max-height: 300px !important;
+    box-sizing: border-box !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 10002 !important;
+}
+
+/*
+ * 將頭像容器移出 header 的 flex 排版，放到資訊分隔線下方的左側。
+ * 這樣姓名、ID、角色便能使用完整的 header 寬度，不會和頭像重疊。
+ */
+html.bb-route-roster [role="dialog"].usercard.showcard .header > user-avatar-view {
+    position: absolute !important;
+    top: 136px !important;
+    left: 12px !important;
+    width: 135px !important;
+    height: 135px !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+}
+
+html.bb-route-roster [role="dialog"].usercard.showcard .header > user-avatar-view [class*="makeStylescontainer-"],
+html.bb-route-roster [role="dialog"].usercard.showcard .MuiAvatar-root,
+html.bb-route-roster [role="dialog"].usercard.showcard .MuiAvatar-img {
+    width: 135px !important;
+    min-width: 135px !important;
+    max-width: 135px !important;
+    height: 135px !important;
+    min-height: 135px !important;
+    max-height: 135px !important;
+    flex: 0 0 135px !important;
+}
+
+html.bb-route-roster [role="dialog"].usercard.showcard .MuiAvatar-img {
+    object-fit: cover !important;
+}
+
+/* =========================================
    Courses：課程代碼、狀態小字與教授名稱
    ========================================= */
 html.bb-route-courses.bb-theme-nord-snow .course-element-card .element-details.summary {

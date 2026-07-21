@@ -357,6 +357,10 @@ function syncRouteClasses() {
         'bb-route-courses',
         /\/ultra\/course(?:\/|$)/.test(path)
     );
+    html.classList.toggle(
+        'bb-route-roster',
+        /\/ultra\/courses\/[^/]+\/outline\/roster(?:\/|$)/.test(path)
+    );
 }
 
 // ==========================================
