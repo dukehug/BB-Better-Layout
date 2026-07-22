@@ -1,11 +1,21 @@
 {
   "manifest_version": 3,
   "name": "BB Better Layout",
-  "version": "2.5",
+  "version": "2.5.1",
   "description": "Modernize Blackboard with a grid layout, text banners, a vertical sidebar, and keyboard shortcuts.",
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["*://*.blackboard.com/*"],
+  "icons":{
+    "16":"icons/bbicon_16x16.png",
+    "32":"icons/bbicon_32x32.png",
+    "48":"icons/bbicon_48x48.png",
+    "128":"icons/bbicon_128x128.png"
+  },
   "action": {
+    "default_icon":{
+      "16":"icons/bbicon_16x16.png",
+      "32":"icons/bbicon_32x32.png"
+    },
     "default_popup": "popup.html"
   },
   "options_page": "options.html",
