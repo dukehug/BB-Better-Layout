@@ -17,8 +17,8 @@ New features include a vertical sidebar, automatically generated text banners, a
 
 
 ## Version
-v 2.5  <br> Date: 2026/07/20
-v 2.5.1 <br> Date: 2026/07/21
+- v 2.5  <br> Date: 2026/07/20 
+- v 2.5.1 <br> Date: 2026/07/21
 
 ## Changes
 - Add new appearance.
