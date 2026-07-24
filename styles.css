@@ -475,9 +475,11 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
     font-weight: 500 !important;
     text-decoration: none !important;
     text-align: left !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: normal !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    overflow-wrap: normal !important;
+    word-break: keep-all !important;
+    text-overflow: ellipsis !important;
     line-height: 1.35 !important;
     padding: 12px 20px !important;
     margin: 0 !important;
@@ -499,14 +501,16 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
     flex: 0 0 auto !important;
 }
 
-/* Blackboard 有時會在鏈接內再包一層 span；一併解除單行限制。 */
+/* Blackboard 有時會在鏈接內再包一層 span；內層文字也保持單行。 */
 .bb-vertical-nav-container a :not(.bb-nav-icon),
 .bb-vertical-nav-container button :not(.bb-nav-icon) {
     min-width: 0 !important;
     max-width: 100% !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: normal !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+    word-break: keep-all !important;
+    text-overflow: ellipsis !important;
 }
 
 .bb-vertical-nav-container a:hover,
@@ -514,6 +518,27 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
     background-color: var(--nav-hover-bg) !important;
     color: var(--nav-text-active) !important;
     padding-left: 25px !important;
+}
+
+/*
+ * 小螢幕減少圖示與文字佔用的橫向空間，讓 Announcements 等較長項目
+ * 優先完整顯示；若可用寬度仍不足，則由上方規則顯示省略號。
+ */
+@media (max-width: 600px) {
+    .bb-vertical-nav-container a,
+    .bb-vertical-nav-container button {
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    .bb-vertical-nav-container a:hover,
+    .bb-vertical-nav-container button:hover {
+        padding-left: 14px !important;
+    }
+
+    .bb-nav-icon {
+        margin-right: 8px !important;
+    }
 }
 
 /* =========================================
