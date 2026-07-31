@@ -305,7 +305,8 @@ function appendCustomLinks(container) {
     if (container.querySelector('.bb-custom-bottom-link')) return;
 
     const linksConfig = [
-        { text: "    Outlook",      url: "https://outlook.cloud.microsoft/mail/",                    icon: "mail" },
+        { text: "    Schedule App", url: "https://weekly.52hz.im/",                                  icon: "view_timeline"},
+        { text: "    Out look",     url: "https://outlook.cloud.microsoft/mail/",                    icon: "mail" },
         { text: "    AdU Live",     url: "https://live.adamson.edu.ph",                              icon: "school" },
         { text: "    AdU Calendar", url: "https://www.adamson.edu.ph/v1/?page=academic-calendar",    icon: "event"  }
     ];
