@@ -362,10 +362,146 @@ function syncRouteClasses() {
         'bb-route-roster',
         /\/ultra\/courses\/[^/]+\/outline\/roster(?:\/|$)/.test(path)
     );
+    html.classList.toggle(
+        'bb-route-group-space',
+        /\/ultra\/courses\/[^/]+\/groups\/enrollments\/group-space(?:\/|$)/.test(path)
+    );
 }
 
 // ==========================================
-// 功能 4: 回到頂部按鈕
+// 功能 4: Group Space 使用者頭像 Showcard
+// ==========================================
+const BB_GROUP_PROFILE_DIALOG_ID = 'bb-group-profile-dialog';
+
+function closeGroupProfileDialog() {
+    const overlay = document.getElementById(BB_GROUP_PROFILE_DIALOG_ID);
+    if (!overlay) return;
+
+    const trigger = overlay.bbProfileTrigger;
+    overlay.remove();
+    if (trigger?.isConnected) trigger.focus();
+}
+
+function openGroupProfileDialog(trigger) {
+    const image = trigger.querySelector('img');
+    const row = trigger.closest('[role="row"], tr');
+    const name = image?.alt?.trim()
+        || row?.querySelector('bdi')?.textContent.trim()
+        || 'Group member';
+
+    closeGroupProfileDialog();
+
+    const overlay = document.createElement('div');
+    overlay.id = BB_GROUP_PROFILE_DIALOG_ID;
+    overlay.className = 'bb-group-profile-overlay';
+    overlay.bbProfileTrigger = trigger;
+
+    const dialog = document.createElement('div');
+    dialog.className = 'usercard showcard bb-group-profile-card';
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-label', `Profile picture for ${name}`);
+
+    const header = document.createElement('div');
+    header.className = 'header';
+
+    const title = document.createElement('h2');
+    title.className = 'bb-group-profile-name';
+    title.textContent = name;
+
+    const avatarView = document.createElement('user-avatar-view');
+    const avatarRoot = document.createElement('div');
+    avatarRoot.className = 'MuiAvatar-root';
+
+    if (image) {
+        const enlargedImage = document.createElement('img');
+        enlargedImage.className = 'MuiAvatar-img';
+        enlargedImage.src = image.currentSrc || image.src;
+        enlargedImage.alt = name;
+        avatarRoot.appendChild(enlargedImage);
+    } else {
+        const initials = document.createElement('span');
+        initials.className = 'bb-group-profile-initials';
+        initials.textContent = trigger.textContent.trim();
+        avatarRoot.appendChild(initials);
+    }
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'bb-group-profile-close';
+    closeButton.setAttribute('data-bb-group-profile-close', '');
+    closeButton.setAttribute('aria-label', 'Close profile picture');
+    closeButton.textContent = '×';
+
+    avatarView.appendChild(avatarRoot);
+    header.appendChild(title);
+    header.appendChild(avatarView);
+    dialog.appendChild(header);
+    dialog.appendChild(closeButton);
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+    closeButton.focus();
+}
+
+function enhanceGroupSpaceAvatars() {
+    if (!document.documentElement.classList.contains('bb-route-group-space')) {
+        closeGroupProfileDialog();
+        return;
+    }
+
+    document
+        .querySelectorAll('[role="grid"][aria-label="Group Members"] .MuiAvatar-root')
+        .forEach((avatar) => {
+            if (avatar.classList.contains('bb-group-profile-trigger')) return;
+
+            const image = avatar.querySelector('img');
+            const row = avatar.closest('[role="row"], tr');
+            const name = image?.alt?.trim()
+                || row?.querySelector('bdi')?.textContent.trim()
+                || 'group member';
+
+            avatar.classList.add('bb-group-profile-trigger');
+            avatar.setAttribute('role', 'button');
+            avatar.setAttribute('tabindex', '0');
+            avatar.setAttribute('aria-label', `View profile picture for ${name}`);
+        });
+}
+
+document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    if (event.target.closest('[data-bb-group-profile-close]')) {
+        closeGroupProfileDialog();
+        return;
+    }
+
+    const overlay = event.target.closest(`#${BB_GROUP_PROFILE_DIALOG_ID}`);
+    if (overlay && event.target === overlay) {
+        closeGroupProfileDialog();
+        return;
+    }
+
+    const trigger = event.target.closest('.bb-group-profile-trigger');
+    if (trigger) openGroupProfileDialog(trigger);
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && document.getElementById(BB_GROUP_PROFILE_DIALOG_ID)) {
+        closeGroupProfileDialog();
+        return;
+    }
+
+    if (
+        (event.key === 'Enter' || event.key === ' ')
+        && event.target.classList?.contains('bb-group-profile-trigger')
+    ) {
+        event.preventDefault();
+        openGroupProfileDialog(event.target);
+    }
+});
+
+// ==========================================
+// 功能 5: 回到頂部按鈕
 // ==========================================
 let bbActiveScrollContainer = null;
 
@@ -446,6 +582,7 @@ window.addEventListener('scroll', () => {
 
 function runAllFixes() {
     syncRouteClasses();
+    enhanceGroupSpaceAvatars();
     injectIconStyles();
     injectTitlesToBanners();
     handleCoursesNav();
