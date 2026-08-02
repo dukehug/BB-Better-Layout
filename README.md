@@ -11,6 +11,8 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 ## Privacy and Support
 
 - [Privacy Policy](PRIVACY.md)
+- [Changelog](CHANGELOG.md)
+- [Manual Testing](TESTING.md)
 - [Support and issue reports](https://github.com/dukehug/BB-Better-Layout/issues)
 
 ## Features
@@ -19,29 +21,38 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 - Simple subject banner
 - Back to top button
 - Reading themes and customizable keyboard shortcuts
+- Context-aware keyboard search for Courses, Course Content, and Roster pages
 
 ## What you can do with this extension
-- Use keyboard shortcuts to check the courses.
+- Search courses from the Courses page, course materials from an outline, or members from a Roster using the same shortcut.
 - Choose a comfortable reading appearance.
 
 
 ## Version
-- v 2.5  <br> Date: 2026/07/20 
-- v 2.5.1 <br> Date: 2026/07/21
+- v2.6.0 <br> Date: 2026/08/02
 
 ## Changes
-- Add new appearance.
-- Fix keyboard shortcuts.
-- Improve the layout.
-- Add backto top button.
 
+v2.6.0 - 2026/08/02
+
+- Add a course search dialog with arrow-key selection and Enter navigation.
+- Open Blackboard's native Course Content and Roster search fields on their matching pages.
+- Clear the Courses-page filter when dismissing the search dialog or opening a result.
+- Use CSP-safe outline URLs when opening course search results.
+- Add standalone changelog and manual testing documentation.
+- Split `content.js` into focused feature modules with explicit script load order.
+
+See [CHANGELOG.md](CHANGELOG.md) for the complete maintained change history.
 
 ## Screenshots
+
+- v2.6.0 Courses Search
+
+    ![figure-1](shotscreen/courses_search.jpg)
 
 - Courses Page <br>
 ![figure-1](shotscreen/courses.png)
 
- 
 - Extensions Settings Page <br>
 ![figure-2](shotscreen/settings.jpg)
 
