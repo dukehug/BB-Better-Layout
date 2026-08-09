@@ -3,6 +3,29 @@
 This file records notable user-facing and maintenance changes to BB Better Layout.
 Release entries use the version from `manifest.json` and the date format `YYYY/MM/DD`.
 
+## v2.9.1 - 2026/08/10
+
+- Add 10px of internal top spacing above the vertical course-navigation items without moving the navigation container.
+
+## v2.9.0 - 2026/08/10
+
+- Add soft header shadows to Courses, Calendar, Messages, Grades, and Tools pages.
+- Add soft full-height shadows to the main navigation drawer and vertical course navigation.
+- Prevent Appearance colors and Blackboard's multiply blend mode from tinting custom course covers.
+- Add mouse, touch, and keyboard course-cover positioning with a center reset control.
+
+## v2.8.0 - 2026/08/10
+
+- Remove the empty horizontal course-navigation space after the tools move into the vertical sidebar.
+- Add a device-local custom course cover image setting with automatic WebP resizing and compression.
+- Add a subtle shadow below the Activity Stream header to separate it from the content area.
+
+## v2.7.0 - 2026/08/10
+
+- Add Graphite, Aqua, and Rose reading themes with low-saturation surfaces and accessible text contrast.
+- Apply the selected Appearance palette to Blackboard's main navigation and course navigation.
+- Detect duplicate extension shortcuts while recording and remind users about browser, operating-system, and Blackboard shortcut conflicts.
+
 ## v2.6.0 - 2026/08/02
 
 - Add a course search dialog to the configured search shortcut on the Courses page.

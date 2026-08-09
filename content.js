@@ -14,6 +14,7 @@
     }
 
     BBLayout.theme.initialize();
+    BBLayout.courseCover.initialize();
     BBLayout.groupSpace.initialize();
     BBLayout.backToTop.initialize();
     runAllEnhancements();

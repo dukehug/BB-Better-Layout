@@ -41,6 +41,22 @@
             /\/ultra\/course(?:\/|$)/.test(path)
         );
         html.classList.toggle(
+            'bb-route-calendar',
+            /\/ultra\/calendar(?:\/|$)/.test(path)
+        );
+        html.classList.toggle(
+            'bb-route-messages',
+            /\/ultra\/messages(?:\/|$)/.test(path)
+        );
+        html.classList.toggle(
+            'bb-route-grades',
+            /\/ultra\/grades(?:\/|$)/.test(path)
+        );
+        html.classList.toggle(
+            'bb-route-tools',
+            /\/ultra\/tools(?:\/|$)/.test(path)
+        );
+        html.classList.toggle(
             'bb-route-roster',
             /\/ultra\/courses\/[^/]+\/outline\/roster(?:\/|$)/.test(path)
         );

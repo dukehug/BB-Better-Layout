@@ -22,6 +22,18 @@
             baseClass: 'bb-theme-nord-snow',
             themeClass: 'bb-theme-lavender'
         },
+        'graphite-reading': {
+            baseClass: 'bb-theme-nord-snow',
+            themeClass: 'bb-theme-graphite'
+        },
+        'aqua-reading': {
+            baseClass: 'bb-theme-nord-snow',
+            themeClass: 'bb-theme-aqua'
+        },
+        'rose-reading': {
+            baseClass: 'bb-theme-nord-snow',
+            themeClass: 'bb-theme-rose'
+        },
     };
 
     function applyTheme(themeKey) {

@@ -18,7 +18,11 @@
         const courseNavigation = document.querySelector('bb-course-navigation');
         if (!courseNavigation) return;
 
-        const { bottom } = courseNavigation.getBoundingClientRect();
+        const courseHeader = courseNavigation
+            .closest('.bb-course-navigation')
+            ?.querySelector('course-page-header header');
+        const offsetAnchor = courseHeader || courseNavigation;
+        const { bottom } = offsetAnchor.getBoundingClientRect();
         if (!Number.isFinite(bottom) || bottom <= 0) return;
 
         document.documentElement.style.setProperty(

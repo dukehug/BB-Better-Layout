@@ -20,7 +20,8 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 - Side navigation bar
 - Simple subject banner
 - Back to top button
-- Reading themes and customizable keyboard shortcuts
+- Nine reading appearances and customizable keyboard shortcuts
+- Optional device-local custom image for course-page covers
 - Context-aware keyboard search for Courses, Course Content, and Roster pages
 
 ## What you can do with this extension
@@ -29,18 +30,13 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 
 
 ## Version
-- v2.6.0 <br> Date: 2026/08/02
+- v2.9.1 <br> Date: 2026/08/10
 
 ## Changes
 
-v2.6.0 - 2026/08/02
+v2.9.1 - 2026/08/10
 
-- Add a course search dialog with arrow-key selection and Enter navigation.
-- Open Blackboard's native Course Content and Roster search fields on their matching pages.
-- Clear the Courses-page filter when dismissing the search dialog or opening a result.
-- Use CSP-safe outline URLs when opening course search results.
-- Add standalone changelog and manual testing documentation.
-- Split `content.js` into focused feature modules with explicit script load order.
+- Add 60px of breathing room above the course navigation items while keeping the navigation container fixed in place.
 
 See [CHANGELOG.md](CHANGELOG.md) for the complete maintained change history.
 

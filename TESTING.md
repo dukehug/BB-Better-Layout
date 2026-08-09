@@ -33,11 +33,24 @@ Run the full set when changing theme code or theme CSS.
 - [x] Sage Reading
 - [x] Sky Reading
 - [x] Lavender Reading
+- [ ] Graphite Reading
+- [ ] Aqua Reading
+- [ ] Rose Reading
+- [ ] For each reading theme, confirm the main navigation and course navigation use the selected palette with readable hover and active states.
 - [x] Reload Blackboard and confirm the selected theme persists.
+- [ ] Choose a JPEG, PNG, or WebP course cover in Appearance and confirm it updates all open course pages immediately.
+- [ ] Reload Blackboard and confirm the local course cover persists on this device.
+- [ ] Select Use Default and confirm Blackboard's original course cover returns.
+- [ ] Confirm Appearance changes do not tint or obscure the selected custom course cover.
+- [ ] Drag the cover preview horizontally and vertically and confirm the course-page image position updates immediately.
+- [ ] Focus the cover preview, adjust it with Arrow keys, and confirm Shift + Arrow uses a larger step.
+- [ ] Select Center Image and confirm the cover returns to its default 50% / 50% position.
 
 ## Keyboard shortcut checks
 
 - [x] Open the extension options and save a custom shortcut containing at least one modifier key.
+- [ ] Assign a shortcut already used by another extension action and confirm it is rejected with a conflict warning.
+- [ ] Confirm the settings hint reminds users about browser, operating-system, and Blackboard shortcut conflicts.
 - [x] On `/ultra/course`, trigger course search and confirm its dialog opens with the search input focused.
 - [x] Type a course name or section number, use Arrow Up/Down to change the selected result, and press Enter to open it.
 - [x] After opening a result with Enter, return to `/ultra/course` and confirm its native search field is empty and the full course list is restored.
@@ -55,6 +68,11 @@ Run the full set when changing theme code or theme CSS.
 - [x] Open an avatar using Enter or Space, close it with Escape, and confirm focus returns to the avatar.
 - [x] Open the toolbar popup and confirm its displayed version matches `manifest.json`.
 - [x] Open the options page from the popup and confirm existing settings still load.
+- [x] On Activity Stream, confirm the header shadow clearly separates the header without obscuring content.
+- [x] Confirm Courses, Calendar, Messages, Grades, and Tools use the same soft header shadow.
+- [x] Confirm the global navigation drawer and vertical course navigation use a soft edge shadow.
+- [x] On a course page, confirm no empty horizontal-navigation space remains above the course cover.
+- [x] Confirm the vertical course-navigation container stays fixed while its Content item begins 10px below the course header.
 
 ## Privacy and permissions check
 

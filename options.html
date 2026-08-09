@@ -119,6 +119,111 @@
     }
     .theme-swatch.active .swatch-check { opacity: 1; }
 
+    /* ===== 本機課程封面 ===== */
+    .appearance-divider {
+      height: 1px;
+      margin: 20px 0;
+      background: #e6e8eb;
+    }
+    .course-cover-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .course-cover-heading strong {
+      font-size: 14px;
+      color: #262626;
+    }
+    .course-cover-heading p {
+      max-width: 340px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #666;
+      text-align: right;
+    }
+    .course-cover-preview {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 112px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px dashed #c7ccd1;
+      border-radius: 8px;
+      background: #f7f8fa;
+      color: #777;
+      font-size: 12px;
+      outline: none;
+    }
+    .course-cover-preview.has-image {
+      cursor: grab;
+      touch-action: none;
+    }
+    .course-cover-preview.has-image.dragging { cursor: grabbing; }
+    .course-cover-preview:focus-visible {
+      border-color: #0069FF;
+      box-shadow: 0 0 0 3px rgba(0,105,255,.18);
+    }
+    .course-cover-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
+    }
+    .course-cover-preview.has-image .course-cover-placeholder { display: none; }
+    .course-cover-drag-hint {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(0,0,0,.66);
+      color: #fff;
+      font-size: 11px;
+      pointer-events: none;
+    }
+    .course-cover-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .course-cover-actions .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .course-cover-actions input { display: none; }
+    .course-cover-actions button:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+    #cover-status-msg {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    #cover-status-msg.success { color: #1e8e3e; }
+    #cover-status-msg.error { color: #d93025; }
+    #cover-status-msg.pending { color: #666; }
+
+    @media (max-width: 520px) {
+      .course-cover-heading {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .course-cover-heading p { text-align: left; }
+      .course-cover-actions { flex-wrap: wrap; }
+      #cover-status-msg {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
     /* ===== 快捷鍵表格 ===== */
     table {
       width: 100%;
@@ -222,6 +327,30 @@
       <div class="theme-grid" id="theme-grid">
         <!-- 由 options.js 動態渲染 -->
       </div>
+      <div class="appearance-divider"></div>
+      <div class="course-cover-setting">
+        <div class="course-cover-heading">
+          <strong>Custom Course Cover</strong>
+          <p>Choose one local image for all course pages. It stays on this device and is never uploaded.</p>
+        </div>
+        <div
+          class="course-cover-preview"
+          id="course-cover-preview"
+          tabindex="0"
+          aria-label="Course cover position preview. Drag the image or use arrow keys to reposition it."
+        >
+          <span class="course-cover-placeholder">Using Blackboard's default course cover</span>
+          <img id="course-cover-preview-image" alt="Custom course cover preview" draggable="false" hidden>
+          <span class="course-cover-drag-hint" id="course-cover-drag-hint" hidden>Drag to reposition</span>
+        </div>
+        <div class="course-cover-actions">
+          <label class="btn btn-ghost" for="course-cover-input">Choose Image</label>
+          <input id="course-cover-input" type="file" accept="image/jpeg,image/png,image/webp">
+          <button id="course-cover-center" class="btn btn-ghost" type="button">Center Image</button>
+          <button id="course-cover-clear" class="btn btn-ghost" type="button">Use Default</button>
+          <span id="cover-status-msg" aria-live="polite"></span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -235,7 +364,9 @@
       <div class="hint">
         <strong>How to change:</strong> Click any shortcut badge, then press your desired key combination.<br>
         At least one modifier key (<kbd>Command</kbd> / <kbd>Ctrl</kbd> / <kbd>Alt</kbd> / <kbd>Shift</kbd>) is required.
-        Press <kbd>Esc</kbd> to cancel.
+        Press <kbd>Esc</kbd> to cancel.<br>
+        <strong>Conflict reminder:</strong> Avoid combinations already used below or reserved by your browser,
+        operating system, or Blackboard. Duplicate extension shortcuts will be rejected.
       </div>
       <table>
         <thead>

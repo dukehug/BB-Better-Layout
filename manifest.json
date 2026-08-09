@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BB Better Layout for Adamson",
-  "version": "2.6.0",
+  "version": "2.9.1",
   "description": "Improve Adamson University's Blackboard with cleaner navigation, course banners, reading themes, and keyboard shortcuts.",
   "permissions": ["storage"],
   "icons":{
@@ -26,6 +26,7 @@
         "shortcuts.js",
         "utils.js",
         "theme.js",
+        "course-cover.js",
         "banner.js",
         "sidebar.js",
         "group-space.js",

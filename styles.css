@@ -10,6 +10,7 @@
     /* 導航欄（默認深色風格，與原始設計保持一致） */
     --nav-bg-color:     #262626;
     --nav-text-color:   #cdcdcd;
+    --nav-text-hover:   #ffffff;
     --nav-text-active:  #ffffff;
     --nav-active-bg:    #0069ff;
     --nav-hover-bg:     #333333;
@@ -66,8 +67,9 @@ html.bb-theme-nord-snow {
     /* 導航欄 */
     --nav-bg-color:         #e5e9f0;
     --nav-text-color:       #4c566a;
-    --nav-text-active:      #2e3440;
-    --nav-active-bg:        #5e81ac;
+    --nav-text-hover:       #2e3440;
+    --nav-text-active:      #ffffff;
+    --nav-active-bg:        #4c6f99;
     --nav-hover-bg:         #d8dee9;
     --nav-border-color:     #d8dee9;
     --banner-bg:            #eceff4;
@@ -113,6 +115,7 @@ html.bb-theme-paper {
 
     --nav-bg-color:         #eadfc8;
     --nav-text-color:       #5d4b37;
+    --nav-text-hover:       #3b3024;
     --nav-text-active:      #fffaf0;
     --nav-active-bg:        #6f4317;
     --nav-hover-bg:         #ddceb1;
@@ -159,6 +162,7 @@ html.bb-theme-sage {
 
     --nav-bg-color:         #dfe9d8;
     --nav-text-color:       #4d604b;
+    --nav-text-hover:       #273426;
     --nav-text-active:      #fbfdf8;
     --nav-active-bg:        #3f6739;
     --nav-hover-bg:         #ceddc5;
@@ -197,6 +201,7 @@ html.bb-theme-sky {
 
     --nav-bg-color:         #dceaf2;
     --nav-text-color:       #4b6070;
+    --nav-text-hover:       #263642;
     --nav-text-active:      #fbfdff;
     --nav-active-bg:        #315f7d;
     --nav-hover-bg:         #c8dce8;
@@ -235,6 +240,7 @@ html.bb-theme-lavender {
 
     --nav-bg-color:         #e7def0;
     --nav-text-color:       #5e5268;
+    --nav-text-hover:       #352d3d;
     --nav-text-active:      #fdfbff;
     --nav-active-bg:        #67477e;
     --nav-hover-bg:         #d7cae4;
@@ -247,12 +253,213 @@ html.bb-theme-lavender {
     --bottom-link-bg:       rgba(103,71,126,0.06);
 }
 
+/* --- Graphite Reading（低彩度中性灰，減少長時間閱讀的色彩干擾）--- */
+html.bb-theme-graphite {
+    --palette-background-default: #eef0f2;
+    --palette-background-paper:   #fbfbfc;
+    --palette-background-b1:      #fbfbfc;
+    --palette-background-b2:      #eef0f2;
+    --palette-background-b3:      #e0e3e6;
+    --palette-background-b4:      #cfd4d8;
+    --palette-background-b5:      #b8c0c6;
+    --palette-text-primary:       #252a2e;
+    --palette-text-secondary:     #4f5a61;
+    --palette-text-hint:          #425e70;
+    --palette-text-disabled:      #667078;
+    --palette-border-main:        #cfd4d8;
+    --palette-border-dark:        #b8c0c6;
+    --palette-divider:            rgba(37,42,46,0.14);
+    --palette-action-active:      #4f5a61;
+    --palette-action-hover:       rgba(37,42,46,0.08);
+    --palette-action-selected:    rgba(66,94,112,0.16);
+    --palette-action-disabled:    rgba(79,90,97,0.48);
+    --palette-link-active:        #425e70;
+    --palette-link-hover:         #304958;
+    --palette-link-selected:      #425e70;
+
+    --nav-bg-color:         #e0e3e6;
+    --nav-text-color:       #4f5a61;
+    --nav-text-hover:       #252a2e;
+    --nav-text-active:      #ffffff;
+    --nav-active-bg:        #425e70;
+    --nav-hover-bg:         #cfd4d8;
+    --nav-border-color:     #b8c0c6;
+    --banner-bg:            #f5f6f7;
+    --banner-text:          #252a2e;
+    --banner-section-color: #425e70;
+    --bottom-link-text:     #4f5a61;
+    --bottom-link-border:   #b8c0c6;
+    --bottom-link-bg:       rgba(66,94,112,0.06);
+}
+
+/* --- Aqua Reading（低彩度藍綠，保留冷色的平靜感與清楚對比）--- */
+html.bb-theme-aqua {
+    --palette-background-default: #e8f3f1;
+    --palette-background-paper:   #f9fdfc;
+    --palette-background-b1:      #f9fdfc;
+    --palette-background-b2:      #e8f3f1;
+    --palette-background-b3:      #d5e8e4;
+    --palette-background-b4:      #c1d9d4;
+    --palette-background-b5:      #a5c5be;
+    --palette-text-primary:       #203735;
+    --palette-text-secondary:     #425f5b;
+    --palette-text-hint:          #2f6f67;
+    --palette-text-disabled:      #5a706d;
+    --palette-border-main:        #c1d9d4;
+    --palette-border-dark:        #a5c5be;
+    --palette-divider:            rgba(32,55,53,0.14);
+    --palette-action-active:      #425f5b;
+    --palette-action-hover:       rgba(32,55,53,0.08);
+    --palette-action-selected:    rgba(47,111,103,0.16);
+    --palette-action-disabled:    rgba(66,95,91,0.48);
+    --palette-link-active:        #2f6f67;
+    --palette-link-hover:         #22564f;
+    --palette-link-selected:      #2f6f67;
+
+    --nav-bg-color:         #d5e8e4;
+    --nav-text-color:       #425f5b;
+    --nav-text-hover:       #203735;
+    --nav-text-active:      #ffffff;
+    --nav-active-bg:        #2f6f67;
+    --nav-hover-bg:         #c1d9d4;
+    --nav-border-color:     #a5c5be;
+    --banner-bg:            #f1f8f6;
+    --banner-text:          #203735;
+    --banner-section-color: #2f6f67;
+    --bottom-link-text:     #425f5b;
+    --bottom-link-border:   #a5c5be;
+    --bottom-link-bg:       rgba(47,111,103,0.06);
+}
+
+/* --- Rose Reading（柔和紅紫色，暖色調但避免高飽和造成視覺疲勞）--- */
+html.bb-theme-rose {
+    --palette-background-default: #f4ecef;
+    --palette-background-paper:   #fdfafb;
+    --palette-background-b1:      #fdfafb;
+    --palette-background-b2:      #f4ecef;
+    --palette-background-b3:      #eadde2;
+    --palette-background-b4:      #dcc9d0;
+    --palette-background-b5:      #c8acb6;
+    --palette-text-primary:       #3d2930;
+    --palette-text-secondary:     #684d57;
+    --palette-text-hint:          #7a4054;
+    --palette-text-disabled:      #76616a;
+    --palette-border-main:        #dcc9d0;
+    --palette-border-dark:        #c8acb6;
+    --palette-divider:            rgba(61,41,48,0.14);
+    --palette-action-active:      #684d57;
+    --palette-action-hover:       rgba(61,41,48,0.08);
+    --palette-action-selected:    rgba(122,64,84,0.16);
+    --palette-action-disabled:    rgba(104,77,87,0.48);
+    --palette-link-active:        #7a4054;
+    --palette-link-hover:         #603041;
+    --palette-link-selected:      #7a4054;
+
+    --nav-bg-color:         #eadde2;
+    --nav-text-color:       #684d57;
+    --nav-text-hover:       #3d2930;
+    --nav-text-active:      #ffffff;
+    --nav-active-bg:        #7a4054;
+    --nav-hover-bg:         #dcc9d0;
+    --nav-border-color:     #c8acb6;
+    --banner-bg:            #faf3f5;
+    --banner-text:          #3d2930;
+    --banner-section-color: #7a4054;
+    --bottom-link-text:     #684d57;
+    --bottom-link-border:   #c8acb6;
+    --bottom-link-bg:       rgba(122,64,84,0.06);
+}
+
+/* =========================================
+   Blackboard 原生主導覽與課程導覽
+   makeStylesnavigation-* 的數字會隨 Blackboard 發版改變，因此用 ARIA 與語意 class。
+   ========================================= */
+nav[role="navigation"][aria-label="Main"],
+.bb-course-navigation,
+.bb-course-navigation bb-course-navigation,
+.bb-course-navigation [role="toolbar"][aria-label="Course Navigation"],
+.bb-course-navigation nav[aria-label="course"] {
+    background-color: var(--nav-bg-color) !important;
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+.bb-course-navigation course-page-header header {
+    background-color: var(--nav-bg-color) !important;
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+}
+
+.bb-course-navigation course-page-header header :is(h1, h2, h3, p, span, svg) {
+    color: inherit !important;
+}
+
+.bb-course-navigation course-page-header :is(a, button) {
+    background-color: transparent !important;
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+}
+
+.bb-course-navigation course-page-header :is(a, button):hover,
+.bb-course-navigation course-page-header :is(a, button):focus-visible {
+    background-color: var(--nav-hover-bg) !important;
+    color: var(--nav-text-hover) !important;
+}
+
+nav[role="navigation"][aria-label="Main"] :is(a, button),
+.bb-course-navigation nav[aria-label="course"] :is(a, button) {
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+}
+
+nav[role="navigation"][aria-label="Main"] :is(a, button) :is(svg, .MuiListItemIcon-root),
+.bb-course-navigation nav[aria-label="course"] :is(a, button) :is(svg, .MuiListItemIcon-root) {
+    color: inherit !important;
+}
+
+nav[role="navigation"][aria-label="Main"] :is(a, button):hover,
+nav[role="navigation"][aria-label="Main"] :is(a, button):focus-visible,
+.bb-course-navigation nav[aria-label="course"] :is(a, button):hover,
+.bb-course-navigation nav[aria-label="course"] :is(a, button):focus-visible {
+    background-color: var(--nav-hover-bg) !important;
+    color: var(--nav-text-hover) !important;
+}
+
+nav[role="navigation"][aria-label="Main"] :is(a, button).active,
+nav[role="navigation"][aria-label="Main"] :is(a, button)[aria-current="page"],
+.bb-course-navigation nav[aria-label="course"] :is(a, button).active,
+.bb-course-navigation nav[aria-label="course"] :is(a, button)[aria-current="page"] {
+    background-color: var(--nav-active-bg) !important;
+    color: var(--nav-text-active) !important;
+    border-color: var(--nav-active-bg) !important;
+}
+
 /* =========================================
    Activity Stream：活動卡 hover 可讀性
    Blackboard 實際結構：li.stream-item-container > .stream-item-contents
    ========================================= */
 html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .stream-item-contents {
     background-color: var(--bb-ui-surface-hover) !important;
+}
+
+/* Blackboard 主要頁面的標頭與內容使用陰影分層，避免同色背景黏在一起。 */
+html:is(
+    .bb-route-stream,
+    .bb-route-courses,
+    .bb-route-calendar,
+    .bb-route-messages,
+    .bb-route-grades,
+    .bb-route-tools
+) .base-header {
+    position: relative !important;
+    z-index: 1 !important;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.16) !important;
+}
+
+/* 主導覽使用父層抽屜的完整高度投影，包含上方校徽區域。 */
+.MuiDrawer-paper:has(> nav[role="navigation"][aria-label="Main"]) {
+    box-shadow: 4px 0 16px rgba(15,23,42,0.16) !important;
 }
 
 html.bb-route-stream.bb-theme-nord-snow .stream-item-container .element-details,
@@ -506,8 +713,10 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
     left: var(--global-sidebar-width) !important;
     width: var(--nav-width) !important;
     bottom: 0 !important;
-    padding: 0 !important;
+    /* 保持容器位置不變，只讓第一個 Content 項目與課程標頭留出呼吸空間。 */
+    padding: 5px 0 0 0 !important;
     margin: 0 !important;
+    box-sizing: border-box !important;
     background-color: var(--nav-bg-color) !important;
     border-right: 1px solid var(--nav-border-color) !important;
     display: flex !important;
@@ -515,7 +724,7 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     z-index: 9999 !important;
-    box-shadow: 4px 0 10px rgba(0,0,0,0.3) !important;
+    box-shadow: 4px 0 16px rgba(15,23,42,0.18) !important;
     /* 主題切換時平滑過渡 */
     transition: background-color 0.3s ease, border-color 0.3s ease !important;
 }
@@ -588,7 +797,7 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
 .bb-vertical-nav-container a:hover,
 .bb-vertical-nav-container button:hover {
     background-color: var(--nav-hover-bg) !important;
-    color: var(--nav-text-active) !important;
+    color: var(--nav-text-hover) !important;
     padding-left: 25px !important;
 }
 
@@ -675,6 +884,42 @@ body.bb-vertical-nav-active .base-courses-container.route-view-container {
 body.bb-vertical-nav-active #main-content-inner {
     padding-left: 0 !important;
     margin-left: 0 !important;
+}
+
+/*
+ * 課程工具已移到固定左欄後，將原水平導覽的版面高度歸零。
+ * 保留 overflow，讓其內部 fixed 導覽仍可正常顯示與操作。
+ */
+body.bb-vertical-nav-active .bb-course-navigation > bb-course-navigation {
+    display: block !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+}
+
+body.bb-vertical-nav-active .bb-course-navigation > bb-course-navigation > [role="toolbar"] {
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: visible !important;
+}
+
+/* Options 中選擇的圖片只以 data URL 儲存在本機，並取代原課程封面。 */
+html.bb-custom-course-cover course-banner [class*="courseBannerWrapper"] > [class*="courseBanner"] {
+    background-color: transparent !important;
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0) 55%,
+            rgba(0,0,0,0.58) 78%,
+            rgba(0,0,0,0.92) 100%
+        ),
+        var(--bb-course-cover-image) !important;
+    background-blend-mode: normal, normal !important;
+    background-position: center, var(--bb-course-cover-position, 50% 50%) !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
 }
 
 /* =========================================
