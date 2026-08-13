@@ -1,0 +1,997 @@
+/* Study Note workspace and quick-note modal. All selectors are extension-prefixed. */
+
+body.bb-study-note-open,
+body.bb-study-note-modal-open {
+    overflow: hidden !important;
+}
+
+/*
+ * Study Note sits above Blackboard at z-index 10000. Keep the desktop main
+ * navigation one layer higher so its existing right-edge shadow stays visible.
+ */
+@media (min-width: 761px) {
+    body.bb-study-note-open
+        .MuiDrawer-paper:has(> nav[role="navigation"][aria-label="Main"]) {
+        z-index: 10001 !important;
+    }
+}
+
+.bb-study-note-nav-button {
+    border: 0 !important;
+    border-top: 1px solid var(--bottom-link-border) !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+    text-align: left !important;
+}
+
+.bb-study-note-nav-button[aria-current="page"] {
+    background: var(--nav-active-bg) !important;
+    color: var(--nav-text-active) !important;
+}
+
+/* Blackboard keeps the current route marked active underneath our overlay. */
+body.bb-study-note-open nav[role="navigation"][aria-label="Main"]
+    :is(a, button).active:not(.bb-study-note-nav-button),
+body.bb-study-note-open nav[role="navigation"][aria-label="Main"]
+    :is(a, button)[aria-current="page"]:not(.bb-study-note-nav-button) {
+    border-color: var(--nav-border-color) !important;
+    background: transparent !important;
+    color: var(--nav-text-color) !important;
+}
+
+#bb-study-note-workspace,
+#bb-study-note-workspace *,
+#bb-study-note-quick-modal,
+#bb-study-note-quick-modal * {
+    box-sizing: border-box;
+}
+
+#bb-study-note-workspace[hidden],
+#bb-study-note-workspace [hidden],
+#bb-study-note-quick-modal[hidden],
+#bb-study-note-quick-modal [hidden] {
+    display: none !important;
+}
+
+#bb-study-note-workspace,
+#bb-study-note-quick-modal {
+    --bb-note-accent: var(--nav-active-bg, #0069ff);
+    --bb-note-surface: var(--bb-ui-surface, #ffffff);
+    --bb-note-soft: var(--palette-background-b2, #f4f6f8);
+    --bb-note-text: var(--bb-ui-text-primary, #252a31);
+    --bb-note-muted: var(--bb-ui-text-secondary, #647080);
+    --bb-note-border: var(--bb-ui-border, #d8dee9);
+    --bb-note-danger: #b42318;
+    color: var(--bb-note-text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.45;
+}
+
+#bb-study-note-workspace {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: var(--bb-study-note-left-offset, 0px);
+    display: flex;
+    min-width: 320px;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bb-note-surface);
+}
+
+#bb-study-note-workspace button,
+#bb-study-note-workspace input,
+#bb-study-note-workspace select,
+#bb-study-note-workspace textarea,
+#bb-study-note-quick-modal button,
+#bb-study-note-quick-modal input,
+#bb-study-note-quick-modal select,
+#bb-study-note-quick-modal textarea {
+    margin: 0 !important;
+    font: inherit;
+    vertical-align: middle;
+}
+
+/* Blackboard adds spacing to form labels. Keep extension-owned form rows self-contained. */
+#bb-study-note-workspace label,
+#bb-study-note-quick-modal label {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#bb-study-note-workspace button,
+#bb-study-note-quick-modal button {
+    border: 1px solid var(--bb-note-border);
+    border-radius: 7px;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    cursor: pointer;
+}
+
+#bb-study-note-workspace button:hover,
+#bb-study-note-quick-modal button:hover {
+    background: var(--bb-ui-surface-hover, #edf1f5);
+}
+
+#bb-study-note-workspace button:focus-visible,
+#bb-study-note-workspace input:focus-visible,
+#bb-study-note-workspace select:focus-visible,
+#bb-study-note-workspace textarea:focus-visible,
+#bb-study-note-quick-modal button:focus-visible,
+#bb-study-note-quick-modal input:focus-visible,
+#bb-study-note-quick-modal select:focus-visible,
+#bb-study-note-quick-modal textarea:focus-visible {
+    outline: 3px solid rgba(0, 105, 255, 0.24);
+    outline-offset: 1px;
+}
+
+#bb-study-note-workspace .bb-study-note-primary,
+#bb-study-note-quick-modal .bb-study-note-primary {
+    border-color: var(--bb-note-accent);
+    background: var(--bb-note-accent);
+    color: #fff;
+    font-weight: 650;
+}
+
+#bb-study-note-workspace .bb-study-note-primary:hover,
+#bb-study-note-quick-modal .bb-study-note-primary:hover {
+    background: var(--bb-note-accent);
+    filter: brightness(0.92);
+}
+
+.bb-study-note-header {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--bb-note-border);
+    background: var(--bb-note-surface);
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.1);
+}
+
+.bb-study-note-brand,
+.bb-study-note-header-actions,
+.bb-study-note-editor-topline,
+.bb-study-note-editor-actions,
+.bb-study-note-metadata,
+.bb-study-note-section-title,
+.bb-study-note-quick-heading,
+.bb-study-note-quick-actions {
+    display: flex;
+    align-items: center;
+}
+
+.bb-study-note-brand {
+    gap: 10px;
+}
+
+.bb-study-note-brand > .material-icons {
+    color: var(--bb-note-accent);
+    font-size: 30px;
+}
+
+.bb-study-note-brand h1,
+.bb-study-note-list-heading h2,
+.bb-study-note-empty-editor h2,
+.bb-study-note-quick-heading h2 {
+    margin: 0;
+    color: var(--bb-note-text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif !important;
+    font-style: normal !important;
+    letter-spacing: normal !important;
+}
+
+.bb-study-note-brand h1 {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+}
+
+.bb-study-note-eyebrow {
+    display: block;
+    margin-bottom: 1px;
+    color: var(--bb-note-muted);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.bb-study-note-header-actions {
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.bb-study-note-header-actions button {
+    min-height: 35px;
+    padding: 7px 11px;
+}
+
+#bb-study-note-workspace .bb-study-note-close {
+    width: 36px;
+    padding: 2px;
+    border-color: transparent;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.bb-study-note-layout {
+    display: grid;
+    min-height: 0;
+    flex: 1;
+    grid-template-columns: 230px 330px minmax(480px, 1fr);
+    overflow: auto;
+}
+
+.bb-study-note-notebooks,
+.bb-study-note-list-panel,
+.bb-study-note-editor-panel {
+    min-height: 100%;
+    overflow: auto;
+}
+
+.bb-study-note-notebooks {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px;
+    border-right: 1px solid var(--bb-note-border);
+    background: var(--bb-note-soft);
+}
+
+.bb-study-note-section-title {
+    justify-content: space-between;
+    margin: 10px 8px 6px;
+    color: var(--bb-note-muted);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.bb-study-note-section-title:first-child {
+    margin-top: 0;
+}
+
+.bb-study-note-section-title button {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border-color: transparent !important;
+    background: transparent !important;
+    font-size: 1.1rem;
+}
+
+.bb-study-note-filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.bb-study-note-notebook-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2px;
+    border-radius: 7px;
+}
+
+.bb-study-note-notebook-actions {
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.bb-study-note-notebook-row:hover .bb-study-note-notebook-actions,
+.bb-study-note-notebook-row:focus-within .bb-study-note-notebook-actions {
+    opacity: 1;
+}
+
+#bb-study-note-workspace .bb-study-note-notebook-action {
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+    color: var(--bb-note-muted);
+    line-height: 1;
+}
+
+.bb-study-note-notebook-action .material-icons {
+    font-size: 16px;
+}
+
+#bb-study-note-workspace .bb-study-note-notebook-action:hover {
+    background: var(--bb-ui-surface-hover, rgba(0, 0, 0, 0.07));
+    color: var(--bb-note-text);
+}
+
+#bb-study-note-workspace .bb-study-note-filter {
+    display: flex;
+    width: 100%;
+    min-height: 37px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 10px;
+    overflow: hidden;
+    border-color: transparent;
+    background: transparent;
+    text-align: left;
+}
+
+.bb-study-note-filter > span:first-child {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.bb-study-note-filter > span:last-child {
+    color: var(--bb-note-muted);
+    font-size: 0.72rem;
+}
+
+#bb-study-note-workspace .bb-study-note-filter:hover {
+    background: var(--bb-ui-surface-hover, rgba(0, 0, 0, 0.06));
+}
+
+#bb-study-note-workspace .bb-study-note-filter.is-active {
+    background: var(--bb-note-accent);
+    color: #fff;
+}
+
+.bb-study-note-filter.is-active > span:last-child {
+    color: inherit;
+    opacity: 0.85;
+}
+
+.bb-study-note-local-message {
+    margin: auto 8px 0;
+    padding-top: 20px;
+    color: var(--bb-note-muted);
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+.bb-study-note-list-panel {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--bb-note-border);
+    background: var(--bb-note-surface);
+}
+
+.bb-study-note-list-toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 14px;
+    border-bottom: 1px solid var(--bb-note-border);
+}
+
+.bb-study-note-list-toolbar label {
+    min-width: 0;
+    flex: 1;
+}
+
+.bb-study-note-list-toolbar input {
+    width: 100%;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 7px 10px;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 7px;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+}
+
+.bb-study-note-list-toolbar button {
+    display: inline-flex;
+    height: 38px !important;
+    min-height: 38px !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px !important;
+    white-space: nowrap;
+}
+
+.bb-study-note-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px 10px;
+}
+
+.bb-study-note-list-heading h2 {
+    font-size: 1rem;
+}
+
+.bb-study-note-selection-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bb-study-note-selection-actions > span {
+    margin-right: 4px;
+    color: var(--bb-note-muted);
+    font-size: 0.72rem;
+}
+
+#bb-study-note-workspace .bb-study-note-selection-actions button {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+    color: var(--bb-note-muted);
+}
+
+#bb-study-note-workspace .bb-study-note-selection-actions button:hover,
+#bb-study-note-workspace .bb-study-note-selection-actions button[aria-pressed="true"] {
+    background: var(--bb-ui-surface-hover, #eef2f6);
+    color: var(--bb-note-accent);
+}
+
+.bb-study-note-selection-actions button .material-icons {
+    font-size: 19px;
+}
+
+#bb-study-note-workspace .bb-study-note-selection-actions .bb-study-note-bulk-delete {
+    color: var(--bb-note-danger);
+}
+
+#bb-study-note-workspace .bb-study-note-selection-actions button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.bb-study-note-list {
+    min-height: 0;
+    flex: 1;
+    overflow: auto;
+    border-top: 1px solid var(--bb-note-border);
+}
+
+#bb-study-note-workspace .bb-study-note-list-item {
+    display: grid;
+    width: 100%;
+    min-height: 96px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+    padding: 13px 15px;
+    overflow: hidden;
+    border: 0;
+    border-bottom: 1px solid var(--bb-note-border);
+    border-radius: 0;
+    background: var(--bb-note-surface);
+    text-align: left;
+}
+
+#bb-study-note-workspace .bb-study-note-list-item:hover {
+    background: var(--bb-ui-surface-hover, #f3f5f7);
+}
+
+#bb-study-note-workspace .bb-study-note-list-item.is-active {
+    background: var(--bb-note-soft);
+    box-shadow: inset 4px 0 0 var(--bb-note-accent);
+}
+
+#bb-study-note-workspace .bb-study-note-list-item.is-selection-mode {
+    grid-template-columns: 22px minmax(0, 1fr);
+}
+
+#bb-study-note-workspace .bb-study-note-list-item.is-selected {
+    background: var(--bb-note-soft);
+    box-shadow: inset 4px 0 0 var(--bb-note-accent);
+}
+
+.bb-study-note-list-item-content {
+    display: flex;
+    min-width: 0;
+    min-height: 70px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.bb-study-note-selection-icon {
+    margin-top: 1px;
+    color: var(--bb-note-accent) !important;
+    font-size: 19px !important;
+}
+
+.bb-study-note-list-item strong,
+.bb-study-note-list-item-content > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.bb-study-note-list-item strong {
+    color: var(--bb-note-text);
+    font-size: 0.86rem;
+}
+
+.bb-study-note-list-item-content > span {
+    color: var(--bb-note-muted);
+    font-size: 0.73rem;
+}
+
+.bb-study-note-list-item-content > span:last-child {
+    margin-top: auto;
+    font-size: 0.66rem;
+}
+
+.bb-study-note-empty-list {
+    margin: 0;
+    padding: 30px 20px;
+    color: var(--bb-note-muted);
+    text-align: center;
+}
+
+.bb-study-note-editor-panel {
+    position: relative;
+    min-width: 480px;
+    background: var(--bb-note-surface);
+}
+
+.bb-study-note-empty-editor {
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    color: var(--bb-note-muted);
+    text-align: center;
+}
+
+.bb-study-note-empty-editor > .material-icons {
+    margin-bottom: 10px;
+    color: var(--bb-note-accent);
+    font-size: 48px;
+    opacity: 0.75;
+}
+
+.bb-study-note-empty-editor h2 {
+    font-size: 1.25rem;
+}
+
+.bb-study-note-empty-editor p {
+    margin: 6px 0 18px;
+}
+
+.bb-study-note-empty-editor button {
+    padding: 8px 14px;
+}
+
+#bb-study-note-editor {
+    display: flex;
+    height: 100%;
+    min-height: 550px;
+    flex-direction: column;
+}
+
+.bb-study-note-editor-topline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 17px 20px 12px;
+}
+
+.bb-study-note-editor-topline > label {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    min-width: 0;
+    flex: 1;
+}
+
+#bb-study-note-title {
+    width: 100%;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 12px !important;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 8px;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+#bb-study-note-title:hover,
+#bb-study-note-title:focus {
+    border-color: var(--bb-note-accent);
+}
+
+.bb-study-note-editor-actions {
+    height: 40px;
+    align-self: center;
+    gap: 7px;
+}
+
+.bb-study-note-editor-actions button {
+    display: inline-flex;
+    height: 40px !important;
+    min-height: 40px !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px !important;
+    white-space: nowrap;
+}
+
+#bb-study-note-workspace .bb-study-note-danger {
+    border-color: #e6aaa5;
+    color: var(--bb-note-danger);
+}
+
+.bb-study-note-metadata {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 9px 20px;
+    border-top: 1px solid var(--bb-note-border);
+    border-bottom: 1px solid var(--bb-note-border);
+    background: var(--bb-note-soft);
+    color: var(--bb-note-muted);
+    font-size: 0.74rem;
+}
+
+.bb-study-note-notebook-field {
+    display: grid;
+    height: 38px;
+    grid-template-columns: auto minmax(170px, 1fr);
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.bb-study-note-field-label {
+    display: inline-flex;
+    height: 38px;
+    color: var(--bb-note-text);
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.bb-study-note-select-wrapper {
+    position: relative;
+    display: inline-flex;
+    height: 38px;
+    min-width: 170px;
+    align-items: center;
+}
+
+.bb-study-note-select-wrapper select {
+    width: 100%;
+    height: 38px !important;
+    min-height: 38px !important;
+    appearance: none;
+    padding: 0 38px 0 12px !important;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 8px;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.bb-study-note-select-wrapper select:hover {
+    border-color: var(--bb-note-accent);
+}
+
+.bb-study-note-select-wrapper .material-icons {
+    position: absolute;
+    right: 10px;
+    color: var(--bb-note-muted);
+    font-size: 20px;
+    pointer-events: none;
+}
+
+#bb-study-note-dates {
+    margin-left: auto;
+    align-self: center;
+    text-align: right;
+}
+
+.bb-study-note-content-label {
+    min-height: 0;
+    flex: 1;
+}
+
+#bb-study-note-content {
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+    padding: 22px 24px 40px;
+    resize: none;
+    border: 0;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.75;
+}
+
+.bb-study-note-status {
+    position: absolute;
+    z-index: 5;
+    right: 20px;
+    bottom: 20px;
+    max-width: 340px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #176b3a;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.18s, transform 0.18s;
+}
+
+.bb-study-note-status.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.bb-study-note-status.is-error {
+    background: var(--bb-note-danger);
+}
+
+.bb-study-note-small-modal {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.bb-study-note-small-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.bb-study-note-small-modal > section {
+    position: relative;
+    width: min(420px, 100%);
+    border: 1px solid var(--bb-note-border);
+    border-radius: 12px;
+    background: var(--bb-note-surface);
+    box-shadow: 0 22px 58px rgba(15, 23, 42, 0.3);
+}
+
+.bb-study-note-small-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+}
+
+.bb-study-note-small-modal-heading,
+.bb-study-note-small-modal-actions {
+    display: flex;
+    align-items: center;
+}
+
+.bb-study-note-small-modal-heading {
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.bb-study-note-small-modal-heading h2 {
+    margin: 0;
+    color: var(--bb-note-text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif !important;
+    font-size: 1.1rem;
+}
+
+#bb-study-note-workspace .bb-study-note-small-modal-heading button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+    font-size: 1.35rem;
+}
+
+.bb-study-note-small-modal label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--bb-note-text);
+    font-size: 0.76rem;
+    font-weight: 650;
+}
+
+.bb-study-note-small-modal input {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 7px;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    font-weight: 400;
+}
+
+.bb-study-note-small-modal-actions {
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.bb-study-note-small-modal-actions button {
+    min-height: 37px;
+    padding: 7px 14px;
+}
+
+#bb-study-note-quick-modal {
+    position: fixed;
+    z-index: 10003;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.bb-study-note-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+.bb-study-note-quick-dialog {
+    position: relative;
+    width: min(620px, 100%);
+    max-height: calc(100vh - 40px);
+    overflow: auto;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 14px;
+    background: var(--bb-note-surface);
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.34);
+}
+
+.bb-study-note-quick-dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px;
+}
+
+.bb-study-note-quick-heading {
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.bb-study-note-quick-heading h2 {
+    font-size: 1.25rem;
+}
+
+.bb-study-note-quick-heading button {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+    font-size: 1.45rem;
+}
+
+.bb-study-note-quick-dialog label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: var(--bb-note-text);
+    font-size: 0.76rem;
+    font-weight: 650;
+}
+
+.bb-study-note-quick-dialog input,
+.bb-study-note-quick-dialog select,
+.bb-study-note-quick-dialog textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 7px;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    font-weight: 400;
+}
+
+.bb-study-note-quick-dialog textarea {
+    min-height: 190px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.bb-study-note-quick-actions {
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 3px;
+}
+
+.bb-study-note-quick-actions span {
+    margin-right: auto;
+    color: var(--bb-note-muted);
+    font-size: 0.7rem;
+}
+
+.bb-study-note-quick-actions button {
+    min-height: 38px;
+    padding: 7px 14px;
+}
+
+.bb-study-note-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 1150px) {
+    .bb-study-note-layout {
+        grid-template-columns: 190px 280px minmax(480px, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    #bb-study-note-workspace {
+        left: 0;
+    }
+
+    .bb-study-note-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 10px 12px;
+    }
+
+    .bb-study-note-header-actions {
+        flex-wrap: wrap;
+    }
+
+    .bb-study-note-header-actions button:not(:first-child):not(.bb-study-note-close) {
+        display: none;
+    }
+
+    .bb-study-note-layout {
+        grid-template-columns: 170px 260px minmax(470px, 1fr);
+    }
+
+    .bb-study-note-quick-actions {
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .bb-study-note-quick-actions span {
+        width: 100%;
+    }
+}

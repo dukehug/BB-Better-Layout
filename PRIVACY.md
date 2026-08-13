@@ -1,6 +1,6 @@
 # Privacy Policy for BB Better Layout for Adamson
 
-Effective date: August 10, 2026
+Effective date: August 13, 2026
 
 BB Better Layout for Adamson (the "Extension") is an independent Chrome extension designed to improve the Blackboard Ultra interface used by Adamson University students. This Privacy Policy explains what information the Extension processes, how it is used, and whether it is shared.
 
@@ -17,6 +17,10 @@ This information is processed locally in the user's browser. It is not stored by
 The Extension stores the user's selected reading theme and customized keyboard shortcuts using the `chrome.storage.sync` API. If Chrome Sync is enabled, Google Chrome may synchronize these preferences between browsers signed in to the same Google account. An optional custom course cover image is resized in the browser and stored separately using `chrome.storage.local`, so it remains on the current device and is not uploaded by the Extension. The developer does not receive or have access to these preferences or images.
 
 Users can change or reset these preferences from the Extension's options page. They can also remove locally stored Extension data by uninstalling the Extension or clearing Extension data in Chrome.
+
+### Study Note data
+
+If the user enables and uses Study Note, the Extension stores note titles, note content, notebook names, and created or modified timestamps in `chrome.storage.local`. Study Note data remains in the current Chrome profile and is not synchronized by the Extension or sent to a server. The user can export this data to a local JSON backup or CSV file. JSON backups are read locally only when the user explicitly selects a file to import.
 
 ## Information not collected
 
@@ -41,7 +45,7 @@ The developer does not sell, rent, share, or transfer user data to third parties
 
 ## Data retention
 
-Blackboard page content is processed temporarily while the relevant page is open and is not retained by the developer. Theme and keyboard-shortcut preferences remain in Chrome storage until the user resets them, clears Extension data, or uninstalls the Extension, subject to Chrome Sync behavior controlled by the user and Google. A custom course cover remains in local Extension storage until the user selects Use Default, clears Extension data, or uninstalls the Extension.
+Blackboard page content is processed temporarily while the relevant page is open and is not retained by the developer. Theme and keyboard-shortcut preferences remain in Chrome storage until the user resets them, clears Extension data, or uninstalls the Extension, subject to Chrome Sync behavior controlled by the user and Google. A custom course cover and Study Note data remain in local Extension storage until the user removes them, clears Extension data, or uninstalls the Extension.
 
 ## Security
 
@@ -49,7 +53,7 @@ The Extension does not operate a server that receives Blackboard content or user
 
 ## Chrome Web Store Limited Use disclosure
 
-The Extension's use of information received from Chrome APIs complies with the Chrome Web Store User Data Policy, including the Limited Use requirements. Information is used only to provide and improve the Extension's user-facing Blackboard layout, theme, and navigation features.
+The Extension's use of information received from Chrome APIs complies with the Chrome Web Store User Data Policy, including the Limited Use requirements. Information is used only to provide and improve the Extension's user-facing Blackboard layout, theme, navigation, and Study Note features.
 
 ## Changes to this policy
 

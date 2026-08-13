@@ -5,9 +5,8 @@
 
 // ==========================================
 // 主題定義
-// value 對應 styles.css 中的 class 名（null = 默認深色）
-// ==========================================
 // value 對應 theme.js 中 THEME_CONFIG 的 key（null = 默認亮色）
+// ==========================================
 const THEMES = [
   {
     value:   null,
@@ -73,6 +72,7 @@ let courseCoverDragState = null;
 // ==========================================
 const DEFAULT_SHORTCUTS = {
   search:      { key: 'k', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Search Current Page' },
+  studyNote:   { key: 'n', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Quick Study Note'     },
   institution: { key: '1', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Institution Page'    },
   activity:    { key: '2', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Activity'            },
   courses:     { key: '3', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Courses'             },

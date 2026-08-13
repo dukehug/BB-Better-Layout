@@ -20,6 +20,7 @@ These checks mirror the required self-test steps in `AGENT.md`.
 - [x] Move between Activity, Courses, and a single course without a full page reload; confirm enhancements reappear after each route change.
 - [x] Return from a single course to a global page and confirm stale vertical-course-navigation spacing or classes are removed.
 - [x] Confirm the global navigation contains Schedule App, Outlook, AdU Live, and AdU Calendar only once.
+- [ ] Confirm Study Note and all four custom navigation labels share the same left alignment.
 - [x] Confirm custom links open in a new tab and the original Blackboard tab stays open.
 - [x] Confirm there are no new errors from the extension in the page console during navigation.
 
@@ -67,6 +68,7 @@ Run the full set when changing theme code or theme CSS.
 - [x] On a Group Space member list, open an avatar with a mouse and close it with the close button or overlay.
 - [x] Open an avatar using Enter or Space, close it with Escape, and confirm focus returns to the avatar.
 - [x] Open the toolbar popup and confirm its displayed version matches `manifest.json`.
+- [ ] Confirm the popup description uses a left-aligned subtitle and a readable four-item feature list.
 - [x] Open the options page from the popup and confirm existing settings still load.
 - [x] On Activity Stream, confirm the header shadow clearly separates the header without obscuring content.
 - [x] Confirm Courses, Calendar, Messages, Grades, and Tools use the same soft header shadow.
@@ -74,8 +76,29 @@ Run the full set when changing theme code or theme CSS.
 - [x] On a course page, confirm no empty horizontal-navigation space remains above the course cover.
 - [x] Confirm the vertical course-navigation container stays fixed while its Content item begins 10px below the course header.
 
+## Study Note checks
+
+- [ ] Enable Study Note in the options page and confirm its entry appears once in Blackboard's main navigation without refreshing.
+- [ ] Disable Study Note while it is open and confirm the workspace, quick-note modal, and navigation entry are removed.
+- [ ] Open Study Note from Activity, Courses, and a single course; confirm the three-pane layout does not cover the visible navigation.
+- [ ] With Study Note open on a desktop viewport, confirm the main navigation keeps its right-edge shadow above the workspace.
+- [ ] Create notebooks and notes, move a note by changing its Notebook field, and reload Blackboard to confirm they persist locally.
+- [ ] Search by note title and content and confirm the middle note list updates.
+- [ ] Edit and delete a note and confirm the notebook counts and editor state update.
+- [ ] Configure Quick Study Note in the options shortcut table and confirm the shortcut updates immediately.
+- [ ] Trigger Quick Study Note from Activity, Courses, Calendar, and a single course without changing the current page.
+- [ ] Save a note through the quick modal and confirm it appears in the Study Note workspace.
+- [ ] Confirm the shortcut does not interrupt typing in Blackboard inputs, textareas, selects, or editable fields.
+- [ ] Export JSON, replace the current notes through JSON import, and confirm notebooks and note content match the backup.
+- [ ] Export CSV and confirm titles, notebooks, content, and timestamps open correctly in a spreadsheet.
+- [ ] Try importing malformed JSON and a file over 10 MB and confirm the current notes are not replaced.
+- [ ] If legacy Todo data exists, confirm it appears once in the Imported Todo notebook.
+- [ ] Confirm Escape closes the quick-note modal and then closes the Study Note workspace.
+- [ ] Switch each reading theme and confirm Study Note text, fields, borders, selection states, and buttons remain readable.
+
 ## Privacy and permissions check
 
 - [x] Confirm `content_scripts.matches` remains limited to `https://adamson.blackboard.com/*`.
 - [x] Confirm no new extension permissions or host permissions were added unintentionally.
 - [x] Confirm no Blackboard DOM content, cookies, session data, grades, or submissions are sent to an external service.
+- [ ] Confirm Study Note data uses `chrome.storage.local` only and import/export performs no network request.

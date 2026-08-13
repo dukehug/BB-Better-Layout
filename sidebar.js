@@ -113,19 +113,21 @@
     }
 
     function appendCustomLinks(container) {
-        if (container.querySelector('.bb-custom-bottom-link')) return;
+        if (container.querySelector('.bb-external-quick-link')) return;
 
+        // Labels contain no manual spacing. The shared .bb-nav-icon margin keeps
+        // these links aligned with the separately injected Study Note button.
         const linksConfig = [
-            { text: "    Schedule App", url: "https://weekly.52hz.im/", icon: "view_timeline" },
-            { text: "    Out look", url: "https://outlook.cloud.microsoft/mail/", icon: "mail" },
-            { text: "    AdU Live", url: "https://live.adamson.edu.ph", icon: "school" },
-            { text: "    AdU Calendar", url: "https://www.adamson.edu.ph/v1/?page=academic-calendar", icon: "event" }
+            { text: "Schedule App", url: "https://weekly.52hz.im/", icon: "view_timeline" },
+            { text: "Outlook", url: "https://outlook.cloud.microsoft/mail/", icon: "mail" },
+            { text: "AdU Live", url: "https://live.adamson.edu.ph", icon: "school" },
+            { text: "AdU Calendar", url: "https://www.adamson.edu.ph/v1/?page=academic-calendar", icon: "event" }
         ];
 
         linksConfig.forEach((config, index) => {
             const link = document.createElement('a');
             link.href = config.url;
-            link.className = 'bb-custom-bottom-link';
+            link.className = 'bb-custom-bottom-link bb-external-quick-link';
             link.target = "_blank";
 
             if (index === 0) link.style.marginTop = "auto";

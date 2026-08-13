@@ -23,6 +23,7 @@ const BB_NAV_SELECTORS = {
 // ------------------------------------------
 const BB_DEFAULT_SHORTCUTS = {
   search:      { key: 'k', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Search Current Page' },
+  studyNote:   { key: 'n', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Quick Study Note'     },
   institution: { key: '1', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Institution Page'    },
   activity:    { key: '2', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Activity'            },
   courses:     { key: '3', altKey: true, ctrlKey: false, shiftKey: false, metaKey: false, label: 'Courses'             },
@@ -500,6 +501,8 @@ function bbHandleKeydown(event) {
 
     if (action === 'search') {
       bbOpenCourseSearch();
+    } else if (action === 'studyNote') {
+      window.BBLayout?.studyNote?.openQuickNote();
     } else {
       bbNavigateTo(action);
     }

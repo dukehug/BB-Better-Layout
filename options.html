@@ -314,6 +314,7 @@
     #status-msg.success { color: #1e8e3e; }
     #status-msg.error   { color: #d93025; }
   </style>
+  <link rel="stylesheet" href="study-note/options.css">
 </head>
 <body>
 
@@ -354,6 +355,31 @@
     </div>
   </div>
 
+  <!-- ========== Study Note 卡片 ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>📝 Study Note</h2>
+      <p>Capture and organize notes inside Blackboard without sending data to a server</p>
+    </div>
+    <div class="card-body">
+      <div class="study-note-setting-row">
+        <div>
+          <strong>Show Study Note</strong>
+          <p>Add Study Note to Blackboard's main navigation and enable its global shortcut.</p>
+        </div>
+        <label class="study-note-toggle">
+          <input id="study-note-enabled" type="checkbox">
+          <span aria-hidden="true"></span>
+          <span class="study-note-toggle-label">Enabled</span>
+        </label>
+      </div>
+      <div class="hint study-note-local-hint">
+        Notes stay in this Chrome profile using local Extension storage. The Study Note workspace can export a restorable JSON backup or a spreadsheet-friendly CSV copy.
+      </div>
+      <p id="study-note-setting-status" class="study-note-setting-status" aria-live="polite"></p>
+    </div>
+  </div>
+
   <!-- ========== 快捷鍵卡片 ========== -->
   <div class="card">
     <div class="card-header">
@@ -387,5 +413,6 @@
   </div>
 
   <script src="options.js"></script>
+  <script src="study-note/options.js"></script>
 </body>
 </html>

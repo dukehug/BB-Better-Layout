@@ -23,20 +23,23 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 - Nine reading appearances and customizable keyboard shortcuts
 - Optional device-local custom image for course-page covers
 - Context-aware keyboard search for Courses, Course Content, and Roster pages
+- Device-local Study Note workspace with notebooks, search, quick notes, and JSON/CSV export
 
 ## What you can do with this extension
 - Search courses from the Courses page, course materials from an outline, or members from a Roster using the same shortcut.
 - Choose a comfortable reading appearance.
+- Organize notes into notebooks and capture a quick note from any Blackboard page using a customizable shortcut.
+- Export Study Note data as JSON for backup or CSV for use in a spreadsheet.
 
 
 ## Version
-- v2.9.1 <br> Date: 2026/08/10
+- v2.10.4 <br> Date: 2026/08/13
 
 ## Changes
 
-v2.9.1 - 2026/08/10
+v2.10.4 - 2026/08/13
 
-- Add 60px of breathing room above the course navigation items while keeping the navigation container fixed in place.
+- Preserve the main navigation edge shadow while Study Note is open.
 
 See [CHANGELOG.md](CHANGELOG.md) for the complete maintained change history.
 
