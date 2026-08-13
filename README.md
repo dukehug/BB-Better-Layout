@@ -45,6 +45,10 @@ See [CHANGELOG.md](CHANGELOG.md) for the complete maintained change history.
 
 ## Screenshots
 
+- v2.10.4 Study Note
+
+![Study Note](shotscreen/study_note.jpg)
+
 - v2.6.0 Courses Search
 
     ![figure-1](shotscreen/courses_search.jpg)
