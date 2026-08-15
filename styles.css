@@ -848,6 +848,109 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .separator {
 }
 
 /* =========================================
+   Courses：Blackboard 原生 To Do 右側面板
+   Blackboard 會在每次建置更換 makeStyles-* 數字，因此只使用 bb-todo、
+   aria、id 後綴與 student-todo analytics 等穩定語意選擇器。
+   所有自訂 Appearance 都會同時帶有 bb-theme-nord-snow 基底 class，
+   下列語意變數會自動解析為目前選擇的閱讀配色。
+   ========================================= */
+html.bb-route-courses.bb-theme-nord-snow bb-todo > aside {
+    background-color: var(--palette-background-b2) !important;
+    color: var(--bb-ui-text-primary) !important;
+    border-left-color: var(--bb-ui-border) !important;
+}
+
+/* 面板與 accordion 標題使用主要文字色，展開箭頭跟隨次要文字色。 */
+html.bb-route-courses.bb-theme-nord-snow bb-todo :is(
+    h2,
+    [id$="-section-title"],
+    [data-analytics-id$=".summary"]
+) {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    .MuiAccordionSummary-expandIconWrapper,
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    .MuiAccordionSummary-expandIconWrapper svg {
+    color: var(--bb-ui-text-secondary) !important;
+}
+
+/* Accordion 本身保持透明，讓整個面板共享同一個 Appearance 表面。 */
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".panel"],
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".summary"],
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".details"] {
+    background-color: transparent !important;
+    color: var(--bb-ui-text-primary) !important;
+    border-color: var(--bb-ui-border) !important;
+    box-shadow: none !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".summary"]:hover,
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".summary"]:focus-visible {
+    background-color: var(--bb-ui-surface-hover) !important;
+}
+
+/* 作業項目使用目前主題文字色；overdue 的紅色日期不在此覆蓋範圍。 */
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."] {
+    background-color: transparent !important;
+    color: var(--bb-ui-text-primary) !important;
+    border-color: var(--bb-ui-border) !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."]:hover,
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."]:focus-visible {
+    background-color: var(--bb-ui-surface-hover) !important;
+}
+
+/* MUI Typography 會在子節點直接指定 Blackboard 預設黑色。
+   排除名稱含 Overdue 的語意狀態 class，保留官方紅色／棕色警示。 */
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."]
+    .MuiTypography-root:not([class*="Overdue"]) {
+    color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."] .MuiTypography-body2,
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."] [class*="dueDateDefault"],
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."] [class*="lateWarning"],
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."] svg,
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".details"] > p {
+    color: var(--bb-ui-text-secondary) !important;
+}
+
+/* 日期 badge 和空清單提示需要和面板有一層柔和的表面對比。 */
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    a[data-analytics-id^="student-todo.item."] > div:first-child {
+    background-color: var(--bb-ui-surface) !important;
+    border-color: var(--bb-ui-border) !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".details"] > div:not([class*="Mui"]) {
+    background-color: var(--bb-ui-surface-hover) !important;
+    color: var(--bb-ui-text-secondary) !important;
+}
+
+html.bb-route-courses.bb-theme-nord-snow bb-todo
+    [data-analytics-id$=".details"] > div:not([class*="Mui"]) * {
+    color: inherit !important;
+}
+
+/* =========================================
    3. 左側導航欄容器
    ========================================= */
 .bb-vertical-nav-container {

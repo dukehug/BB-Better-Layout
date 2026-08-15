@@ -23,12 +23,14 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 - Nine reading appearances and customizable keyboard shortcuts
 - Optional device-local custom image for course-page covers
 - Context-aware keyboard search for Courses, Course Content, and Roster pages
+- Appearance-aware styling for Blackboard's official Courses-page To Do panel
 - Device-local Study Note workspace with notebooks, search, quick notes, and JSON/CSV export
 
 ## What you can do with this extension
 - Collapse the Dashboard navigation to icons only and restore it from the footer control without losing your preferred state after a reload.
 - Search courses from the Courses page, course materials from an outline, or members from a Roster using the same shortcut.
 - Choose a comfortable reading appearance.
+- Keep the Courses-page To Do panel visually consistent with the selected reading appearance without losing overdue warning colors.
 - Organize notes into notebooks and capture a quick note from any Blackboard page using a customizable shortcut.
 - Export Study Note data as JSON for backup or CSV for use in a spreadsheet.
 
@@ -37,6 +39,10 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 - v2.10.5 <br> Date: 2026/08/15
 
 ## Changes
+
+Unreleased
+
+- Match Blackboard's official Courses-page To Do panel to every extension Appearance while preserving its overdue status colors.
 
 v2.10.5 - 2026/08/15
 

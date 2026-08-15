@@ -3,6 +3,12 @@
 This file records notable user-facing and maintenance changes to BB Better Layout.
 Release entries use the version from `manifest.json` and the date format `YYYY/MM/DD`.
 
+## Unreleased
+
+- Match Blackboard's official Courses-page To Do panel to the selected Appearance palette.
+- Theme the To Do surface, divider, headings, secondary text, accordion states, assignment hover states, date badges, empty states, and icons with stable semantic selectors.
+- Preserve Blackboard's overdue warning colors while applying readable theme colors to the surrounding item content.
+
 ## v2.10.5 - 2026/08/15
 
 - Add a footer control that collapses the Dashboard main navigation from its full width to a persistent 64px icon rail.

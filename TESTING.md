@@ -44,6 +44,10 @@ Run the full set when changing theme code or theme CSS.
 - [ ] Aqua Reading
 - [ ] Rose Reading
 - [ ] For each reading theme, confirm the main navigation and course navigation use the selected palette with readable hover and active states.
+- [x] On `/ultra/course`, confirm the official To Do panel surface, divider, headings, secondary text, accordion arrows, date badges, and empty states follow each custom Appearance palette.
+- [x] Confirm To Do accordion summaries and assignment links use a readable themed hover and keyboard-focus state.
+- [x] Confirm To Do overdue dates and badge status bars retain Blackboard's warning colors after switching Appearance.
+- [x] Confirm To Do primary and secondary text remain readable in Nord Snow, Paper, Sage, Sky, Lavender, Graphite, Aqua, and Rose.
 - [x] Reload Blackboard and confirm the selected theme persists.
 - [ ] Choose a JPEG, PNG, or WebP course cover in Appearance and confirm it updates all open course pages immediately.
 - [ ] Reload Blackboard and confirm the local course cover persists on this device.
