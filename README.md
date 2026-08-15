@@ -40,14 +40,11 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 
 ## Changes
 
-Unreleased
-
-- Match Blackboard's official Courses-page To Do panel to every extension Appearance while preserving its overdue status colors.
-
 v2.10.5 - 2026/08/15
 
 - Add a Google Material Symbols footer control for switching between the full Dashboard navigation and a 64px icon rail.
 - Keep the panel control at the bottom, remove its visible text label, and hide Blackboard's legal footer links while collapsed.
+-  Match Blackboard's official Courses-page To Do panel to every extension Appearance while preserving its overdue status colors.
 - Prevent incomplete keyboard events or legacy shortcut settings from producing a `toLowerCase()` extension error.
 
 v2.10.4 - 2026/08/13
