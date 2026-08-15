@@ -714,7 +714,85 @@ body.bb-study-note-open nav[role="navigation"][aria-label="Main"]
     text-align: right;
 }
 
+.bb-study-note-markdown-editor {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.bb-study-note-markdown-toolbar {
+    display: flex;
+    min-height: 46px;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--bb-note-border);
+    background: var(--bb-note-soft);
+}
+
+.bb-study-note-markdown-tools,
+.bb-study-note-markdown-tabs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bb-study-note-markdown-tools {
+    flex-wrap: wrap;
+}
+
+#bb-study-note-workspace .bb-study-note-markdown-tools button {
+    display: inline-grid;
+    width: 32px;
+    height: 32px;
+    min-height: 32px;
+    place-items: center;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+    color: var(--bb-note-muted);
+}
+
+#bb-study-note-workspace .bb-study-note-markdown-tools button:hover {
+    border-color: var(--bb-note-border);
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+}
+
+.bb-study-note-markdown-tools .material-icons {
+    font-size: 19px;
+}
+
+.bb-study-note-markdown-tabs {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding: 2px;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 8px;
+    background: var(--bb-note-surface);
+}
+
+#bb-study-note-workspace .bb-study-note-markdown-tabs button {
+    min-height: 30px;
+    padding: 4px 11px;
+    border: 0;
+    background: transparent;
+    color: var(--bb-note-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+#bb-study-note-workspace .bb-study-note-markdown-tabs button[aria-pressed="true"] {
+    background: var(--bb-note-accent);
+    color: #fff;
+}
+
 .bb-study-note-content-label {
+    display: block;
     min-height: 0;
     flex: 1;
 }
@@ -731,6 +809,180 @@ body.bb-study-note-open nav[role="navigation"][aria-label="Main"]
     font-family: "Segoe UI", system-ui, sans-serif;
     font-size: 0.98rem;
     line-height: 1.75;
+    tab-size: 2;
+}
+
+.bb-study-note-markdown-preview {
+    min-height: 430px;
+    flex: 1;
+    padding: 24px 30px 50px;
+    overflow: auto;
+    background: var(--bb-note-surface);
+    color: var(--bb-note-text);
+    font-size: 0.96rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.bb-study-note-markdown-preview > :first-child {
+    margin-top: 0;
+}
+
+.bb-study-note-markdown-preview > :last-child {
+    margin-bottom: 0;
+}
+
+.bb-study-note-markdown-preview h1,
+.bb-study-note-markdown-preview h2,
+.bb-study-note-markdown-preview h3,
+.bb-study-note-markdown-preview h4,
+.bb-study-note-markdown-preview h5,
+.bb-study-note-markdown-preview h6 {
+    margin: 1.25em 0 0.55em;
+    color: var(--bb-note-text) !important;
+    font-family: "Segoe UI", system-ui, sans-serif !important;
+    font-style: normal !important;
+    font-weight: 750 !important;
+    line-height: 1.3 !important;
+    letter-spacing: normal !important;
+}
+
+.bb-study-note-markdown-preview h1 {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--bb-note-border);
+    font-size: 1.75rem !important;
+}
+
+.bb-study-note-markdown-preview h2 {
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid var(--bb-note-border);
+    font-size: 1.4rem !important;
+}
+
+.bb-study-note-markdown-preview h3 { font-size: 1.18rem !important; }
+.bb-study-note-markdown-preview h4 { font-size: 1rem !important; }
+.bb-study-note-markdown-preview h5,
+.bb-study-note-markdown-preview h6 { font-size: 0.88rem !important; }
+
+.bb-study-note-markdown-preview p {
+    margin: 0 0 1em;
+}
+
+.bb-study-note-markdown-preview ul,
+.bb-study-note-markdown-preview ol {
+    margin: 0 0 1em;
+    padding-left: 1.7em;
+}
+
+.bb-study-note-markdown-preview li + li {
+    margin-top: 0.22em;
+}
+
+.bb-study-note-markdown-preview blockquote {
+    margin: 1em 0;
+    padding: 0.35em 1em;
+    border-left: 4px solid var(--bb-note-accent);
+    background: var(--bb-note-soft);
+    color: var(--bb-note-muted);
+}
+
+.bb-study-note-markdown-preview code {
+    padding: 0.12em 0.36em;
+    border-radius: 4px;
+    background: var(--bb-note-soft);
+    color: var(--bb-note-text);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.88em;
+}
+
+.bb-study-note-markdown-preview pre {
+    margin: 1em 0;
+    padding: 14px 16px;
+    overflow: auto;
+    border: 1px solid var(--bb-note-border);
+    border-radius: 8px;
+    background: var(--bb-note-soft);
+}
+
+.bb-study-note-markdown-preview pre code {
+    padding: 0;
+    background: transparent;
+    white-space: pre;
+}
+
+.bb-study-note-markdown-preview a {
+    color: var(--bb-note-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.bb-study-note-markdown-preview hr {
+    height: 1px;
+    margin: 1.4em 0;
+    border: 0;
+    background: var(--bb-note-border);
+}
+
+.bb-study-note-markdown-preview table {
+    width: 100%;
+    margin: 1em 0;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.bb-study-note-markdown-preview th,
+.bb-study-note-markdown-preview td {
+    padding: 7px 9px;
+    border: 1px solid var(--bb-note-border);
+}
+
+.bb-study-note-markdown-preview th {
+    background: var(--bb-note-soft);
+    font-weight: 750;
+}
+
+.bb-study-note-markdown-task {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    list-style: none;
+}
+
+.bb-study-note-markdown-checkbox {
+    display: inline-grid;
+    width: 1.05em;
+    height: 1.05em;
+    flex: 0 0 auto;
+    place-items: center;
+    margin-top: 0.3em;
+    border: 1.5px solid var(--bb-note-muted);
+    border-radius: 3px;
+    background: var(--bb-note-surface);
+}
+
+.bb-study-note-markdown-checkbox[aria-checked="true"] {
+    border-color: var(--bb-note-accent);
+    background: var(--bb-note-accent);
+}
+
+.bb-study-note-markdown-checkbox[aria-checked="true"]::after {
+    content: "✓";
+    color: #fff;
+    font-size: 0.76em;
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* Completed Markdown tasks remain readable while clearly marked as done. */
+.bb-study-note-markdown-checkbox[aria-checked="true"] + span {
+    color: var(--bb-note-muted);
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+}
+
+.bb-study-note-markdown-empty {
+    color: var(--bb-note-muted);
+    font-style: italic;
 }
 
 .bb-study-note-status {

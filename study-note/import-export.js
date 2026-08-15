@@ -1,4 +1,4 @@
-// Study Note - local JSON backup and CSV export.
+// Study Note - local JSON/CSV backup import and export.
 // Import and export use browser files only; no network request is made.
 
 (() => {
@@ -87,6 +87,11 @@
         };
     }
 
+    function normalizeDate(value) {
+        if (typeof value === 'string' && !Number.isNaN(new Date(value).getTime())) return value;
+        return new Date().toISOString();
+    }
+
     function normalizeNote(note, notebookIds, fallbackNotebookId, usedIds) {
         if (!note || typeof note !== 'object') return null;
 
@@ -105,8 +110,8 @@
             title: title || 'Untitled note',
             content,
             notebookId: notebookIds.has(note.notebookId) ? note.notebookId : fallbackNotebookId,
-            createdAt: typeof note.createdAt === 'string' ? note.createdAt : new Date().toISOString(),
-            updatedAt: typeof note.updatedAt === 'string' ? note.updatedAt : new Date().toISOString()
+            createdAt: normalizeDate(note.createdAt),
+            updatedAt: normalizeDate(note.updatedAt)
         };
     }
 
@@ -117,7 +122,7 @@
 
         let parsed;
         try {
-            parsed = JSON.parse(await file.text());
+            parsed = JSON.parse((await file.text()).replace(/^\uFEFF/, ''));
         } catch (error) {
             throw new Error('This file is not valid JSON.');
         }
@@ -151,9 +156,216 @@
         return { notes, notebooks };
     }
 
+    // Parse quoted CSV fields without splitting Markdown content that contains
+    // commas, line breaks, or escaped double quotes.
+    function parseCsv(source) {
+        const text = String(source || '').replace(/^\uFEFF/, '');
+        const rows = [];
+        let row = [];
+        let field = '';
+        let quoted = false;
+
+        for (let index = 0; index < text.length; index += 1) {
+            const character = text[index];
+            if (quoted) {
+                if (character === '"' && text[index + 1] === '"') {
+                    field += '"';
+                    index += 1;
+                } else if (character === '"') {
+                    quoted = false;
+                } else if (character === '\r' && text[index + 1] === '\n') {
+                    field += '\n';
+                    index += 1;
+                } else {
+                    field += character;
+                }
+                continue;
+            }
+
+            if (character === '"' && field.length === 0) {
+                quoted = true;
+            } else if (character === ',') {
+                row.push(field);
+                field = '';
+            } else if (character === '\n' || character === '\r') {
+                row.push(field);
+                rows.push(row);
+                row = [];
+                field = '';
+                if (character === '\r' && text[index + 1] === '\n') index += 1;
+            } else {
+                field += character;
+            }
+        }
+
+        if (quoted) throw new Error('This CSV file contains an unfinished quoted field.');
+        if (field.length > 0 || row.length > 0) {
+            row.push(field);
+            rows.push(row);
+        }
+        return rows;
+    }
+
+    async function readCsvFile(file) {
+        if (!file || file.size > 10 * 1024 * 1024) {
+            throw new Error('Choose a CSV backup smaller than 10 MB.');
+        }
+
+        let rows;
+        try {
+            rows = parseCsv(await file.text());
+        } catch (error) {
+            throw new Error(error.message || 'This file is not valid CSV.');
+        }
+        if (rows.length === 0) throw new Error('This CSV backup is empty.');
+        if (rows.length - 1 > MAX_IMPORT_ITEMS) {
+            throw new Error('This backup contains too many notes.');
+        }
+
+        const headingIndexes = new Map(
+            rows[0].map((heading, index) => [String(heading).trim().toLowerCase(), index])
+        );
+        if (!headingIndexes.has('title') || !headingIndexes.has('content')) {
+            throw new Error('This file is not a Study Note CSV backup.');
+        }
+
+        const notebooks = [];
+        const notebooksByName = new Map();
+        const notebookIds = new Set();
+        const usedNoteIds = new Set();
+        const notes = [];
+        const getCell = (rowData, heading) => {
+            const index = headingIndexes.get(heading);
+            return index === undefined ? '' : String(rowData[index] ?? '');
+        };
+        const getNotebook = rawName => {
+            const name = rawName.trim().slice(0, 80) || 'Quick Notes';
+            const key = name.toLocaleLowerCase();
+            if (notebooksByName.has(key)) return notebooksByName.get(key);
+            if (notebooks.length >= 200) {
+                throw new Error('This backup contains too many notebooks.');
+            }
+
+            const notebook = {
+                id: BBLayout.studyNoteStorage.createId('notebook'),
+                name,
+                createdAt: new Date().toISOString()
+            };
+            notebooks.push(notebook);
+            notebooksByName.set(key, notebook);
+            notebookIds.add(notebook.id);
+            return notebook;
+        };
+
+        rows.slice(1).forEach(rowData => {
+            if (rowData.every(value => !String(value).trim())) return;
+
+            const notebook = getNotebook(getCell(rowData, 'notebook'));
+            const note = normalizeNote({
+                title: getCell(rowData, 'title'),
+                content: getCell(rowData, 'content'),
+                notebookId: notebook.id,
+                createdAt: getCell(rowData, 'created'),
+                updatedAt: getCell(rowData, 'modified')
+            }, notebookIds, notebook.id, usedNoteIds);
+            if (note) notes.push(note);
+        });
+
+        if (notebooks.length === 0) getNotebook('Quick Notes');
+        return { notes, notebooks };
+    }
+
+    async function readBackupFile(file) {
+        const name = String(file?.name || '').toLowerCase();
+        const type = String(file?.type || '').toLowerCase();
+        if (name.endsWith('.csv') || type.includes('csv')) return readCsvFile(file);
+        if (name.endsWith('.json') || type.includes('json')) return readJsonFile(file);
+        throw new Error('Choose a Study Note JSON or CSV backup.');
+    }
+
+    function createUniqueId(prefix, usedIds) {
+        let id;
+        do {
+            id = BBLayout.studyNoteStorage.createId(prefix);
+        } while (usedIds.has(id));
+        usedIds.add(id);
+        return id;
+    }
+
+    // Imported data is appended to current data. Matching notebook names are
+    // reused, while colliding IDs receive a new ID so nothing is overwritten.
+    function appendImportedData(currentNotes, currentNotebooks, importedData) {
+        const notes = Array.isArray(currentNotes) ? [...currentNotes] : [];
+        const notebooks = Array.isArray(currentNotebooks) ? [...currentNotebooks] : [];
+        const usedNoteIds = new Set(notes.map(note => note.id));
+        const usedNotebookIds = new Set(notebooks.map(notebook => notebook.id));
+        const notebooksByName = new Map();
+        const importedNotebookIds = new Map();
+        let addedNotebooks = 0;
+
+        notebooks.forEach(notebook => {
+            const key = String(notebook.name || '').trim().toLocaleLowerCase();
+            if (key && !notebooksByName.has(key)) notebooksByName.set(key, notebook);
+        });
+
+        importedData.notebooks.forEach(importedNotebook => {
+            const key = importedNotebook.name.trim().toLocaleLowerCase();
+            let targetNotebook = notebooksByName.get(key);
+            if (!targetNotebook) {
+                let id = importedNotebook.id;
+                if (!id || usedNotebookIds.has(id)) {
+                    id = createUniqueId('notebook', usedNotebookIds);
+                } else {
+                    usedNotebookIds.add(id);
+                }
+                targetNotebook = { ...importedNotebook, id };
+                notebooks.push(targetNotebook);
+                notebooksByName.set(key, targetNotebook);
+                addedNotebooks += 1;
+            }
+            importedNotebookIds.set(importedNotebook.id, targetNotebook.id);
+        });
+
+        if (notebooks.length === 0) {
+            const notebook = {
+                id: createUniqueId('notebook', usedNotebookIds),
+                name: 'Quick Notes',
+                createdAt: new Date().toISOString()
+            };
+            notebooks.push(notebook);
+            addedNotebooks += 1;
+        }
+
+        const fallbackNotebookId = notebooks[0].id;
+        importedData.notes.forEach(importedNote => {
+            let id = importedNote.id;
+            if (!id || usedNoteIds.has(id)) {
+                id = createUniqueId('note', usedNoteIds);
+            } else {
+                usedNoteIds.add(id);
+            }
+            notes.push({
+                ...importedNote,
+                id,
+                notebookId: importedNotebookIds.get(importedNote.notebookId)
+                    || fallbackNotebookId
+            });
+        });
+
+        return {
+            notes,
+            notebooks,
+            addedNotes: importedData.notes.length,
+            addedNotebooks
+        };
+    }
+
     BBLayout.studyNoteTransfer = {
         downloadJson,
         downloadCsv,
-        readJsonFile
+        readJsonFile,
+        readCsvFile,
+        readBackupFile,
+        appendImportedData
     };
 })();

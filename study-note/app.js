@@ -5,6 +5,7 @@
     const BBLayout = window.BBLayout = window.BBLayout || {};
     const storage = BBLayout.studyNoteStorage;
     const transfer = BBLayout.studyNoteTransfer;
+    const markdown = BBLayout.studyNoteMarkdown;
 
     const state = {
         settingsLoaded: false,
@@ -17,6 +18,7 @@
         selectionMode: false,
         selectedNoteIds: new Set(),
         searchQuery: '',
+        editorMode: 'write',
         editorDirty: false,
         notebookDialogDirty: false,
         lastWorkspaceFocusedElement: null,
@@ -136,11 +138,11 @@
                 </div>
                 <div class="bb-study-note-header-actions">
                     <button type="button" data-action="quick-note">Quick note</button>
-                    <button type="button" data-action="import-json">Import</button>
+                    <button type="button" data-action="import-backup" title="Append a JSON or CSV backup">Import</button>
                     <button type="button" data-action="export-json">JSON</button>
                     <button type="button" data-action="export-csv">CSV</button>
                     <button type="button" class="bb-study-note-close" data-action="close" aria-label="Close Study Note">×</button>
-                    <input id="bb-study-note-import" type="file" accept="application/json,.json" hidden>
+                    <input id="bb-study-note-import" type="file" accept="application/json,text/csv,.json,.csv" hidden>
                 </div>
             </header>
             <div class="bb-study-note-layout">
@@ -223,10 +225,30 @@
                             </label>
                             <span id="bb-study-note-dates"></span>
                         </div>
-                        <label class="bb-study-note-content-label">
-                            <span class="bb-study-note-visually-hidden">Note content</span>
-                            <textarea id="bb-study-note-content" maxlength="50000" placeholder="Start writing your study note…"></textarea>
-                        </label>
+                        <div class="bb-study-note-markdown-editor">
+                            <div class="bb-study-note-markdown-toolbar" role="toolbar" aria-label="Markdown formatting">
+                                <div class="bb-study-note-markdown-tools">
+                                    <button type="button" data-action="markdown-format" data-markdown="heading" title="Heading" aria-label="Insert heading"><span class="material-icons" aria-hidden="true">title</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="bold" title="Bold (Ctrl+B)" aria-label="Bold"><span class="material-icons" aria-hidden="true">format_bold</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="italic" title="Italic (Ctrl+I)" aria-label="Italic"><span class="material-icons" aria-hidden="true">format_italic</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="bullet-list" title="Bulleted list" aria-label="Insert bulleted list"><span class="material-icons" aria-hidden="true">format_list_bulleted</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="numbered-list" title="Numbered list" aria-label="Insert numbered list"><span class="material-icons" aria-hidden="true">format_list_numbered</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="quote" title="Quote" aria-label="Insert quote"><span class="material-icons" aria-hidden="true">format_quote</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="inline-code" title="Inline code" aria-label="Insert inline code"><span class="material-icons" aria-hidden="true">code</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="code-block" title="Code block" aria-label="Insert code block"><span class="material-icons" aria-hidden="true">data_object</span></button>
+                                    <button type="button" data-action="markdown-format" data-markdown="link" title="Link (Ctrl+K)" aria-label="Insert link"><span class="material-icons" aria-hidden="true">link</span></button>
+                                </div>
+                                <div class="bb-study-note-markdown-tabs" role="group" aria-label="Editor view">
+                                    <button type="button" data-action="markdown-write" aria-pressed="true">Write</button>
+                                    <button type="button" data-action="markdown-preview" aria-pressed="false">Preview</button>
+                                </div>
+                            </div>
+                            <label class="bb-study-note-content-label">
+                                <span class="bb-study-note-visually-hidden">Markdown note content</span>
+                                <textarea id="bb-study-note-content" maxlength="50000" placeholder="Write Markdown here…"></textarea>
+                            </label>
+                            <article id="bb-study-note-markdown-preview" class="bb-study-note-markdown-preview" aria-label="Markdown preview" tabindex="0" hidden></article>
+                        </div>
                     </form>
                 </main>
             </div>
@@ -269,6 +291,8 @@
         editor.addEventListener('submit', saveEditorNote);
         editor.addEventListener('input', markEditorDirty);
         editor.addEventListener('change', markEditorDirty);
+        workspace.querySelector('#bb-study-note-content')
+            .addEventListener('keydown', handleMarkdownShortcut);
         const notebookForm = workspace.querySelector('#bb-study-note-notebook-form');
         notebookForm.addEventListener('submit', saveNotebookFromDialog);
         notebookForm.addEventListener('input', () => {
@@ -292,7 +316,10 @@
             'delete-note': deleteSelectedNote,
             'toggle-note-selection': toggleNoteSelectionMode,
             'delete-selected-notes': deleteSelectedNotes,
-            'import-json': () => workspace.querySelector('#bb-study-note-import').click(),
+            'markdown-format': () => applyMarkdownFormat(actionButton.dataset.markdown),
+            'markdown-write': () => setMarkdownMode('write'),
+            'markdown-preview': () => setMarkdownMode('preview'),
+            'import-backup': () => workspace.querySelector('#bb-study-note-import').click(),
             'export-json': exportJson,
             'export-csv': exportCsv,
             'close': requestCloseWorkspace
@@ -303,6 +330,118 @@
 
     function markEditorDirty() {
         state.editorDirty = true;
+    }
+
+    // ----- Markdown editor controls -----
+
+    function renderMarkdownPreview() {
+        const preview = workspace?.querySelector('#bb-study-note-markdown-preview');
+        const textarea = workspace?.querySelector('#bb-study-note-content');
+        if (!preview || !textarea) return;
+        markdown.render(preview, textarea.value);
+    }
+
+    function setMarkdownMode(mode) {
+        if (!workspace) return;
+
+        state.editorMode = mode === 'preview' ? 'preview' : 'write';
+        const writeMode = state.editorMode === 'write';
+        const contentLabel = workspace.querySelector('.bb-study-note-content-label');
+        const preview = workspace.querySelector('#bb-study-note-markdown-preview');
+        const writeButton = workspace.querySelector('[data-action="markdown-write"]');
+        const previewButton = workspace.querySelector('[data-action="markdown-preview"]');
+
+        contentLabel.hidden = !writeMode;
+        preview.hidden = writeMode;
+        writeButton.setAttribute('aria-pressed', String(writeMode));
+        previewButton.setAttribute('aria-pressed', String(!writeMode));
+        if (!writeMode) renderMarkdownPreview();
+    }
+
+    function replaceMarkdownSelection(prefix, suffix, placeholder) {
+        const textarea = workspace.querySelector('#bb-study-note-content');
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selected = textarea.value.slice(start, end) || placeholder;
+        const replacement = `${prefix}${selected}${suffix}`;
+        textarea.setRangeText(replacement, start, end, 'end');
+        textarea.setSelectionRange(start + prefix.length, start + prefix.length + selected.length);
+        textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        textarea.focus();
+    }
+
+    function prefixMarkdownLines(prefixType) {
+        const textarea = workspace.querySelector('#bb-study-note-content');
+        const value = textarea.value;
+        const selectionStart = textarea.selectionStart;
+        const selectionEnd = textarea.selectionEnd;
+        const lineStart = value.lastIndexOf('\n', Math.max(0, selectionStart - 1)) + 1;
+        const nextBreak = value.indexOf('\n', selectionEnd);
+        const lineEnd = nextBreak === -1 ? value.length : nextBreak;
+        const selectedLines = value.slice(lineStart, lineEnd).split('\n');
+        const transformed = selectedLines.map((line, index) => {
+            if (prefixType === 'numbered-list') return `${index + 1}. ${line}`;
+            if (prefixType === 'bullet-list') return `- ${line}`;
+            if (prefixType === 'quote') return `> ${line}`;
+            return `## ${line}`;
+        }).join('\n');
+
+        textarea.setRangeText(transformed, lineStart, lineEnd, 'select');
+        textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        textarea.focus();
+    }
+
+    function insertMarkdownLink() {
+        const textarea = workspace.querySelector('#bb-study-note-content');
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selectedText = textarea.value.slice(start, end);
+        const selectedUrl = selectedText.trim();
+        const selectionIsUrl = /^(https?:\/\/|mailto:)[^\s]+$/i.test(selectedUrl)
+            && markdown.isSafeUrl(selectedUrl);
+        const label = selectionIsUrl ? 'link text' : selectedText || 'link text';
+        const url = selectionIsUrl ? selectedUrl : 'https://';
+        const replacement = `[${label}](${url})`;
+        textarea.setRangeText(replacement, start, end, 'end');
+
+        // A selected URL already supplies the destination, so select the label.
+        // Otherwise select the placeholder URL, preserving the original workflow.
+        const editableStart = selectionIsUrl ? start + 1 : start + label.length + 3;
+        const editableLength = selectionIsUrl ? label.length : url.length;
+        textarea.setSelectionRange(editableStart, editableStart + editableLength);
+        textarea.dispatchEvent(new Event('input', { bubbles: true }));
+        textarea.focus();
+    }
+
+    function applyMarkdownFormat(format) {
+        setMarkdownMode('write');
+        const formatters = {
+            heading: () => prefixMarkdownLines('heading'),
+            bold: () => replaceMarkdownSelection('**', '**', 'bold text'),
+            italic: () => replaceMarkdownSelection('*', '*', 'italic text'),
+            'bullet-list': () => prefixMarkdownLines('bullet-list'),
+            'numbered-list': () => prefixMarkdownLines('numbered-list'),
+            quote: () => prefixMarkdownLines('quote'),
+            'inline-code': () => replaceMarkdownSelection('`', '`', 'code'),
+            'code-block': () => replaceMarkdownSelection('```\n', '\n```', 'code'),
+            link: insertMarkdownLink
+        };
+        formatters[format]?.();
+    }
+
+    function handleMarkdownShortcut(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            replaceMarkdownSelection('  ', '', '');
+            return;
+        }
+        if (!(event.metaKey || event.ctrlKey) || event.altKey) return;
+
+        const shortcuts = { b: 'bold', i: 'italic', k: 'link' };
+        const format = shortcuts[event.key.toLowerCase()];
+        if (!format) return;
+        event.preventDefault();
+        applyMarkdownFormat(format);
     }
 
     function confirmDiscardChanges() {
@@ -437,7 +576,7 @@
 
         content.className = 'bb-study-note-list-item-content';
         title.textContent = note.title || 'Untitled note';
-        preview.textContent = note.content.trim() || 'Empty note';
+        preview.textContent = markdown.toPlainText(note.content) || 'Empty note';
         metadata.textContent = `Modified ${formatDate(note.updatedAt, true)}`;
         content.append(title, preview, metadata);
         button.appendChild(content);
@@ -523,6 +662,7 @@
         fillNotebookSelect(workspace.querySelector('#bb-study-note-notebook'), note.notebookId);
         workspace.querySelector('#bb-study-note-dates').textContent =
             `Created ${formatDate(note.createdAt)} · Modified ${formatDate(note.updatedAt, true)}`;
+        setMarkdownMode(state.editorMode);
         state.editorDirty = false;
     }
 
@@ -636,6 +776,7 @@
 
         state.notes = [note, ...state.notes];
         state.selectedNoteId = note.id;
+        state.editorMode = 'write';
         state.editorDirty = false;
         await persistNotes('New note created.');
         workspace.querySelector('#bb-study-note-title')?.select();
@@ -848,7 +989,7 @@
                     </label>
                     <label>
                         <span>Note</span>
-                        <textarea id="bb-study-note-quick-content" maxlength="50000" rows="9" placeholder="Write your note here…"></textarea>
+                        <textarea id="bb-study-note-quick-content" maxlength="50000" rows="9" placeholder="Write your note in Markdown…"></textarea>
                     </label>
                     <div class="bb-study-note-quick-actions">
                         <span>Your note stays on this device.</span>
@@ -1006,21 +1147,30 @@
         if (!file) return;
 
         try {
-            const importedData = await transfer.readJsonFile(file);
+            const importedData = await transfer.readBackupFile(file);
+            const appendedData = transfer.appendImportedData(
+                state.notes,
+                state.notebooks,
+                importedData
+            );
+            const unsavedWarning = state.editorDirty || state.notebookDialogDirty
+                ? ' Unsaved edits in the open editor will be discarded.'
+                : '';
             const confirmed = window.confirm(
-                `Import ${importedData.notes.length} note(s)? This replaces the notes currently stored in Study Note.`
+                `Append ${appendedData.addedNotes} note(s) and ${appendedData.addedNotebooks} new notebook(s)? Your existing Study Note data will be kept.${unsavedWarning}`
             );
             if (!confirmed) return;
 
-            await storage.saveData(importedData.notes, importedData.notebooks);
-            state.notes = importedData.notes;
-            state.notebooks = importedData.notebooks;
+            await storage.saveData(appendedData.notes, appendedData.notebooks);
+            state.notes = appendedData.notes;
+            state.notebooks = appendedData.notebooks;
             state.activeNotebookId = 'all';
-            state.selectedNoteId = null;
             state.editorDirty = false;
+            state.notebookDialogDirty = false;
+            closeNotebookDialog();
             resetNoteSelection();
             renderWorkspace();
-            showStatus(`Imported ${state.notes.length} note(s).`);
+            showStatus(`Added ${appendedData.addedNotes} note(s). Existing notes were kept.`);
         } catch (error) {
             showStatus(error.message, true);
         } finally {

@@ -1,4 +1,4 @@
-// Study Note - device-local persistence and one-time Todo data migration.
+// Study Note - device-local persistence and one-time data migrations.
 // Notes never leave chrome.storage.local.
 
 (() => {
@@ -8,6 +8,8 @@
     const ENABLED_KEY = 'bbStudyNoteEnabled';
     const LEGACY_TASKS_KEY = 'bbTodoItems';
     const LEGACY_ENABLED_KEY = 'bbTodoEnabled';
+    const MARKDOWN_GUIDE_KEY = 'bbStudyNoteMarkdownGuideCreated';
+    const MARKDOWN_GUIDE_ID = 'markdown-writing-guide-v1';
 
     function getLocalStorage(keys) {
         return new Promise((resolve, reject) => {
@@ -64,6 +66,50 @@
         ];
     }
 
+    function createMarkdownGuide(notebookId) {
+        const createdAt = new Date().toISOString();
+        return {
+            id: MARKDOWN_GUIDE_ID,
+            title: 'Markdown Writing Example',
+            notebookId,
+            createdAt,
+            updatedAt: createdAt,
+            content: [
+                '# Markdown Writing Example',
+                '',
+                'Use **bold**, *italic*, and ~~strikethrough~~ text.',
+                '',
+                '## Lists and tasks',
+                '',
+                '- Bullet item',
+                '- [ ] Todo item',
+                '- [x] Completed item',
+                '',
+                '1. First step',
+                '2. Second step',
+                '',
+                '## Quote',
+                '',
+                '> Keep an important idea here.',
+                '',
+                '## Link and code',
+                '',
+                '[Example link](https://example.com)',
+                '',
+                'Use `inline code` or a code block:',
+                '',
+                '```js',
+                "console.log('Study Note');",
+                '```',
+                '',
+                '| Syntax | Purpose |',
+                '| --- | --- |',
+                '| `#` | Heading |',
+                '| `- [ ]` | Todo item |'
+            ].join('\n')
+        };
+    }
+
     function migrateLegacyTasks(tasks, notebookId) {
         return tasks.map(task => {
             const details = [];
@@ -87,7 +133,8 @@
             NOTEBOOKS_KEY,
             ENABLED_KEY,
             LEGACY_TASKS_KEY,
-            LEGACY_ENABLED_KEY
+            LEGACY_ENABLED_KEY,
+            MARKDOWN_GUIDE_KEY
         ]);
 
         const legacyKeysToRemove = [LEGACY_TASKS_KEY, LEGACY_ENABLED_KEY]
@@ -123,6 +170,28 @@
                 notes = [];
             }
             valuesToSave[NOTES_KEY] = notes;
+        }
+
+        // Seed one local example for both existing and new installations. The
+        // marker prevents a deliberately deleted example from being recreated.
+        if (data[MARKDOWN_GUIDE_KEY] !== true) {
+            let quickNotes = notebooks.find(notebook => notebook.id === 'quick-notes')
+                || notebooks.find(notebook => notebook.name === 'Quick Notes');
+            if (!quickNotes) {
+                quickNotes = {
+                    id: 'quick-notes',
+                    name: 'Quick Notes',
+                    createdAt: new Date().toISOString()
+                };
+                notebooks = [quickNotes, ...notebooks];
+                valuesToSave[NOTEBOOKS_KEY] = notebooks;
+            }
+
+            if (!notes.some(note => note.id === MARKDOWN_GUIDE_ID)) {
+                notes = [createMarkdownGuide(quickNotes.id), ...notes];
+                valuesToSave[NOTES_KEY] = notes;
+            }
+            valuesToSave[MARKDOWN_GUIDE_KEY] = true;
         }
 
         const enabled = typeof data[ENABLED_KEY] === 'boolean'
