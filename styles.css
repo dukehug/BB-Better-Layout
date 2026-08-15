@@ -446,6 +446,14 @@ nav[role="navigation"][aria-label="Main"] :is(a, button)[aria-current="page"],
     transition: width 0.22s ease, min-width 0.22s ease !important;
 }
 
+/* Up to six user-defined links can extend the main navigation. Keep the nav
+   itself scrollable so every native and custom destination remains reachable. */
+.bb-global-nav {
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
 .bb-global-nav-toggle {
     width: 100% !important;
     min-height: 44px !important;

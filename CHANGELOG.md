@@ -5,6 +5,15 @@ Release entries use the version from `manifest.json` and the date format `YYYY/M
 
 ## Unreleased
 
+## v2.11.0 - 2026/08/15
+
+- Replace the previously hard-coded sidebar destinations with user-defined external links.
+- Add an options-page switch that hides or shows custom links without deleting their saved configuration.
+- Let users add, edit, and remove up to six external destinations with a name, HTTP(S) URL, and Google Material icon.
+- Validate stored and submitted links, reject non-HTTP(S) destinations, and open accepted links in a separate tab with opener isolation.
+- Update custom links immediately when synchronized extension settings change, including during Blackboard SPA navigation.
+- Keep the Dashboard navigation scrollable when additional links exceed the available viewport height.
+- Bundle the Apache-2.0 Google Material Icons font locally for the options-page icon picker.
 - Match Blackboard's official Courses-page To Do panel to the selected Appearance palette.
 - Theme the To Do surface, divider, headings, secondary text, accordion states, assignment hover states, date badges, empty states, and icons with stable semantic selectors.
 - Preserve Blackboard's overdue warning colors while applying readable theme colors to the surrounding item content.
@@ -29,7 +38,7 @@ Release entries use the version from `manifest.json` and the date format `YYYY/M
 
 ## v2.10.2 - 2026/08/13
 
-- Align Study Note, Schedule App, Outlook, AdU Live, and AdU Calendar labels in the main navigation.
+- Align Study Note and extension-provided navigation labels in the main navigation.
 - Remove hard-coded non-breaking spaces from custom navigation labels and rely on shared icon spacing.
 
 ## v2.10.1 - 2026/08/13

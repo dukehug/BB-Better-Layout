@@ -314,6 +314,7 @@
     #status-msg.success { color: #1e8e3e; }
     #status-msg.error   { color: #d93025; }
   </style>
+  <link rel="stylesheet" href="custom-links/options.css">
   <link rel="stylesheet" href="study-note/options.css">
 </head>
 <body>
@@ -380,6 +381,39 @@
     </div>
   </div>
 
+  <!-- ========== 自訂外部連結卡片 ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>🔗 Custom External Links</h2>
+      <p>Add your own destinations to Blackboard's main side panel</p>
+    </div>
+    <form id="custom-links-form" novalidate>
+      <div class="card-body">
+        <div class="custom-links-heading">
+          <div>
+            <strong>Show Custom Links</strong>
+            <p>Turn the group on or off without deleting the links you have saved.</p>
+          </div>
+          <label class="custom-links-toggle">
+            <input id="custom-links-enabled" type="checkbox">
+            <span class="custom-links-toggle-track" aria-hidden="true"></span>
+            <span id="custom-links-toggle-label" class="custom-links-toggle-label">Disabled</span>
+          </label>
+        </div>
+        <div class="hint custom-links-hint">
+          Add up to 6 links. Only complete <strong>http://</strong> or <strong>https://</strong> URLs are accepted, and each destination opens in a new tab.
+        </div>
+        <div id="custom-links-list" class="custom-links-list" aria-live="polite"></div>
+      </div>
+      <div class="card-footer custom-links-footer">
+        <button id="custom-link-add" class="btn btn-ghost" type="button">Add Link</button>
+        <span id="custom-links-counter" class="custom-links-counter">0 / 6</span>
+        <button class="btn btn-primary" type="submit">Save External Links</button>
+        <p id="custom-links-status" class="custom-links-status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+
   <!-- ========== 快捷鍵卡片 ========== -->
   <div class="card">
     <div class="card-header">
@@ -412,7 +446,9 @@
     </div>
   </div>
 
+  <script src="custom-links/config.js"></script>
   <script src="options.js"></script>
+  <script src="custom-links/options.js"></script>
   <script src="study-note/options.js"></script>
 </body>
 </html>

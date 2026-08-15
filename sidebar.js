@@ -4,9 +4,13 @@
 (() => {
     const BBLayout = window.BBLayout = window.BBLayout || {};
     const GLOBAL_NAV_COLLAPSED_KEY = 'bbGlobalNavCollapsed';
+    const customLinksApi = BBLayout.customLinks;
 
     let isGlobalNavCollapsed = false;
     let globalNavPreferenceRequested = false;
+    let customLinksConfig = customLinksApi.normalizeConfig();
+    let customLinksPreferenceRequested = false;
+    let customLinksStorageListenerBound = false;
 
     function getCleanNavText(element) {
         const clone = element.cloneNode(true);
@@ -215,36 +219,82 @@
         });
     }
 
-    function appendCustomLinks(container) {
-        if (container.querySelector('.bb-external-quick-link')) return;
+    function syncQuickLinkSpacing(container) {
+        const utilityItems = container.querySelectorAll(
+            '.bb-study-note-nav-button, .bb-external-quick-link'
+        );
 
-        // Labels contain no manual spacing. The shared .bb-nav-icon margin keeps
-        // these links aligned with the separately injected Study Note button.
-        const linksConfig = [
-            { text: "Schedule App", url: "https://weekly.52hz.im/", icon: "view_timeline" },
-            { text: "Outlook", url: "https://outlook.cloud.microsoft/mail/", icon: "mail" },
-            { text: "AdU Live", url: "https://live.adamson.edu.ph", icon: "school" },
-            { text: "AdU Calendar", url: "https://www.adamson.edu.ph/v1/?page=academic-calendar", icon: "event" }
-        ];
+        utilityItems.forEach((item, index) => {
+            item.style.marginTop = index === 0 ? 'auto' : '';
+        });
+    }
 
-        linksConfig.forEach((config, index) => {
-            const link = document.createElement('a');
-            link.href = config.url;
-            link.className = 'bb-custom-bottom-link bb-external-quick-link';
-            link.target = "_blank";
-            link.rel = 'noopener noreferrer';
-            link.setAttribute('aria-label', config.text);
-            link.title = config.text;
+    function renderCustomLinks(container) {
+        const renderSignature = JSON.stringify(customLinksConfig);
 
-            if (index === 0) link.style.marginTop = "auto";
+        // The page-wide MutationObserver calls this module frequently. Only touch
+        // the DOM when storage has actually changed, preventing render loops.
+        if (container.dataset.bbCustomLinksSignature !== renderSignature) {
+            container
+                .querySelectorAll('.bb-external-quick-link')
+                .forEach(link => link.remove());
 
-            const icon = document.createElement('span');
-            icon.className = 'material-icons bb-nav-icon';
-            icon.innerText = config.icon;
+            if (customLinksConfig.enabled) {
+                customLinksConfig.links.forEach(config => {
+                    const link = document.createElement('a');
+                    link.href = config.url;
+                    link.className = 'bb-custom-bottom-link bb-external-quick-link';
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.setAttribute('aria-label', config.name);
+                    link.title = config.name;
 
-            link.appendChild(icon);
-            link.appendChild(document.createTextNode(config.text));
-            container.appendChild(link);
+                    const icon = document.createElement('span');
+                    icon.className = 'material-icons bb-nav-icon';
+                    icon.textContent = config.icon;
+
+                    link.appendChild(icon);
+                    link.appendChild(document.createTextNode(config.name));
+                    container.appendChild(link);
+                });
+            }
+
+            container.dataset.bbCustomLinksSignature = renderSignature;
+        }
+
+        // Study Note is rendered by a separate module and may appear after the
+        // custom links, so recompute the first bottom item's flexible spacing.
+        syncQuickLinkSpacing(container);
+    }
+
+    function requestCustomLinksPreference() {
+        if (customLinksPreferenceRequested) return;
+        customLinksPreferenceRequested = true;
+
+        chrome.storage.sync.get(customLinksApi.STORAGE_KEY, data => {
+            if (!chrome.runtime.lastError) {
+                customLinksConfig = customLinksApi.normalizeConfig(
+                    data[customLinksApi.STORAGE_KEY]
+                );
+            }
+
+            handleGlobalNav();
+        });
+    }
+
+    function bindCustomLinksStorageListener() {
+        if (customLinksStorageListenerBound) return;
+        customLinksStorageListenerBound = true;
+
+        chrome.storage.onChanged.addListener((changes, areaName) => {
+            if (areaName !== 'sync' || !changes[customLinksApi.STORAGE_KEY]) {
+                return;
+            }
+
+            customLinksConfig = customLinksApi.normalizeConfig(
+                changes[customLinksApi.STORAGE_KEY].newValue
+            );
+            handleGlobalNav();
         });
     }
 
@@ -270,13 +320,15 @@
         navContainer.style.flexDirection = 'column';
         navContainer.style.height = '100%';
         ensureGlobalNavToggle(navContainer, footer);
-        appendCustomLinks(navContainer);
+        renderCustomLinks(navContainer);
         addGlobalNavItemLabels(navContainer);
         applyGlobalNavState();
     }
 
     function run() {
         loadGlobalNavPreference();
+        requestCustomLinksPreference();
+        bindCustomLinksStorageListener();
         handleCoursesNav();
         handleGlobalNav();
     }

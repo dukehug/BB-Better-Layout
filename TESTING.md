@@ -1,6 +1,6 @@
 # Manual Testing
 
-BB Better Layout has no automated browser test suite. Run this checklist against `https://adamson.blackboard.com/` after loading the extension as an unpacked extension in Chrome.
+BB Better Layout has no automated browser test suite. Run this checklist against the supported Blackboard Ultra deployment after loading the extension as an unpacked extension in Chrome.
 
 Record the Chrome version, extension version, test date, and any failed page or selector when reporting results.
 
@@ -19,16 +19,29 @@ These checks mirror the required self-test steps in `AGENT.md`.
 
 - [x] Move between Activity, Courses, and a single course without a full page reload; confirm enhancements reappear after each route change.
 - [x] Return from a single course to a global page and confirm stale vertical-course-navigation spacing or classes are removed.
-- [x] Confirm the global navigation contains Schedule App, Outlook, AdU Live, and AdU Calendar only once.
+- [x] With custom links enabled, confirm each saved destination appears in the global navigation only once.
 - [x] Confirm the Dashboard footer control is the final sidebar item, below Privacy, Terms, and Accessibility when the panel is expanded.
 - [x] Confirm the footer control shows the Google Material Symbols `right_panel_close` and `right_panel_open` icons without a visible text label.
 - [x] Collapse the Dashboard navigation and confirm it becomes a 64px rail while native, Study Note, and external-link icons remain visible and aligned.
 - [x] Confirm Privacy, Terms, and Accessibility are hidden while collapsed and the open-panel icon remains at the bottom edge.
 - [x] Reopen the navigation and confirm labels, legal links, the 200px panel width, and the original content offset are restored.
 - [x] Reload Blackboard and move between SPA routes; confirm the selected expanded or collapsed state persists.
-- [ ] Confirm Study Note and all four custom navigation labels share the same left alignment.
+- [x] Confirm Study Note and custom external-link labels share the same left alignment.
 - [x] Confirm custom links open in a new tab and the original Blackboard tab stays open.
 - [x] Confirm there are no new errors from the extension in the page console during navigation.
+
+## Custom external-link checks
+
+- [x] Open the options page and confirm Custom External Links loads the saved enabled state and link rows.
+- [x] Add `Learning Portal`, `https://example.com`, and the School Material icon; save and confirm the link appears in Blackboard's main navigation.
+- [x] Change a selected Material icon and confirm both its options-page preview and sidebar glyph update.
+- [x] Confirm the Add Link control becomes disabled at six rows and synchronized storage never renders more than six links.
+- [x] Try an empty name, malformed URL, `javascript:`, `data:`, and `file:` destination; confirm saving is rejected with an inline error.
+- [x] Disable custom links and confirm all saved destinations disappear while their options-page rows remain available.
+- [x] Re-enable custom links and confirm the previously saved destinations return without being re-entered.
+- [x] Remove a link, save, and confirm the sidebar updates without leaving a duplicate or stale destination.
+- [x] Confirm each external link opens in a new tab with `noopener noreferrer` and leaves the Blackboard tab open.
+- [x] On a short viewport with six links, confirm the main navigation remains scrollable and all destinations are reachable.
 
 ## Theme checks
 
@@ -109,7 +122,7 @@ Run the full set when changing theme code or theme CSS.
 
 ## Privacy and permissions check
 
-- [x] Confirm `content_scripts.matches` remains limited to `https://adamson.blackboard.com/*`.
+- [x] Confirm `content_scripts.matches` remains limited to the intended Blackboard Ultra deployment.
 - [x] Confirm no new extension permissions or host permissions were added unintentionally.
 - [x] Confirm no Blackboard DOM content, cookies, session data, grades, or submissions are sent to an external service.
 - [ ] Confirm Study Note data uses `chrome.storage.local` only and import/export performs no network request.
