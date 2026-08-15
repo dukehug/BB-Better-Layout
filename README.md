@@ -17,7 +17,7 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 
 ## Features
 
-- Side navigation bar
+- Collapsible Dashboard side navigation with a persistent 64px icon rail
 - Simple subject banner
 - Back to top button
 - Nine reading appearances and customizable keyboard shortcuts
@@ -26,6 +26,7 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 - Device-local Study Note workspace with notebooks, search, quick notes, and JSON/CSV export
 
 ## What you can do with this extension
+- Collapse the Dashboard navigation to icons only and restore it from the footer control without losing your preferred state after a reload.
 - Search courses from the Courses page, course materials from an outline, or members from a Roster using the same shortcut.
 - Choose a comfortable reading appearance.
 - Organize notes into notebooks and capture a quick note from any Blackboard page using a customizable shortcut.
@@ -33,9 +34,15 @@ This is an independent student project. It is not affiliated with, endorsed by, 
 
 
 ## Version
-- v2.10.4 <br> Date: 2026/08/13
+- v2.10.5 <br> Date: 2026/08/15
 
 ## Changes
+
+v2.10.5 - 2026/08/15
+
+- Add a Google Material Symbols footer control for switching between the full Dashboard navigation and a 64px icon rail.
+- Keep the panel control at the bottom, remove its visible text label, and hide Blackboard's legal footer links while collapsed.
+- Prevent incomplete keyboard events or legacy shortcut settings from producing a `toLowerCase()` extension error.
 
 v2.10.4 - 2026/08/13
 

@@ -3,6 +3,15 @@
 This file records notable user-facing and maintenance changes to BB Better Layout.
 Release entries use the version from `manifest.json` and the date format `YYYY/MM/DD`.
 
+## v2.10.5 - 2026/08/15
+
+- Add a footer control that collapses the Dashboard main navigation from its full width to a persistent 64px icon rail.
+- Use Google Material Symbols `right_panel_open` and `right_panel_close` for the navigation control without a visible text label.
+- Keep native and extension navigation icons available while the panel is collapsed, and expand the Dashboard content into the released space.
+- Hide Privacy, Terms, and Accessibility while the navigation is collapsed, with the open-panel control remaining at the bottom edge.
+- Remember the collapsed navigation preference in device-local extension storage across page reloads and Blackboard SPA navigation.
+- Ignore incomplete synthetic keyboard events and malformed legacy shortcut settings instead of raising an `undefined.toLowerCase()` extension error.
+
 ## v2.10.4 - 2026/08/13
 
 - Keep the desktop main navigation above the Study Note workspace so its right-edge shadow remains visible.

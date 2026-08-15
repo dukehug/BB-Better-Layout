@@ -20,6 +20,12 @@ These checks mirror the required self-test steps in `AGENT.md`.
 - [x] Move between Activity, Courses, and a single course without a full page reload; confirm enhancements reappear after each route change.
 - [x] Return from a single course to a global page and confirm stale vertical-course-navigation spacing or classes are removed.
 - [x] Confirm the global navigation contains Schedule App, Outlook, AdU Live, and AdU Calendar only once.
+- [x] Confirm the Dashboard footer control is the final sidebar item, below Privacy, Terms, and Accessibility when the panel is expanded.
+- [x] Confirm the footer control shows the Google Material Symbols `right_panel_close` and `right_panel_open` icons without a visible text label.
+- [x] Collapse the Dashboard navigation and confirm it becomes a 64px rail while native, Study Note, and external-link icons remain visible and aligned.
+- [x] Confirm Privacy, Terms, and Accessibility are hidden while collapsed and the open-panel icon remains at the bottom edge.
+- [x] Reopen the navigation and confirm labels, legal links, the 200px panel width, and the original content offset are restored.
+- [x] Reload Blackboard and move between SPA routes; confirm the selected expanded or collapsed state persists.
 - [ ] Confirm Study Note and all four custom navigation labels share the same left alignment.
 - [x] Confirm custom links open in a new tab and the original Blackboard tab stays open.
 - [x] Confirm there are no new errors from the extension in the page console during navigation.
@@ -50,6 +56,7 @@ Run the full set when changing theme code or theme CSS.
 ## Keyboard shortcut checks
 
 - [x] Open the extension options and save a custom shortcut containing at least one modifier key.
+- [x] Confirm incomplete synthetic keydown events and malformed legacy shortcut values do not add an `undefined.toLowerCase()` extension error.
 - [ ] Assign a shortcut already used by another extension action and confirm it is rejected with a conflict warning.
 - [ ] Confirm the settings hint reminds users about browser, operating-system, and Blackboard shortcut conflicts.
 - [x] On `/ultra/course`, trigger course search and confirm its dialog opens with the search input focused.
