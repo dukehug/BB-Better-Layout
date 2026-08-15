@@ -221,7 +221,7 @@
 
     function syncQuickLinkSpacing(container) {
         const utilityItems = container.querySelectorAll(
-            '.bb-study-note-nav-button, .bb-external-quick-link'
+            '.bb-weekly-schedule-nav-button, .bb-study-note-nav-button, .bb-external-quick-link'
         );
 
         utilityItems.forEach((item, index) => {
@@ -262,7 +262,7 @@
             container.dataset.bbCustomLinksSignature = renderSignature;
         }
 
-        // Study Note is rendered by a separate module and may appear after the
+        // Utility features are rendered by separate modules and may appear after
         // custom links, so recompute the first bottom item's flexible spacing.
         syncQuickLinkSpacing(container);
     }

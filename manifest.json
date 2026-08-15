@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "BB Better Layout",
-  "version": "2.11.0",
-  "description": "Improve Blackboard Ultra with cleaner navigation, course banners, reading themes, shortcuts, study notes, and custom links.",
+  "version": "2.12.1",
+  "description": "Improve Blackboard Ultra with cleaner navigation, course banners, themes, schedules, study notes, shortcuts, and custom links.",
   "permissions": ["storage"],
   "icons":{
     "16":"icons/bbicon_16x16.png",
@@ -21,13 +21,22 @@
   "content_scripts": [
     {
       "matches": ["https://*.blackboard.com/*"],
-      "css": ["styles.css", "study-note/study-note.css"],
+      "css": [
+        "styles.css",
+        "weekly-schedule/weekly-schedule.css",
+        "study-note/study-note.css"
+      ],
       "js": [
         "shortcuts.js",
         "utils.js",
         "custom-links/config.js",
+        "weekly-schedule/storage.js",
+        "weekly-schedule/import.js",
+        "weekly-schedule/calendar.js",
+        "weekly-schedule/app.js",
         "study-note/storage.js",
         "study-note/import-export.js",
+        "study-note/markdown.js",
         "study-note/app.js",
         "theme.js",
         "course-cover.js",

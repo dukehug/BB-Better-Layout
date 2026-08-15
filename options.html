@@ -315,6 +315,7 @@
     #status-msg.error   { color: #d93025; }
   </style>
   <link rel="stylesheet" href="custom-links/options.css">
+  <link rel="stylesheet" href="weekly-schedule/options.css">
   <link rel="stylesheet" href="study-note/options.css">
 </head>
 <body>
@@ -333,7 +334,7 @@
       <div class="course-cover-setting">
         <div class="course-cover-heading">
           <strong>Custom Course Cover</strong>
-          <p>Choose one local image for all course pages. It stays on this device and is never uploaded.</p>
+          <p>Choose one local image for all course pages. It stays on this device and is never uploaded. </p>
         </div>
         <div
           class="course-cover-preview"
@@ -369,7 +370,7 @@
           <p>Add Study Note to Blackboard's main navigation and enable its global shortcut.</p>
         </div>
         <label class="study-note-toggle">
-          <input id="study-note-enabled" type="checkbox">
+          <input id="study-note-enabled" type="checkbox" checked>
           <span aria-hidden="true"></span>
           <span class="study-note-toggle-label">Enabled</span>
         </label>
@@ -378,6 +379,32 @@
         Notes stay in this Chrome profile using local Extension storage. The Study Note workspace can export a restorable JSON backup or a spreadsheet-friendly CSV copy.
       </div>
       <p id="study-note-setting-status" class="study-note-setting-status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- ========== Weekly Schedule 卡片 ========== -->
+  <div class="card">
+    <div class="card-header">
+      <h2>📅 Weekly Schedule</h2>
+      <p>Build a device-local timetable from your Blackboard course cards</p>
+    </div>
+    <div class="card-body">
+      <div class="weekly-schedule-setting-row">
+        <div>
+          <strong>Show Weekly Schedule</strong>
+          <p>Add Weekly Schedule to Blackboard's main side panel.</p>
+        </div>
+        <label class="weekly-schedule-toggle">
+          <input id="weekly-schedule-enabled" type="checkbox" checked>
+          <span class="weekly-schedule-toggle-track" aria-hidden="true"></span>
+          <span id="weekly-schedule-toggle-label" class="weekly-schedule-toggle-label">Enabled</span>
+        </label>
+      </div>
+      <div class="hint weekly-schedule-local-hint">
+        Course cards are read only when you click <strong>Import</strong> from Weekly Schedule while the Blackboard Courses page is open. Course, teacher, and schedule data stays in local Extension storage on this device.
+      </div>
+      <p id="weekly-schedule-setting-meta" class="weekly-schedule-setting-meta"></p>
+      <p id="weekly-schedule-setting-status" class="weekly-schedule-setting-status" aria-live="polite"></p>
     </div>
   </div>
 
@@ -449,6 +476,7 @@
   <script src="custom-links/config.js"></script>
   <script src="options.js"></script>
   <script src="custom-links/options.js"></script>
+  <script src="weekly-schedule/options.js"></script>
   <script src="study-note/options.js"></script>
 </body>
 </html>

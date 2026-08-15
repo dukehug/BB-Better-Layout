@@ -43,6 +43,29 @@ These checks mirror the required self-test steps in `AGENT.md`.
 - [x] Confirm each external link opens in a new tab with `noopener noreferrer` and leaves the Blackboard tab open.
 - [x] On a short viewport with six links, confirm the main navigation remains scrollable and all destinations are reachable.
 
+## Schedule checks
+
+- [x] With no saved preference, open the options page and confirm Show Weekly Schedule is enabled by default; confirm a previously saved `false` value remains disabled.
+- [x] Enable Schedule in the options page and confirm a single `Schedule` entry appears in Blackboard's main side panel.
+- [ ] Disable and re-enable Schedule and confirm saved courses are not deleted.
+- [x] Confirm opening Schedule does not read or store Blackboard course cards until Import is clicked.
+- [x] On `/ultra/course`, click Import and confirm available course codes, names, meeting days, and meeting times create the expected weekly entries.
+- [x] Confirm instructor names are reduced to their first name while Blackboard multi-user courses display `Multiple Instructors` in full.
+- [x] Edit a `Multiple Instructors` course, enter a teacher override, save, and confirm another Import keeps the local teacher value.
+- [x] Open Add course, type a new value directly into Course, and confirm Course name mirrors the manual value and the entry saves successfully.
+- [x] Open Add course again, select an imported Course suggestion, and confirm code, name, teacher, days, and start/end times are filled automatically.
+- [ ] Confirm manually created schedule entries remain after Blackboard courses are imported again.
+- [ ] Confirm editing a course preserves its selected days, start/end time, color, teacher, and Room after closing and reopening the editor.
+- [x] Confirm one-hour cards show teacher/time plus Room without overlapping the course name.
+- [x] Confirm sub-hour cards prioritize course code, Room, and time, with complete details still available in the tooltip and editor.
+- [x] Confirm longer entries display teacher, time, and Room on separate readable lines.
+- [x] Confirm the current-time line includes a visible time label.
+- [ ] Leave Schedule open across an exact minute and confirm the time label advances without reopening the workspace.
+- [x] Verify a simulated midnight refresh updates today's highlight and changes a week spanning August 31 to September 1 into the correct month labels.
+- [x] Verify a week spanning December 28 to January 3 uses the correct year-boundary dates.
+- [ ] Add, edit, delete, and Empty several manual entries, then reload Blackboard and confirm the resulting schedule persists locally.
+- [ ] Switch every Appearance and confirm Schedule cards, grid lines, dialogs, controls, and metadata remain readable.
+
 ## Theme checks
 
 Run the full set when changing theme code or theme CSS.
@@ -102,6 +125,7 @@ Run the full set when changing theme code or theme CSS.
 
 ## Study Note checks
 
+- [x] With no saved preference, open the options page and confirm Show Study Note is enabled by default; confirm a previously saved `false` value remains disabled.
 - [ ] Enable Study Note in the options page and confirm its entry appears once in Blackboard's main navigation without refreshing.
 - [ ] Disable Study Note while it is open and confirm the workspace, quick-note modal, and navigation entry are removed.
 - [ ] Open Study Note from Activity, Courses, and a single course; confirm the three-pane layout does not cover the visible navigation.
@@ -113,9 +137,14 @@ Run the full set when changing theme code or theme CSS.
 - [ ] Trigger Quick Study Note from Activity, Courses, Calendar, and a single course without changing the current page.
 - [ ] Save a note through the quick modal and confirm it appears in the Study Note workspace.
 - [ ] Confirm the shortcut does not interrupt typing in Blackboard inputs, textareas, selects, or editable fields.
-- [ ] Export JSON, replace the current notes through JSON import, and confirm notebooks and note content match the backup.
-- [ ] Export CSV and confirm titles, notebooks, content, and timestamps open correctly in a spreadsheet.
-- [ ] Try importing malformed JSON and a file over 10 MB and confirm the current notes are not replaced.
+- [x] Confirm Quick Notes receives one Markdown Writing Example after the feature update and that deleting the example does not recreate it on the next load.
+- [x] Use the Markdown toolbar and keyboard shortcuts, switch between Write and Preview, and confirm headings, emphasis, links, quotes, lists, code, horizontal rules, and tables render correctly.
+- [x] Preview `- [ ]   todo list` and `- [x] done`; confirm both checkboxes remain visible inside Blackboard and the completed task text is struck through.
+- [x] Select an HTTP(S) URL and click the link tool; confirm the result is `[link text](selected URL)` with `link text` selected for editing.
+- [x] Confirm raw HTML or script text in a note remains inert text in Preview and unsafe URL schemes do not become links.
+- [x] Export JSON, import it with existing notes present, and confirm the backup is appended without clearing local notes; matching notebooks are reused and colliding IDs do not overwrite data.
+- [x] Export CSV, import it with existing notes present, and confirm Markdown containing commas, line breaks, and escaped quotes round-trips correctly.
+- [ ] Try importing malformed JSON, malformed CSV, an unsupported file type, and a file over 10 MB; confirm existing notes remain unchanged.
 - [ ] If legacy Todo data exists, confirm it appears once in the Imported Todo notebook.
 - [ ] Confirm Escape closes the quick-note modal and then closes the Study Note workspace.
 - [ ] Switch each reading theme and confirm Study Note text, fields, borders, selection states, and buttons remain readable.

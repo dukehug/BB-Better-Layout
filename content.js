@@ -10,6 +10,7 @@
         BBLayout.injectIconStyles();
         BBLayout.banner.run();
         BBLayout.sidebar.run();
+        BBLayout.weeklySchedule.run();
         BBLayout.studyNote.run();
         BBLayout.backToTop.run();
     }
@@ -17,6 +18,7 @@
     BBLayout.theme.initialize();
     BBLayout.courseCover.initialize();
     BBLayout.groupSpace.initialize();
+    BBLayout.weeklySchedule.initialize();
     BBLayout.studyNote.initialize();
     BBLayout.backToTop.initialize();
     runAllEnhancements();

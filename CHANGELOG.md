@@ -5,6 +5,30 @@ Release entries use the version from `manifest.json` and the date format `YYYY/M
 
 ## Unreleased
 
+## v2.12.1 - 2026/08/15
+
+- Add a dependency-free Markdown editor to Study Note with Write and Preview modes, a formatting toolbar, keyboard shortcuts, and safe DOM-based rendering.
+- Support headings, emphasis, strikethrough, links, quotes, ordered and unordered lists, task lists, code blocks, horizontal rules, and tables in Study Note previews.
+- Display incomplete and completed task boxes reliably inside Blackboard, and strike through completed task text.
+- Convert a selected HTTP(S) or mailto URL into a Markdown link while keeping the link label selected for immediate editing.
+- Add a one-time Markdown writing example to Quick Notes without recreating it after the user deletes it.
+- Change Study Note JSON import from replacement to append-only merging, add CSV backup import, reuse matching notebook names, and regenerate colliding IDs instead of overwriting local data.
+- Enable Show Study Note and Show Weekly Schedule by default for installations without a saved preference while preserving an explicit disabled setting.
+- Replace Schedule's imported-course-only selector with an editable course combobox that accepts manual course names and still fills course, teacher, day, and time fields from imported choices.
+
+## v2.12.0 - 2026/08/15
+
+- Add an optional device-local weekly Schedule workspace to Blackboard's main side panel.
+- Add an options-page switch that enables or disables Schedule without deleting saved timetable data.
+- Import course codes, names, meeting days, meeting times, and instructor details only after the user clicks Import on the Blackboard Courses page.
+- Parse compact Blackboard meeting-day formats, including combined weekday codes and Saturday schedules.
+- Import each instructor's first name and preserve Blackboard's `Multiple Instructors` label when a course uses the multi-user instructor control.
+- Let users add, edit, delete, color-code, and save schedule entries with course, teacher, day, time, and Room fields.
+- Provide editable teacher suggestions and preserve local teacher overrides, manual entries, Room values, and colors across subsequent course imports.
+- Display a live current-time line with a visible minute label and update it on every exact minute.
+- Refresh the highlighted day and all week date labels automatically across daily, weekly, monthly, and yearly boundaries.
+- Improve one-hour and shorter course cards so course names remain readable while Room and time details stay visible.
+
 ## v2.11.0 - 2026/08/15
 
 - Replace the previously hard-coded sidebar destinations with user-defined external links.
