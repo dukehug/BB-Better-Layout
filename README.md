@@ -1,5 +1,7 @@
 # BB Better Layout
 
+![](shotscreen/marquee-promo-1400x560.png)
+
 This Chrome extension enhances Blackboard Ultra by maximizing screen space.
 New features include a vertical sidebar, automatically generated text banners, and customizable quick links for a smoother workflow.
 
