@@ -5,6 +5,7 @@
 :root {
     --nav-width: 200px;
     --global-sidebar-width: 0px;
+    --global-nav-collapsed-width: 64px;
     --nav-top-offset: 94px;
 
     /* 導航欄（默認深色風格，與原始設計保持一致） */
@@ -433,6 +434,148 @@ nav[role="navigation"][aria-label="Main"] :is(a, button)[aria-current="page"],
     background-color: var(--nav-active-bg) !important;
     color: var(--nav-text-active) !important;
     border-color: var(--nav-active-bg) !important;
+}
+
+/* =========================================
+   Dashboard 主導覽：完整側欄 / icon rail 切換
+   ========================================= */
+.bb-global-nav-host,
+.bb-global-nav-host .MuiDrawer-root,
+.bb-global-nav-host .bb-global-nav-drawer,
+.bb-global-nav-host .bb-global-nav-drawer > :is(header, nav, div) {
+    transition: width 0.22s ease, min-width 0.22s ease !important;
+}
+
+.bb-global-nav-toggle {
+    width: 100% !important;
+    min-height: 44px !important;
+    flex: 0 0 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 12px !important;
+    border: 0 !important;
+    border-top: 1px solid var(--nav-border-color) !important;
+    border-bottom: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: var(--nav-text-color) !important;
+    font: 500 13px/1.2 "Segoe UI", sans-serif !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+}
+
+.bb-global-nav-toggle:hover,
+.bb-global-nav-toggle:focus-visible {
+    background-color: var(--nav-hover-bg) !important;
+    color: var(--nav-text-hover) !important;
+}
+
+.bb-global-nav-toggle:focus-visible {
+    outline: 2px solid currentColor !important;
+    outline-offset: -3px !important;
+}
+
+.bb-global-nav-toggle-icon {
+    margin-right: 0 !important;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24 !important;
+}
+
+.bb-global-nav-footer {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex: 0 0 auto !important;
+    flex-direction: column !important;
+}
+
+.bb-global-nav-collapsed-host,
+.bb-global-nav-collapsed-host .MuiDrawer-root,
+.bb-global-nav-collapsed-host .bb-global-nav-drawer,
+.bb-global-nav-collapsed-host .bb-global-nav-drawer > :is(header, nav, div) {
+    width: var(--global-nav-collapsed-width) !important;
+    min-width: var(--global-nav-collapsed-width) !important;
+    max-width: var(--global-nav-collapsed-width) !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-drawer {
+    overflow: hidden !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-drawer > header {
+    overflow: hidden !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-drawer > header a {
+    width: var(--global-nav-collapsed-width) !important;
+    min-width: var(--global-nav-collapsed-width) !important;
+    overflow: hidden !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-drawer > header img {
+    width: 44px !important;
+    max-width: 44px !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-toggle {
+    width: var(--global-nav-collapsed-width) !important;
+    min-width: var(--global-nav-collapsed-width) !important;
+    justify-content: center !important;
+    padding: 8px 16px !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-toggle .bb-nav-icon {
+    margin-right: 0 !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav-footer
+    > :not(.bb-global-nav-toggle) {
+    display: none !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav
+    [data-analytics-id^="base.nav.navigation."] {
+    width: var(--global-nav-collapsed-width) !important;
+    min-width: var(--global-nav-collapsed-width) !important;
+    justify-content: flex-start !important;
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+    overflow: hidden !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav
+    [data-analytics-id^="base.nav.navigation."] > :not(.MuiListItemIcon-root) {
+    display: none !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav .bb-custom-bottom-link {
+    width: var(--global-nav-collapsed-width) !important;
+    min-width: var(--global-nav-collapsed-width) !important;
+    justify-content: center !important;
+    padding-right: 22px !important;
+    padding-left: 22px !important;
+    overflow: hidden !important;
+    font-size: 0 !important;
+}
+
+.bb-global-nav-collapsed-host .bb-global-nav .bb-custom-bottom-link .bb-nav-icon {
+    margin-right: 0 !important;
+}
+
+base-side-menu.bb-global-nav-host ~ #main-content #main-content-inner {
+    transition: padding-left 0.22s ease !important;
+}
+
+base-side-menu.bb-global-nav-collapsed-host ~ #main-content #main-content-inner {
+    padding-left: var(--global-nav-collapsed-width) !important;
 }
 
 /* =========================================

@@ -19,13 +19,23 @@
     };
 
     BBLayout.injectIconStyles = function injectIconStyles() {
-        if (document.getElementById('bb-material-icons')) return;
+        if (!document.getElementById('bb-material-icons')) {
+            const iconsLink = document.createElement('link');
+            iconsLink.id = 'bb-material-icons';
+            iconsLink.rel = 'stylesheet';
+            iconsLink.href =
+                'https://fonts.googleapis.com/icon?family=Material+Icons';
+            document.head.appendChild(iconsLink);
+        }
 
-        const link = document.createElement('link');
-        link.id = 'bb-material-icons';
-        link.rel = 'stylesheet';
-        link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
-        document.head.appendChild(link);
+        if (!document.getElementById('bb-material-symbols')) {
+            const symbolsLink = document.createElement('link');
+            symbolsLink.id = 'bb-material-symbols';
+            symbolsLink.rel = 'stylesheet';
+            symbolsLink.href =
+                'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0';
+            document.head.appendChild(symbolsLink);
+        }
     };
 
     BBLayout.syncRouteClasses = function syncRouteClasses() {

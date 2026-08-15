@@ -40,6 +40,18 @@ let bbCurrentShortcuts = structuredClone(BB_DEFAULT_SHORTCUTS);
 // 工具：判斷鍵盤事件是否匹配某個快捷鍵配置
 // ------------------------------------------
 function bbMatchShortcut(event, shortcut) {
+  // Blackboard（或其他擴充功能）可能派送沒有 `key` 的合成 keydown
+  // 事件；舊版同步設定也可能含有不完整的快捷鍵。這兩種情況都不應
+  // 讓 content script 因呼叫 undefined.toLowerCase() 而中斷。
+  if (
+    typeof event?.key !== 'string' ||
+    typeof shortcut?.key !== 'string' ||
+    !event.key ||
+    !shortcut.key
+  ) {
+    return false;
+  }
+
   return (
     event.key.toLowerCase() === shortcut.key.toLowerCase() &&
     !!event.altKey   === !!shortcut.altKey  &&
@@ -522,14 +534,29 @@ function bbLoadAndSetupShortcuts() {
 
     if (data.bbShortcuts) {
       for (const [key, saved] of Object.entries(data.bbShortcuts)) {
-        if (bbCurrentShortcuts[key]) {
+        if (
+          bbCurrentShortcuts[key] &&
+          saved &&
+          typeof saved === 'object'
+        ) {
+          const defaults = bbCurrentShortcuts[key];
           bbCurrentShortcuts[key] = {
-            ...bbCurrentShortcuts[key],
-            key:      saved.key      ?? bbCurrentShortcuts[key].key,
-            altKey:   saved.altKey   ?? bbCurrentShortcuts[key].altKey,
-            ctrlKey:  saved.ctrlKey  ?? bbCurrentShortcuts[key].ctrlKey,
-            shiftKey: saved.shiftKey ?? bbCurrentShortcuts[key].shiftKey,
-            metaKey:  saved.metaKey  ?? bbCurrentShortcuts[key].metaKey,
+            ...defaults,
+            key: typeof saved.key === 'string' && saved.key
+              ? saved.key
+              : defaults.key,
+            altKey: typeof saved.altKey === 'boolean'
+              ? saved.altKey
+              : defaults.altKey,
+            ctrlKey: typeof saved.ctrlKey === 'boolean'
+              ? saved.ctrlKey
+              : defaults.ctrlKey,
+            shiftKey: typeof saved.shiftKey === 'boolean'
+              ? saved.shiftKey
+              : defaults.shiftKey,
+            metaKey: typeof saved.metaKey === 'boolean'
+              ? saved.metaKey
+              : defaults.metaKey,
           };
         }
       }

@@ -3,6 +3,10 @@
 
 (() => {
     const BBLayout = window.BBLayout = window.BBLayout || {};
+    const GLOBAL_NAV_COLLAPSED_KEY = 'bbGlobalNavCollapsed';
+
+    let isGlobalNavCollapsed = false;
+    let globalNavPreferenceRequested = false;
 
     function getCleanNavText(element) {
         const clone = element.cloneNode(true);
@@ -12,6 +16,105 @@
         });
 
         return clone.textContent.trim();
+    }
+
+    function updateGlobalNavToggle(button) {
+        if (!button) return;
+
+        const label = isGlobalNavCollapsed
+            ? 'Right Panel Open'
+            : 'Right Panel Close';
+        const icon = button.querySelector('.bb-global-nav-toggle-icon');
+
+        button.setAttribute('aria-label', label);
+        button.setAttribute('aria-expanded', String(!isGlobalNavCollapsed));
+        button.title = label;
+        if (icon) {
+            icon.textContent = isGlobalNavCollapsed
+                ? 'right_panel_open'
+                : 'right_panel_close';
+        }
+    }
+
+    function applyGlobalNavState() {
+        document
+            .querySelectorAll('.bb-global-nav-host')
+            .forEach(host => {
+                host.classList.toggle(
+                    'bb-global-nav-collapsed-host',
+                    isGlobalNavCollapsed
+                );
+            });
+
+        document
+            .querySelectorAll('.bb-global-nav-toggle')
+            .forEach(updateGlobalNavToggle);
+    }
+
+    function loadGlobalNavPreference() {
+        if (globalNavPreferenceRequested) return;
+        globalNavPreferenceRequested = true;
+
+        chrome.storage.local.get(GLOBAL_NAV_COLLAPSED_KEY, data => {
+            isGlobalNavCollapsed = data[GLOBAL_NAV_COLLAPSED_KEY] === true;
+            applyGlobalNavState();
+        });
+    }
+
+    function toggleGlobalNav() {
+        isGlobalNavCollapsed = !isGlobalNavCollapsed;
+        applyGlobalNavState();
+        chrome.storage.local.set({
+            [GLOBAL_NAV_COLLAPSED_KEY]: isGlobalNavCollapsed
+        });
+    }
+
+    function ensureGlobalNavToggle(navContainer, footer) {
+        const drawer = navContainer.parentElement;
+        const toggleContainer = footer || navContainer;
+        let button = drawer?.querySelector('.bb-global-nav-toggle');
+
+        if (!button) {
+            button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'bb-global-nav-toggle';
+
+            const icon = document.createElement('span');
+            icon.className =
+                'material-symbols-outlined bb-nav-icon bb-global-nav-toggle-icon';
+            icon.setAttribute('aria-hidden', 'true');
+
+            button.append(icon);
+            button.addEventListener('click', toggleGlobalNav);
+        }
+
+        // Blackboard renders the legal links in a dedicated footer. Keep the
+        // panel control as its final item, including when moving an older
+        // injected instance out of <nav> or correcting the previous order.
+        if (
+            button.parentElement !== toggleContainer ||
+            button !== toggleContainer.lastElementChild
+        ) {
+            toggleContainer.append(button);
+        }
+
+        updateGlobalNavToggle(button);
+    }
+
+    function addGlobalNavItemLabels(navContainer) {
+        navContainer.querySelectorAll('a, button').forEach(item => {
+            if (item.classList.contains('bb-global-nav-toggle')) return;
+
+            const label = getCleanNavText(item);
+            if (!label) return;
+
+            if (!item.hasAttribute('aria-label')) {
+                item.setAttribute('aria-label', label);
+            }
+            if (!item.hasAttribute('title')) {
+                item.title = label;
+            }
+        });
     }
 
     function syncCourseNavOffset() {
@@ -129,6 +232,9 @@
             link.href = config.url;
             link.className = 'bb-custom-bottom-link bb-external-quick-link';
             link.target = "_blank";
+            link.rel = 'noopener noreferrer';
+            link.setAttribute('aria-label', config.text);
+            link.title = config.text;
 
             if (index === 0) link.style.marginTop = "auto";
 
@@ -149,13 +255,28 @@
         const navContainer = globalList.closest('nav') || globalList.parentElement;
         if (!navContainer) return;
 
+        const drawer = navContainer.parentElement;
+        const host = navContainer.closest('base-side-menu');
+        const footer = Array.from(drawer?.children || []).find(element => {
+            return element.getAttribute('role') === 'contentinfo';
+        });
+
+        navContainer.classList.add('bb-global-nav');
+        drawer?.classList.add('bb-global-nav-drawer');
+        host?.classList.add('bb-global-nav-host');
+        footer?.classList.add('bb-global-nav-footer');
+
         navContainer.style.display = 'flex';
         navContainer.style.flexDirection = 'column';
         navContainer.style.height = '100%';
+        ensureGlobalNavToggle(navContainer, footer);
         appendCustomLinks(navContainer);
+        addGlobalNavItemLabels(navContainer);
+        applyGlobalNavState();
     }
 
     function run() {
+        loadGlobalNavPreference();
         handleCoursesNav();
         handleGlobalNav();
     }

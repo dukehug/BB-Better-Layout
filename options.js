@@ -427,6 +427,15 @@ function formatShortcut(shortcut) {
 }
 
 function shortcutsMatch(firstShortcut, secondShortcut) {
+  if (
+    typeof firstShortcut?.key !== 'string' ||
+    typeof secondShortcut?.key !== 'string' ||
+    !firstShortcut.key ||
+    !secondShortcut.key
+  ) {
+    return false;
+  }
+
   return (
     firstShortcut.key.toLowerCase() === secondShortcut.key.toLowerCase() &&
     !!firstShortcut.altKey === !!secondShortcut.altKey &&
@@ -599,14 +608,29 @@ chrome.storage.sync.get(['bbShortcuts', 'bbTheme'], (data) => {
   // --- 快捷鍵 ---
   if (data.bbShortcuts) {
     for (const [key, saved] of Object.entries(data.bbShortcuts)) {
-      if (currentShortcuts[key]) {
+      if (
+        currentShortcuts[key] &&
+        saved &&
+        typeof saved === 'object'
+      ) {
+        const defaults = currentShortcuts[key];
         currentShortcuts[key] = {
-          ...currentShortcuts[key],
-          key:      saved.key      ?? currentShortcuts[key].key,
-          altKey:   saved.altKey   ?? currentShortcuts[key].altKey,
-          ctrlKey:  saved.ctrlKey  ?? currentShortcuts[key].ctrlKey,
-          shiftKey: saved.shiftKey ?? currentShortcuts[key].shiftKey,
-          metaKey:  saved.metaKey  ?? currentShortcuts[key].metaKey,
+          ...defaults,
+          key: typeof saved.key === 'string' && saved.key
+            ? saved.key
+            : defaults.key,
+          altKey: typeof saved.altKey === 'boolean'
+            ? saved.altKey
+            : defaults.altKey,
+          ctrlKey: typeof saved.ctrlKey === 'boolean'
+            ? saved.ctrlKey
+            : defaults.ctrlKey,
+          shiftKey: typeof saved.shiftKey === 'boolean'
+            ? saved.shiftKey
+            : defaults.shiftKey,
+          metaKey: typeof saved.metaKey === 'boolean'
+            ? saved.metaKey
+            : defaults.metaKey,
         };
       }
     }
