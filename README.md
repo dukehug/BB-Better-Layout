@@ -21,7 +21,7 @@ This is an independent project. It is not affiliated with, endorsed by, or offic
 - Back to top button
 - Nine reading appearances and customizable keyboard shortcuts
 - Optional device-local custom image for course-page covers
-- Context-aware keyboard search for Courses, Course Content, and Roster pages
+- Keyboard course switching plus context-aware Course Content and Roster search
 - Appearance-aware styling for Blackboard's official Courses-page To Do panel
 - Device-local Study Note workspace with notebooks, Markdown Write/Preview, search, quick notes, and append-safe JSON/CSV backup import
 - Device-local weekly Schedule with explicit Blackboard course import plus editable imported or manual course details
@@ -29,7 +29,7 @@ This is an independent project. It is not affiliated with, endorsed by, or offic
 
 ## What you can do with this extension
 - Collapse the Dashboard navigation to icons only and restore it from the footer control without losing your preferred state after a reload.
-- Search courses from the Courses page, course materials from an outline, or members from a Roster using the same shortcut.
+- Open the searchable Your Courses switcher from a single course without leaving it, while keeping Course Content and Roster search on the separate Search Current Page shortcut.
 - Choose a comfortable reading appearance.
 - Keep the Courses-page To Do panel visually consistent with the selected reading appearance without losing overdue warning colors.
 - Organize notes into notebooks, write and safely preview common Markdown, and capture a quick note from any Blackboard page using a customizable shortcut.
@@ -39,9 +39,20 @@ This is an independent project. It is not affiliated with, endorsed by, or offic
 - Create your own sidebar destinations, then hide or restore the group without deleting its settings.
 
 ## Version
-- v2.12.1 <br> Date: 2026/08/15
+- v2.12.3 <br> Date: 2026/08/29
 
 ## Changes
+
+v2.12.3 - 2026/08/29
+
+- Match the Dashboard drawer, legal footer links, and collapse control to every Appearance.
+
+v2.12.2 - 2026/08/29
+
+- Replace Rose Reading with the brighter, accessible Cute Pink Appearance.
+- Open Blackboard's native Your Courses switcher from the Courses shortcut while preserving the separate Course Content and Roster search behavior.
+- Add Arrow Up/Down selection, Enter navigation, and Escape closing to the course switcher search.
+- Center the Your Courses dialog, match it to every Appearance, and keep its search field and floating label readable while focused.
 
 v2.12.1 - 2026/08/15
 
@@ -108,4 +119,3 @@ See [CHANGELOG.md](CHANGELOG.md) for the complete maintained change history.
 ## License
 
 [MIT](License.md)
-

@@ -5,6 +5,20 @@ Release entries use the version from `manifest.json` and the date format `YYYY/M
 
 ## Unreleased
 
+- Open existing Study Note notes in Preview by default while keeping newly created notes ready to edit in Write mode.
+
+## v2.12.3 - 2026/08/29
+
+- Match the Dashboard navigation drawer, legal footer links, and collapse control to the active Appearance instead of exposing Blackboard's native dark footer background.
+
+## v2.12.2 - 2026/08/29
+
+- Replace Rose Reading with a brighter Cute Pink Appearance while preserving accessible reading contrast.
+- Open Blackboard's native Your Courses switcher from the Courses shortcut on single-course pages without changing Course Content or Roster search behavior.
+- Add Arrow Up/Down result selection, Enter navigation, and Escape closing to the Your Courses search field.
+- Center the native Your Courses dialog and match its surfaces, text, borders, tabs, results, and selected states to the active Appearance.
+- Fix the themed Your Courses search field and its focus-state label mask so the background, floating label, caret, and typed text remain readable in every Appearance.
+
 ## v2.12.1 - 2026/08/15
 
 - Add a dependency-free Markdown editor to Study Note with Write and Preview modes, a formatting toolbar, keyboard shortcuts, and safe DOM-based rendering.

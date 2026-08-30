@@ -367,6 +367,20 @@ function bbOpenOverviewCourseSearch() {
 // 只點擊原生按鈕並聚焦原生輸入框，不改動搜索結果或顯示樣式。
 // ------------------------------------------
 const BB_NATIVE_PAGE_SEARCH = {
+  courseSwitcher: {
+    buttonSelector:
+      '[data-analytics-id="course.header.course-switcher.button"]',
+    dialogSelector:
+      '[role="dialog"][aria-labelledby="course.header.course-switcher.title"]',
+    inputSelector: [
+      '[data-analytics-id="course.header.course-switcher.search"]',
+      '[role="dialog"][aria-labelledby="course.header.course-switcher.title"] input[type="text"]',
+    ].join(', '),
+    optionSelector:
+      'a[data-analytics-id^="course.header.course-switcher."][data-analytics-id$=".course.button"]',
+    closeButtonSelector:
+      '[data-analytics-id="course.header.course-switcher.close.button"]',
+  },
   outline: {
     buttonSelector: '[data-analytics-id="course-outline.filter.search.button"]',
     inputSelector: [
@@ -429,6 +443,145 @@ function bbPollAndOpenNativePageSearch(config) {
       clearInterval(timer);
     }
   }, POLL_MS);
+}
+
+// ------------------------------------------
+// 動作：在單一課程內開啟 Blackboard 原生 Your Courses dialog，
+// 並將焦點放在課程搜索框。這條路徑與 Course Content 搜索分離。
+// ------------------------------------------
+function bbGetVisibleCourseSwitcherOptions(dialog, optionSelector) {
+  return Array.from(dialog.querySelectorAll(optionSelector))
+    .filter(bbIsVisible);
+}
+
+function bbBindCourseSwitcherKeyboard(dialog, input, config) {
+  if (input.dataset.bbCourseSwitcherKeyboard === 'true') return;
+  input.dataset.bbCourseSwitcherKeyboard = 'true';
+
+  let selectedIndex = -1;
+
+  function clearSelection() {
+    dialog
+      .querySelectorAll('.bb-course-switcher-keyboard-selected')
+      .forEach(option => {
+        option.classList.remove('bb-course-switcher-keyboard-selected');
+      });
+    input.removeAttribute('aria-activedescendant');
+  }
+
+  function updateSelection(options) {
+    clearSelection();
+
+    const selectedOption = options[selectedIndex];
+    if (!selectedOption) return;
+
+    if (!selectedOption.id) {
+      selectedOption.id = `bb-course-switcher-option-${selectedIndex}`;
+    }
+
+    selectedOption.classList.add('bb-course-switcher-keyboard-selected');
+    input.setAttribute('aria-activedescendant', selectedOption.id);
+    selectedOption.scrollIntoView({ block: 'nearest' });
+  }
+
+  input.addEventListener('input', () => {
+    selectedIndex = -1;
+    clearSelection();
+  });
+
+  // Blackboard 本身沒有在這個輸入框上提供結果鍵盤導覽，
+  // 因此保持焦點在搜索框，只用 class 顯示目前選取的原生結果。
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      dialog.querySelector(config.closeButtonSelector)?.click();
+      return;
+    }
+
+    const options = bbGetVisibleCourseSwitcherOptions(
+      dialog,
+      config.optionSelector
+    );
+
+    if (event.key === 'ArrowDown' && options.length) {
+      event.preventDefault();
+      event.stopPropagation();
+      selectedIndex = (selectedIndex + 1) % options.length;
+      updateSelection(options);
+      return;
+    }
+
+    if (event.key === 'ArrowUp' && options.length) {
+      event.preventDefault();
+      event.stopPropagation();
+      selectedIndex = selectedIndex < 0
+        ? options.length - 1
+        : (selectedIndex - 1 + options.length) % options.length;
+      updateSelection(options);
+      return;
+    }
+
+    if (
+      event.key === 'Enter' &&
+      selectedIndex >= 0 &&
+      options[selectedIndex]
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      options[selectedIndex].click();
+    }
+  }, true);
+}
+
+function bbPrepareCourseSwitcherSearch(config) {
+  const dialog = document.querySelector(config.dialogSelector);
+  const input = document.querySelector(config.inputSelector);
+
+  if (!dialog || !bbIsVisible(input)) return false;
+
+  bbBindCourseSwitcherKeyboard(dialog, input, config);
+  input.focus();
+  input.select();
+  return true;
+}
+
+function bbOpenCourseSwitcherSearch() {
+  const config = BB_NATIVE_PAGE_SEARCH.courseSwitcher;
+  if (bbPrepareCourseSwitcherSearch(config)) return;
+
+  const POLL_MS    = 100;
+  const TIMEOUT_MS = 5000;
+  const start = Date.now();
+  let switcherButtonClicked = false;
+
+  function openOrPrepareCourseSwitcher() {
+    if (bbPrepareCourseSwitcherSearch(config)) return true;
+
+    const switcherButton = document.querySelector(config.buttonSelector);
+    if (!switcherButtonClicked && bbIsVisible(switcherButton)) {
+      switcherButton.click();
+      switcherButtonClicked = true;
+    }
+
+    return false;
+  }
+
+  if (openOrPrepareCourseSwitcher()) return;
+
+  const timer = setInterval(() => {
+    if (
+      openOrPrepareCourseSwitcher() ||
+      Date.now() - start > TIMEOUT_MS
+    ) {
+      clearInterval(timer);
+    }
+  }, POLL_MS);
+}
+
+function bbIsInsideCourse() {
+  const path = window.location.pathname.replace(/\/+$/, '');
+  return /^\/ultra\/courses\/[^/]+(?:\/|$)/.test(path);
 }
 
 // ------------------------------------------
@@ -515,6 +668,8 @@ function bbHandleKeydown(event) {
       bbOpenCourseSearch();
     } else if (action === 'studyNote') {
       window.BBLayout?.studyNote?.openQuickNote();
+    } else if (action === 'courses' && bbIsInsideCourse()) {
+      bbOpenCourseSwitcherSearch();
     } else {
       bbNavigateTo(action);
     }

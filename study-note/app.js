@@ -18,7 +18,7 @@
         selectionMode: false,
         selectedNoteIds: new Set(),
         searchQuery: '',
-        editorMode: 'write',
+        editorMode: 'preview',
         editorDirty: false,
         notebookDialogDirty: false,
         lastWorkspaceFocusedElement: null,
@@ -239,15 +239,15 @@
                                     <button type="button" data-action="markdown-format" data-markdown="link" title="Link (Ctrl+K)" aria-label="Insert link"><span class="material-icons" aria-hidden="true">link</span></button>
                                 </div>
                                 <div class="bb-study-note-markdown-tabs" role="group" aria-label="Editor view">
-                                    <button type="button" data-action="markdown-write" aria-pressed="true">Write</button>
-                                    <button type="button" data-action="markdown-preview" aria-pressed="false">Preview</button>
+                                    <button type="button" data-action="markdown-write" aria-pressed="false">Write</button>
+                                    <button type="button" data-action="markdown-preview" aria-pressed="true">Preview</button>
                                 </div>
                             </div>
-                            <label class="bb-study-note-content-label">
+                            <label class="bb-study-note-content-label" hidden>
                                 <span class="bb-study-note-visually-hidden">Markdown note content</span>
                                 <textarea id="bb-study-note-content" maxlength="50000" placeholder="Write Markdown here…"></textarea>
                             </label>
-                            <article id="bb-study-note-markdown-preview" class="bb-study-note-markdown-preview" aria-label="Markdown preview" tabindex="0" hidden></article>
+                            <article id="bb-study-note-markdown-preview" class="bb-study-note-markdown-preview" aria-label="Markdown preview" tabindex="0"></article>
                         </div>
                     </form>
                 </main>
@@ -748,6 +748,7 @@
         if (!confirmDiscardChanges()) return;
 
         state.selectedNoteId = noteId;
+        state.editorMode = 'preview';
         renderNoteList();
         renderEditor();
     }

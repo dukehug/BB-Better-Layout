@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BB Better Layout",
-  "version": "2.12.1",
+  "version": "2.12.3",
   "description": "Improve Blackboard Ultra with cleaner navigation, course banners, themes, schedules, study notes, shortcuts, and custom links.",
   "permissions": ["storage"],
   "icons":{

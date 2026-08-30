@@ -30,9 +30,9 @@
             baseClass: 'bb-theme-nord-snow',
             themeClass: 'bb-theme-aqua'
         },
-        'rose-reading': {
+        'cute-pink-reading': {
             baseClass: 'bb-theme-nord-snow',
-            themeClass: 'bb-theme-rose'
+            themeClass: 'bb-theme-cute-pink'
         },
     };
 

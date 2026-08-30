@@ -78,12 +78,13 @@ Run the full set when changing theme code or theme CSS.
 - [x] Lavender Reading
 - [ ] Graphite Reading
 - [ ] Aqua Reading
-- [ ] Rose Reading
+- [ ] Cute Pink
 - [ ] For each reading theme, confirm the main navigation and course navigation use the selected palette with readable hover and active states.
+- [ ] Confirm the Dashboard drawer, Privacy, Terms, Accessibility, and the collapse control follow every Appearance without exposing Blackboard's dark footer background.
 - [x] On `/ultra/course`, confirm the official To Do panel surface, divider, headings, secondary text, accordion arrows, date badges, and empty states follow each custom Appearance palette.
 - [x] Confirm To Do accordion summaries and assignment links use a readable themed hover and keyboard-focus state.
 - [x] Confirm To Do overdue dates and badge status bars retain Blackboard's warning colors after switching Appearance.
-- [x] Confirm To Do primary and secondary text remain readable in Nord Snow, Paper, Sage, Sky, Lavender, Graphite, Aqua, and Rose.
+- [ ] Confirm To Do primary and secondary text remain readable in Nord Snow, Paper, Sage, Sky, Lavender, Graphite, Aqua, and Cute Pink.
 - [x] Reload Blackboard and confirm the selected theme persists.
 - [ ] Choose a JPEG, PNG, or WebP course cover in Appearance and confirm it updates all open course pages immediately.
 - [ ] Reload Blackboard and confirm the local course cover persists on this device.
@@ -105,6 +106,11 @@ Run the full set when changing theme code or theme CSS.
 - [x] Confirm opening a search result does not add a `Running the JavaScript URL violates...` error to the extension error page or DevTools console.
 - [x] On `/ultra/courses/*/outline`, trigger search and confirm Blackboard's native Course Content search field expands and receives focus without opening the Your Courses dialog.
 - [x] Confirm the Course Content search results retain Blackboard's original layout and styling.
+- [ ] On `/ultra/courses/*/outline`, trigger the Courses shortcut and confirm Blackboard's native Your Courses dialog opens with its Search courses field focused without navigating away.
+- [ ] Close Your Courses, then trigger Search Current Page and confirm Course Content search opens without reopening the course switcher.
+- [ ] In Your Courses search, use Arrow Up/Down to highlight a result, press Enter to open it, and press Escape to close the dialog.
+- [ ] Confirm Your Courses is centered on desktop and mobile widths, and remains readable in every Appearance.
+- [ ] In every Appearance, confirm the Search courses field background, focused floating-label mask, caret, and typed text remain clearly readable without a dark bar behind the label.
 - [x] On `/ultra/courses/*/outline/roster`, trigger search and confirm Blackboard's native Roster search field expands and receives focus without opening the Your Courses dialog.
 - [x] Press Escape or click outside the Courses-page search dialog and confirm it closes, clears the native Courses search field, restores the full course list, and restores focus.
 - [x] Focus an input, textarea, select, or editable field and confirm the shortcut does not interrupt typing.
@@ -132,6 +138,7 @@ Run the full set when changing theme code or theme CSS.
 - [ ] With Study Note open on a desktop viewport, confirm the main navigation keeps its right-edge shadow above the workspace.
 - [ ] Create notebooks and notes, move a note by changing its Notebook field, and reload Blackboard to confirm they persist locally.
 - [ ] Search by note title and content and confirm the middle note list updates.
+- [ ] Open an existing note and confirm it starts in Preview; switch to another existing note and confirm Preview is restored, then create a note and confirm it starts in Write.
 - [ ] Edit and delete a note and confirm the notebook counts and editor state update.
 - [ ] Configure Quick Study Note in the options shortcut table and confirm the shortcut updates immediately.
 - [ ] Trigger Quick Study Note from Activity, Courses, Calendar, and a single course without changing the current page.

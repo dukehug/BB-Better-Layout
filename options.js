@@ -49,9 +49,9 @@ const THEMES = [
     colors:  ['#f9fdfc', '#e8f3f1', '#2f6f67'],
   },
   {
-    value:   'rose-reading',
-    label:   'Rose Reading 🌹',
-    colors:  ['#fdfafb', '#f4ecef', '#7a4054'],
+    value:   'cute-pink-reading',
+    label:   'Rose Pink 🎀',
+    colors:  ['#fffafd', '#ffe0ec', '#a92f64'],
   },
 ];
 

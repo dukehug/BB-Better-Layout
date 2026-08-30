@@ -332,43 +332,43 @@ html.bb-theme-aqua {
     --bottom-link-bg:       rgba(47,111,103,0.06);
 }
 
-/* --- Rose Reading（柔和紅紫色，暖色調但避免高飽和造成視覺疲勞）--- */
-html.bb-theme-rose {
-    --palette-background-default: #f4ecef;
-    --palette-background-paper:   #fdfafb;
-    --palette-background-b1:      #fdfafb;
-    --palette-background-b2:      #f4ecef;
-    --palette-background-b3:      #eadde2;
-    --palette-background-b4:      #dcc9d0;
-    --palette-background-b5:      #c8acb6;
-    --palette-text-primary:       #3d2930;
-    --palette-text-secondary:     #684d57;
-    --palette-text-hint:          #7a4054;
-    --palette-text-disabled:      #76616a;
-    --palette-border-main:        #dcc9d0;
-    --palette-border-dark:        #c8acb6;
-    --palette-divider:            rgba(61,41,48,0.14);
-    --palette-action-active:      #684d57;
-    --palette-action-hover:       rgba(61,41,48,0.08);
-    --palette-action-selected:    rgba(122,64,84,0.16);
-    --palette-action-disabled:    rgba(104,77,87,0.48);
-    --palette-link-active:        #7a4054;
-    --palette-link-hover:         #603041;
-    --palette-link-selected:      #7a4054;
+/* --- Cute Pink（明亮甜美的粉紅配色，同時保留長時間閱讀所需的對比）--- */
+html.bb-theme-cute-pink {
+    --palette-background-default: #fff0f6;
+    --palette-background-paper:   #fffafd;
+    --palette-background-b1:      #fffafd;
+    --palette-background-b2:      #fff0f6;
+    --palette-background-b3:      #ffe0ec;
+    --palette-background-b4:      #f8c5d8;
+    --palette-background-b5:      #eaa9c1;
+    --palette-text-primary:       #432532;
+    --palette-text-secondary:     #704b5b;
+    --palette-text-hint:          #9b3562;
+    --palette-text-disabled:      #765e68;
+    --palette-border-main:        #f1bad0;
+    --palette-border-dark:        #e2a0b9;
+    --palette-divider:            rgba(67,37,50,0.14);
+    --palette-action-active:      #704b5b;
+    --palette-action-hover:       rgba(67,37,50,0.08);
+    --palette-action-selected:    rgba(169,47,100,0.18);
+    --palette-action-disabled:    rgba(112,75,91,0.48);
+    --palette-link-active:        #a92f64;
+    --palette-link-hover:         #84224d;
+    --palette-link-selected:      #a92f64;
 
-    --nav-bg-color:         #eadde2;
-    --nav-text-color:       #684d57;
-    --nav-text-hover:       #3d2930;
+    --nav-bg-color:         #ffe0ec;
+    --nav-text-color:       #704b5b;
+    --nav-text-hover:       #432532;
     --nav-text-active:      #ffffff;
-    --nav-active-bg:        #7a4054;
-    --nav-hover-bg:         #dcc9d0;
-    --nav-border-color:     #c8acb6;
-    --banner-bg:            #faf3f5;
-    --banner-text:          #3d2930;
-    --banner-section-color: #7a4054;
-    --bottom-link-text:     #684d57;
-    --bottom-link-border:   #c8acb6;
-    --bottom-link-bg:       rgba(122,64,84,0.06);
+    --nav-active-bg:        #a92f64;
+    --nav-hover-bg:         #f8c5d8;
+    --nav-border-color:     #eaa9c1;
+    --banner-bg:            #fff3f8;
+    --banner-text:          #432532;
+    --banner-section-color: #a92f64;
+    --bottom-link-text:     #704b5b;
+    --bottom-link-border:   #e2a0b9;
+    --bottom-link-bg:       rgba(169,47,100,0.07);
 }
 
 /* =========================================
@@ -444,6 +444,46 @@ nav[role="navigation"][aria-label="Main"] :is(a, button)[aria-current="page"],
 .bb-global-nav-host .bb-global-nav-drawer,
 .bb-global-nav-host .bb-global-nav-drawer > :is(header, nav, div) {
     transition: width 0.22s ease, min-width 0.22s ease !important;
+}
+
+/* Blackboard 的 legal footer 位於 Main nav 外層，因此 drawer 與 footer
+   必須獨立套用 Appearance，否則會露出原生深色背景。 */
+base-side-menu.bb-global-nav-host .bb-global-nav-drawer,
+.bb-global-nav-footer,
+.bb-global-nav-host .bb-global-nav-drawer > [role="contentinfo"] {
+    background-color: var(--nav-bg-color) !important;
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease !important;
+}
+
+:is(.bb-global-nav-footer, .bb-global-nav-drawer > [role="contentinfo"])
+    [role="navigation"][aria-label="Footer"] {
+    background-color: transparent !important;
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+}
+
+:is(.bb-global-nav-footer, .bb-global-nav-drawer > [role="contentinfo"])
+    [role="navigation"][aria-label="Footer"] a {
+    background-color: transparent !important;
+    color: var(--nav-text-color) !important;
+    border-color: var(--nav-border-color) !important;
+}
+
+:is(.bb-global-nav-footer, .bb-global-nav-drawer > [role="contentinfo"])
+    [role="navigation"][aria-label="Footer"] a:is(:hover, :focus-visible) {
+    background-color: var(--nav-hover-bg) !important;
+    color: var(--nav-text-hover) !important;
+}
+
+:is(.bb-global-nav-footer, .bb-global-nav-drawer > [role="contentinfo"])
+    [role="navigation"][aria-label="Footer"] a:focus-visible {
+    outline: 2px solid currentColor !important;
+    outline-offset: 2px !important;
 }
 
 /* Up to six user-defined links can extend the main navigation. Keep the nav
@@ -1434,6 +1474,179 @@ bb-base-course-card .course-banner {
 
 @media (prefers-reduced-motion: reduce) {
     #bb-course-search-overlay {
+        backdrop-filter: none;
+    }
+}
+
+/* =========================================
+   11. Blackboard native Your Courses dialog
+   ========================================= */
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"] {
+    z-index: 12000 !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    > .MuiBackdrop-root {
+    background: rgba(15, 23, 42, 0.52) !important;
+    backdrop-filter: blur(2px);
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    > .MuiPopover-paper {
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: 50% !important;
+    width: min(680px, calc(100vw - 40px)) !important;
+    max-width: none !important;
+    max-height: min(680px, calc(100vh - 48px)) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    transform: translate(-50%, -50%) !important;
+    border: 1px solid var(--bb-ui-border, #d8dee9) !important;
+    border-radius: 14px !important;
+    background: var(--bb-ui-surface, #ffffff) !important;
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [id="course.header.course-switcher.title"] {
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id="course.header.course-switcher.all.link"] {
+    color: var(--palette-link-active, #0069ff) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id="course.header.course-switcher.close.button"] {
+    background: transparent !important;
+    color: var(--bb-ui-text-secondary, #4c566a) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id="course.header.course-switcher.close.button"]:is(:hover, :focus-visible) {
+    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiOutlinedInput-root {
+    background: var(--bb-ui-field-bg, #ffffff) !important;
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id="course.header.course-switcher.search"] {
+    background: transparent !important;
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+    -webkit-text-fill-color: var(--bb-ui-text-primary, #2e3440) !important;
+    caret-color: var(--palette-link-active, #0069ff) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiInputLabel-root {
+    padding: 0 4px !important;
+    background: var(--bb-ui-field-bg, #ffffff) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiInputLabel-root::before {
+    background-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 49%,
+        var(--bb-ui-field-bg, #ffffff) 50%,
+        var(--bb-ui-field-bg, #ffffff) 100%
+    ) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiOutlinedInput-notchedOutline :is(legend, legend span) {
+    background-color: var(--bb-ui-field-bg, #ffffff) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    :is(.MuiInputLabel-root, .MuiInputAdornment-root, .MuiSvgIcon-root) {
+    color: var(--bb-ui-text-secondary, #4c566a) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiOutlinedInput-notchedOutline {
+    border-color: var(--bb-ui-border, #d8dee9) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--palette-link-active, #0069ff) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--palette-link-active, #0069ff) 20%, transparent) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiInputLabel-root.Mui-focused {
+    color: var(--palette-link-active, #0069ff) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    :is(.MuiDivider-root, [data-analytics-id*=".ListItem."]) {
+    border-color: var(--bb-ui-border, #d8dee9) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [role="tab"] {
+    color: var(--bb-ui-text-secondary, #4c566a) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [role="tab"][aria-selected="true"] {
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    .MuiTabs-indicator {
+    background: var(--palette-link-active, #0069ff) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id$=".course.button"] {
+    background: transparent !important;
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id$=".course.button"] .MuiTypography-h4 {
+    color: var(--bb-ui-text-primary, #2e3440) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id$=".course.button"] .MuiTypography-body2 {
+    color: var(--bb-ui-text-secondary, #4c566a) !important;
+}
+
+[role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+    [data-analytics-id$=".course.button"]:is(
+        :hover,
+        :focus-visible,
+        .bb-course-switcher-keyboard-selected
+    ) {
+    outline: none !important;
+    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    box-shadow: inset 4px 0 0 var(--palette-link-active, #0069ff) !important;
+}
+
+@media (max-width: 600px) {
+    [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+        > .MuiPopover-paper {
+        width: calc(100vw - 24px) !important;
+        max-height: calc(100vh - 24px) !important;
+        border-radius: 10px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
+        > .MuiBackdrop-root {
         backdrop-filter: none;
     }
 }
