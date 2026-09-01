@@ -129,6 +129,8 @@ html.bb-theme-nord-night {
     --palette-link-selected:      #4c566a;
     --palette-selection-bg:       #4c566a;
     --palette-selection-color:    #ffffff;
+    --palette-scrollbar-bg:       #2e3440;
+    --palette-scrollbar-thumb:    #4c566a;
     /* 導航欄 */
     --nav-bg-color:         #3b4252;
     --nav-text-color:       #e5e9f0;
@@ -704,6 +706,15 @@ html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .stream-ite
     background-color: var(--bb-ui-surface-hover) !important;
 }
 
+.base-recent-activity .activity-stream .activity-group .stream-item:before {
+    background-color: var(--bb-ui-surface-hover) !important;
+}
+
+.base-recent-activity .activity-stream .activity-group .stream-item * {
+    background-color: transparent !important;
+    opacity: 1 !important;
+}
+
 /* Blackboard 主要頁面的標頭與內容使用陰影分層，避免同色背景黏在一起。 */
 html:is(
     .bb-route-stream,
@@ -813,6 +824,22 @@ html.bb-theme-nord-snow bb-ui-student-tabs div div div span.MuiTabs-indicator {
     background-color: var(--palette-selection-color) !important;
 }
 
+/* === Scrollbar === */
+
+body {
+  scrollbar-width: thin !important; 
+  scrollbar-color: var(--palette-scrollbar-thumb) var(--palette-scrollbar-bg) !important; /* Thumb color | Track color */
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--palette-scrollbar-bg) !important;
+  border-radius: 8px !important;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--palette-scrollbar-thumb) !important;
+  border-radius: 8px !important;
+}
 
 /* =========================================
    Activity Stream Filter
