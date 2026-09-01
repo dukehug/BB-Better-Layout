@@ -136,7 +136,7 @@ html.bb-theme-nord-night {
     --nav-text-color:       #e5e9f0;
     --nav-text-hover:       #eceff4;
     --nav-text-active:      #2e3440;
-    --nav-active-bg:        #4c566a;
+    --nav-active-bg:        #2e3440;
     --nav-hover-bg:         #4c566a;
     --nav-border-color:     #4c566a;
     --banner-bg:            #4c566a;
@@ -707,7 +707,7 @@ html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .stream-ite
 }
 
 .base-recent-activity .activity-stream .activity-group .stream-item:before {
-    background-color: var(--bb-ui-surface-hover) !important;
+    background-color: var(--bb-ui-surface) !important;
 }
 
 .base-recent-activity .activity-stream .activity-group .stream-item * {
@@ -827,7 +827,7 @@ html.bb-theme-nord-snow bb-ui-student-tabs div div div span.MuiTabs-indicator {
 /* === Scrollbar === */
 
 body {
-  scrollbar-width: thin !important; 
+  scrollbar-width: thin !important;
   scrollbar-color: var(--palette-scrollbar-thumb) var(--palette-scrollbar-bg) !important; /* Thumb color | Track color */
 }
 
