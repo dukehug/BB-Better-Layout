@@ -25,11 +25,11 @@
     /* 底部自定義鏈接 */
     --bottom-link-text:   #cdcdcd;
     --bottom-link-border: #444444;
-    --bottom-link-bg:     rgba(0,0,0,0.2);
+    --bottom-link-bg:     #00000033;
 
     /* Blackboard 頁面元件共用的語意色彩 */
     --bb-ui-surface:       #ffffff;
-    --bb-ui-surface-hover: rgba(46,52,64,0.08);
+    --bb-ui-surface-hover: #2e344014;
     --bb-ui-field-bg:      #ffffff;
     --bb-ui-text-primary:  #2e3440;
     --bb-ui-text-secondary:#4c566a;
@@ -57,11 +57,11 @@ html.bb-theme-nord-snow {
     --palette-text-disabled:      #596575;
     --palette-border-main:        #d8dee9;
     --palette-border-dark:        #c8d0dc;
-    --palette-divider:            rgba(46,52,64,0.14);
+    --palette-divider:            #2e344024;
     --palette-action-active:      #4c566a;
-    --palette-action-hover:       rgba(46,52,64,0.08);
-    --palette-action-selected:    rgba(94,129,172,0.16);
-    --palette-action-disabled:    rgba(76,86,106,0.48);
+    --palette-action-hover:       #2e344014;
+    --palette-action-selected:    #5e81ac29;
+    --palette-action-disabled:    #4c566a7a;
     --palette-link-active:        #5e81ac;
     --palette-link-hover:         #81a1c1;
     --palette-link-selected:      #5e81ac;
@@ -78,7 +78,7 @@ html.bb-theme-nord-snow {
     --banner-section-color: #5e81ac;
     --bottom-link-text:     #4c566a;
     --bottom-link-border:   #d8dee9;
-    --bottom-link-bg:       rgba(0,0,0,0.04);
+    --bottom-link-bg:       #0000000a;
 
     --bb-ui-surface:        var(--palette-background-paper);
     --bb-ui-surface-hover:  var(--palette-background-b2);
@@ -105,11 +105,11 @@ html.bb-theme-paper {
     --palette-text-disabled:      #746653;
     --palette-border-main:        #ddceb1;
     --palette-border-dark:        #cbb991;
-    --palette-divider:            rgba(59,48,36,0.14);
+    --palette-divider:            #3b302424;
     --palette-action-active:      #655441;
-    --palette-action-hover:       rgba(59,48,36,0.08);
-    --palette-action-selected:    rgba(122,75,24,0.16);
-    --palette-action-disabled:    rgba(101,84,65,0.48);
+    --palette-action-hover:       #3b302414;
+    --palette-action-selected:    #7a4b1829;
+    --palette-action-disabled:    #6554417a;
     --palette-link-active:        #7a4b18;
     --palette-link-hover:         #5c3510;
     --palette-link-selected:      #7a4b18;
@@ -126,7 +126,7 @@ html.bb-theme-paper {
     --banner-section-color: #7a4b18;
     --bottom-link-text:     #5d4b37;
     --bottom-link-border:   #cbb991;
-    --bottom-link-bg:       rgba(122,75,24,0.06);
+    --bottom-link-bg:       #7a4b180f;
 
     --bb-ui-surface:        var(--palette-background-paper);
     --bb-ui-surface-hover:  var(--palette-background-b2);
@@ -152,11 +152,11 @@ html.bb-theme-sage {
     --palette-text-disabled:      #627160;
     --palette-border-main:        #ceddc5;
     --palette-border-dark:        #b8caaa;
-    --palette-divider:            rgba(39,52,38,0.14);
+    --palette-divider:            #27342624;
     --palette-action-active:      #4d604b;
-    --palette-action-hover:       rgba(39,52,38,0.08);
-    --palette-action-selected:    rgba(63,103,57,0.16);
-    --palette-action-disabled:    rgba(77,96,75,0.48);
+    --palette-action-hover:       #27342614;
+    --palette-action-selected:    #3f673929;
+    --palette-action-disabled:    #4d604b7a;
     --palette-link-active:        #3f6739;
     --palette-link-hover:         #2f522b;
     --palette-link-selected:      #3f6739;
@@ -173,7 +173,7 @@ html.bb-theme-sage {
     --banner-section-color: #3f6739;
     --bottom-link-text:     #4d604b;
     --bottom-link-border:   #b8caaa;
-    --bottom-link-bg:       rgba(63,103,57,0.06);
+    --bottom-link-bg:       #3f67390f;
 }
 
 /* --- Sky Reading（淡霧藍）--- */
@@ -191,11 +191,11 @@ html.bb-theme-sky {
     --palette-text-disabled:      #5e7180;
     --palette-border-main:        #c8dce8;
     --palette-border-dark:        #afc7d5;
-    --palette-divider:            rgba(38,54,66,0.14);
+    --palette-divider:            #26364224;
     --palette-action-active:      #4b6070;
-    --palette-action-hover:       rgba(38,54,66,0.08);
-    --palette-action-selected:    rgba(49,95,125,0.16);
-    --palette-action-disabled:    rgba(75,96,112,0.48);
+    --palette-action-hover:       #26364214;
+    --palette-action-selected:    #315f7d29;
+    --palette-action-disabled:    #4b60707a;
     --palette-link-active:        #315f7d;
     --palette-link-hover:         #244b65;
     --palette-link-selected:      #315f7d;
@@ -212,7 +212,7 @@ html.bb-theme-sky {
     --banner-section-color: #315f7d;
     --bottom-link-text:     #4b6070;
     --bottom-link-border:   #afc7d5;
-    --bottom-link-bg:       rgba(49,95,125,0.06);
+    --bottom-link-bg:       #315f7d0f;
 }
 
 /* --- Lavender Reading（柔和薰衣草紫）--- */
@@ -230,11 +230,11 @@ html.bb-theme-lavender {
     --palette-text-disabled:      #71657a;
     --palette-border-main:        #d7cae4;
     --palette-border-dark:        #c2b1d3;
-    --palette-divider:            rgba(53,45,61,0.14);
+    --palette-divider:            #352d3d24;
     --palette-action-active:      #5e5268;
-    --palette-action-hover:       rgba(53,45,61,0.08);
-    --palette-action-selected:    rgba(103,71,126,0.16);
-    --palette-action-disabled:    rgba(94,82,104,0.48);
+    --palette-action-hover:       #352d3d14;
+    --palette-action-selected:    #67477e29;
+    --palette-action-disabled:    #5e52687a;
     --palette-link-active:        #67477e;
     --palette-link-hover:         #513664;
     --palette-link-selected:      #67477e;
@@ -251,7 +251,7 @@ html.bb-theme-lavender {
     --banner-section-color: #67477e;
     --bottom-link-text:     #5e5268;
     --bottom-link-border:   #c2b1d3;
-    --bottom-link-bg:       rgba(103,71,126,0.06);
+    --bottom-link-bg:       #67477e0f;
 }
 
 /* --- Graphite Reading（低彩度中性灰，減少長時間閱讀的色彩干擾）--- */
@@ -269,11 +269,11 @@ html.bb-theme-graphite {
     --palette-text-disabled:      #667078;
     --palette-border-main:        #cfd4d8;
     --palette-border-dark:        #b8c0c6;
-    --palette-divider:            rgba(37,42,46,0.14);
+    --palette-divider:            #252a2e24;
     --palette-action-active:      #4f5a61;
-    --palette-action-hover:       rgba(37,42,46,0.08);
-    --palette-action-selected:    rgba(66,94,112,0.16);
-    --palette-action-disabled:    rgba(79,90,97,0.48);
+    --palette-action-hover:       #252a2e14;
+    --palette-action-selected:    #425e7029;
+    --palette-action-disabled:    #4f5a617a;
     --palette-link-active:        #425e70;
     --palette-link-hover:         #304958;
     --palette-link-selected:      #425e70;
@@ -290,7 +290,7 @@ html.bb-theme-graphite {
     --banner-section-color: #425e70;
     --bottom-link-text:     #4f5a61;
     --bottom-link-border:   #b8c0c6;
-    --bottom-link-bg:       rgba(66,94,112,0.06);
+    --bottom-link-bg:       #425e700f;
 }
 
 /* --- Aqua Reading（低彩度藍綠，保留冷色的平靜感與清楚對比）--- */
@@ -308,11 +308,11 @@ html.bb-theme-aqua {
     --palette-text-disabled:      #5a706d;
     --palette-border-main:        #c1d9d4;
     --palette-border-dark:        #a5c5be;
-    --palette-divider:            rgba(32,55,53,0.14);
+    --palette-divider:            #20373524;
     --palette-action-active:      #425f5b;
-    --palette-action-hover:       rgba(32,55,53,0.08);
-    --palette-action-selected:    rgba(47,111,103,0.16);
-    --palette-action-disabled:    rgba(66,95,91,0.48);
+    --palette-action-hover:       #20373514;
+    --palette-action-selected:    #2f6f6729;
+    --palette-action-disabled:    #425f5b7a;
     --palette-link-active:        #2f6f67;
     --palette-link-hover:         #22564f;
     --palette-link-selected:      #2f6f67;
@@ -329,7 +329,7 @@ html.bb-theme-aqua {
     --banner-section-color: #2f6f67;
     --bottom-link-text:     #425f5b;
     --bottom-link-border:   #a5c5be;
-    --bottom-link-bg:       rgba(47,111,103,0.06);
+    --bottom-link-bg:       #2f6f670f;
 }
 
 /* --- Cute Pink（明亮甜美的粉紅配色，同時保留長時間閱讀所需的對比）--- */
@@ -347,11 +347,11 @@ html.bb-theme-cute-pink {
     --palette-text-disabled:      #765e68;
     --palette-border-main:        #f1bad0;
     --palette-border-dark:        #e2a0b9;
-    --palette-divider:            rgba(67,37,50,0.14);
+    --palette-divider:            #43253224;
     --palette-action-active:      #704b5b;
-    --palette-action-hover:       rgba(67,37,50,0.08);
-    --palette-action-selected:    rgba(169,47,100,0.18);
-    --palette-action-disabled:    rgba(112,75,91,0.48);
+    --palette-action-hover:       #43253214;
+    --palette-action-selected:    #a92f642e;
+    --palette-action-disabled:    #704b5b7a;
     --palette-link-active:        #a92f64;
     --palette-link-hover:         #84224d;
     --palette-link-selected:      #a92f64;
@@ -368,7 +368,7 @@ html.bb-theme-cute-pink {
     --banner-section-color: #a92f64;
     --bottom-link-text:     #704b5b;
     --bottom-link-border:   #e2a0b9;
-    --bottom-link-bg:       rgba(169,47,100,0.07);
+    --bottom-link-bg:       #a92f6412;
 }
 
 /* =========================================
@@ -645,12 +645,12 @@ html:is(
 ) .base-header {
     position: relative !important;
     z-index: 1 !important;
-    box-shadow: 0 4px 14px rgba(15,23,42,0.16) !important;
+    box-shadow: 0 4px 14px #0f172a29 !important;
 }
 
 /* 主導覽使用父層抽屜的完整高度投影，包含上方校徽區域。 */
 .MuiDrawer-paper:has(> nav[role="navigation"][aria-label="Main"]) {
-    box-shadow: 4px 0 16px rgba(15,23,42,0.16) !important;
+    box-shadow: 4px 0 16px #0f172a29 !important;
 }
 
 html.bb-route-stream.bb-theme-nord-snow .stream-item-container .element-details,
@@ -1018,7 +1018,7 @@ html.bb-route-courses.bb-theme-nord-snow bb-todo
     overflow-y: auto !important;
     overflow-x: hidden !important;
     z-index: 9999 !important;
-    box-shadow: 4px 0 16px rgba(15,23,42,0.18) !important;
+    box-shadow: 4px 0 16px #0f172a2e !important;
     /* 主題切換時平滑過渡 */
     transition: background-color 0.3s ease, border-color 0.3s ease !important;
 }
@@ -1204,10 +1204,10 @@ html.bb-custom-course-cover course-banner [class*="courseBannerWrapper"] > [clas
     background-color: transparent !important;
     background-image:
         linear-gradient(
-            rgba(0,0,0,0) 0%,
-            rgba(0,0,0,0) 55%,
-            rgba(0,0,0,0.58) 78%,
-            rgba(0,0,0,0.92) 100%
+            #00000000 0%,
+            #00000000 55%,
+            #00000094 78%,
+            #000000eb 100%
         ),
         var(--bb-course-cover-image) !important;
     background-blend-mode: normal, normal !important;
@@ -1278,7 +1278,7 @@ bb-base-course-card .course-banner {
     border-radius: 50% !important;
     background: var(--bb-ui-text-primary, #2e3440) !important;
     color: var(--bb-ui-surface, #ffffff) !important;
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.24) !important;
+    box-shadow: 0 6px 18px #0f172a3d !important;
     font-family: Arial, sans-serif !important;
     font-size: 27px !important;
     font-weight: 700 !important;
@@ -1336,7 +1336,7 @@ bb-base-course-card .course-banner {
     justify-content: center !important;
     box-sizing: border-box !important;
     padding: min(14vh, 120px) 20px 20px !important;
-    background: rgba(15, 23, 42, 0.52) !important;
+    background: #0f172a85 !important;
     backdrop-filter: blur(2px);
 }
 
@@ -1351,7 +1351,7 @@ bb-base-course-card .course-banner {
     border-radius: 12px !important;
     background: var(--bb-ui-surface, #ffffff) !important;
     color: var(--bb-ui-text-primary, #2e3440) !important;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3) !important;
+    box-shadow: 0 24px 60px #0f172a4d !important;
     font-family: "Segoe UI", Arial, sans-serif !important;
 }
 
@@ -1388,7 +1388,7 @@ bb-base-course-card .course-banner {
 
 .bb-course-search-close:hover,
 .bb-course-search-close:focus-visible {
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
 }
 
 #bb-course-search-input {
@@ -1437,7 +1437,7 @@ bb-base-course-card .course-banner {
 .bb-course-search-option:focus-visible,
 .bb-course-search-option.bb-course-search-selected {
     outline: none !important;
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
     box-shadow: inset 4px 0 0 var(--palette-link-active, #0069ff) !important;
 }
 
@@ -1487,7 +1487,7 @@ bb-base-course-card .course-banner {
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
     > .MuiBackdrop-root {
-    background: rgba(15, 23, 42, 0.52) !important;
+    background: #0f172a85 !important;
     backdrop-filter: blur(2px);
 }
 
@@ -1507,7 +1507,7 @@ bb-base-course-card .course-banner {
     border-radius: 14px !important;
     background: var(--bb-ui-surface, #ffffff) !important;
     color: var(--bb-ui-text-primary, #2e3440) !important;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32) !important;
+    box-shadow: 0 24px 60px #0f172a52 !important;
 }
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
@@ -1528,7 +1528,7 @@ bb-base-course-card .course-banner {
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
     [data-analytics-id="course.header.course-switcher.close.button"]:is(:hover, :focus-visible) {
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
 }
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
@@ -1631,7 +1631,7 @@ bb-base-course-card .course-banner {
         .bb-course-switcher-keyboard-selected
     ) {
     outline: none !important;
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
     box-shadow: inset 4px 0 0 var(--palette-link-active, #0069ff) !important;
 }
 

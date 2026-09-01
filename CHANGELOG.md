@@ -5,7 +5,10 @@ Release entries use the version from `manifest.json` and the date format `YYYY/M
 
 ## Unreleased
 
+## v2.12.4 - 2026/08/31
+
 - Open existing Study Note notes in Preview by default while keeping newly created notes ready to edit in Write mode.
+- Replace the popup's GitHub destination and Octocat icon with the BB Better Layout website and a website icon.
 
 ## v2.12.3 - 2026/08/29
 
