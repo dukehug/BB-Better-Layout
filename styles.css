@@ -80,6 +80,8 @@ html.bb-theme-nord-snow {
     --palette-link-selected:      #5e81ac;
     --palette-selection-bg:       #5e81ac;
     --palette-selection-color:    #ffffff;
+    --palette-scrollbar-bg:       #eceff4;
+    --palette-scrollbar-thumb:    #81a1c1;
     /* 導航欄 */
     --nav-bg-color:         #e5e9f0;
     --nav-text-color:       #4c566a;
@@ -785,6 +787,10 @@ html.bb-theme-nord-snow *:not(.bb-weekly-schedule-event):not(.bb-weekly-schedule
     color: var(--palette-text-primary) !important;
 }
 
+html.bb-theme-nord-snow h1.MuiTypography-body1.MuiTypography-root {
+    color: var(--palette-selection-color) !important;
+}
+
 html.bb-theme-nord-snow *[aria-busy="true"],
 html.bb-theme-nord-snow *[data-loading],
 html.bb-theme-nord-snow .MuiFormControl-root,
@@ -817,7 +823,7 @@ html.bb-theme-nord-snow header {
 }
 
 html.bb-theme-nord-snow .student-grade-overview {
-    border-color: var(--palette-selection-color) !important;
+    border-bottom: 0 solid var(--palette-selection-color) !important;
 }
 
 html.bb-theme-nord-snow bb-ui-student-tabs div div div span.MuiTabs-indicator {
