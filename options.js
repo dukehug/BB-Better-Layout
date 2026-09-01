@@ -19,6 +19,11 @@ const THEMES = [
     colors:  ['#e5e9f0', '#eceff4', '#5e81ac'],
   },
   {
+    value:   'nord-night',
+    label:   'Nord Night 🌙',
+    colors:  ['#eceff4', '#4c566a', '#3b4252'],
+  },
+  {
     value:   'paper-reading',
     label:   'Paper Reading 📖',
     colors:  ['#fffaf0', '#f4ecd8', '#7a4b18'],
