@@ -25,11 +25,11 @@
     /* 底部自定義鏈接 */
     --bottom-link-text:   #cdcdcd;
     --bottom-link-border: #444444;
-    --bottom-link-bg:     rgba(0,0,0,0.2);
+    --bottom-link-bg:     #00000033;
 
     /* Blackboard 頁面元件共用的語意色彩 */
     --bb-ui-surface:       #ffffff;
-    --bb-ui-surface-hover: rgba(46,52,64,0.08);
+    --bb-ui-surface-hover: #2e344014;
     --bb-ui-field-bg:      #ffffff;
     --bb-ui-text-primary:  #2e3440;
     --bb-ui-text-secondary:#4c566a;
@@ -78,7 +78,7 @@ html.bb-theme-nord-snow {
     --palette-link-active:        #5e81ac;
     --palette-link-hover:         #81a1c1;
     --palette-link-selected:      #5e81ac;
-    --palette-selection-bg:       #5e81ac;
+    --palette-selection-bg:       #4c6f99;
     --palette-selection-color:    #ffffff;
     --palette-scrollbar-bg:       #eceff4;
     --palette-scrollbar-thumb:    #81a1c1;
@@ -728,12 +728,12 @@ html:is(
 ) .base-header {
     position: relative !important;
     z-index: 1 !important;
-    box-shadow: 0 4px 14px rgba(15,23,42,0.16) !important;
+    box-shadow: 0 4px 14px #0f172a29 !important;
 }
 
 /* 主導覽使用父層抽屜的完整高度投影，包含上方校徽區域。 */
 .MuiDrawer-paper:has(> nav[role="navigation"][aria-label="Main"]) {
-    box-shadow: 4px 0 16px rgba(15,23,42,0.16) !important;
+    box-shadow: 4px 0 16px #0f172a29 !important;
 }
 
 html.bb-route-stream.bb-theme-nord-snow .stream-item-container .element-details,
@@ -1181,7 +1181,7 @@ html.bb-route-courses.bb-theme-nord-snow bb-todo
     overflow-y: auto !important;
     overflow-x: hidden !important;
     z-index: 9999 !important;
-    box-shadow: 4px 0 16px rgba(15,23,42,0.18) !important;
+    box-shadow: 4px 0 16px #0f172a2e !important;
     /* 主題切換時平滑過渡 */
     transition: background-color 0.3s ease, border-color 0.3s ease !important;
 }
@@ -1367,10 +1367,10 @@ html.bb-custom-course-cover course-banner [class*="courseBannerWrapper"] > [clas
     background-color: transparent !important;
     background-image:
         linear-gradient(
-            rgba(0,0,0,0) 0%,
-            rgba(0,0,0,0) 55%,
-            rgba(0,0,0,0.58) 78%,
-            rgba(0,0,0,0.92) 100%
+            #00000000 0%,
+            #00000000 55%,
+            #00000094 78%,
+            #000000eb 100%
         ),
         var(--bb-course-cover-image) !important;
     background-blend-mode: normal, normal !important;
@@ -1442,7 +1442,7 @@ bb-base-course-card .course-banner {
     border-radius: 50% !important;
     background: var(--bb-ui-text-primary, #2e3440) !important;
     color: var(--bb-ui-surface, #ffffff) !important;
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.24) !important;
+    box-shadow: 0 6px 18px #0f172a3d !important;
     font-family: Arial, sans-serif !important;
     font-size: 27px !important;
     font-weight: 700 !important;
@@ -1500,7 +1500,7 @@ bb-base-course-card .course-banner {
     justify-content: center !important;
     box-sizing: border-box !important;
     padding: min(14vh, 120px) 20px 20px !important;
-    background: rgba(15, 23, 42, 0.52) !important;
+    background: #0f172a85 !important;
     backdrop-filter: blur(2px);
 }
 
@@ -1515,7 +1515,7 @@ bb-base-course-card .course-banner {
     border-radius: 12px !important;
     background: var(--bb-ui-surface, #ffffff) !important;
     color: var(--bb-ui-text-primary, #2e3440) !important;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.3) !important;
+    box-shadow: 0 24px 60px #0f172a4d !important;
     font-family: "Segoe UI", Arial, sans-serif !important;
 }
 
@@ -1552,7 +1552,7 @@ bb-base-course-card .course-banner {
 
 .bb-course-search-close:hover,
 .bb-course-search-close:focus-visible {
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
 }
 
 #bb-course-search-input {
@@ -1601,7 +1601,7 @@ bb-base-course-card .course-banner {
 .bb-course-search-option:focus-visible,
 .bb-course-search-option.bb-course-search-selected {
     outline: none !important;
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
     box-shadow: inset 4px 0 0 var(--palette-link-active, #0069ff) !important;
 }
 
@@ -1651,7 +1651,7 @@ bb-base-course-card .course-banner {
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
     > .MuiBackdrop-root {
-    background: rgba(15, 23, 42, 0.52) !important;
+    background: #0f172a85 !important;
     backdrop-filter: blur(2px);
 }
 
@@ -1671,7 +1671,7 @@ bb-base-course-card .course-banner {
     border-radius: 14px !important;
     background: var(--bb-ui-surface, #ffffff) !important;
     color: var(--bb-ui-text-primary, #2e3440) !important;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32) !important;
+    box-shadow: 0 24px 60px #0f172a52 !important;
 }
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
@@ -1692,7 +1692,7 @@ bb-base-course-card .course-banner {
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
     [data-analytics-id="course.header.course-switcher.close.button"]:is(:hover, :focus-visible) {
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
 }
 
 [role="dialog"][aria-labelledby="course.header.course-switcher.title"]
@@ -1795,7 +1795,7 @@ bb-base-course-card .course-banner {
         .bb-course-switcher-keyboard-selected
     ) {
     outline: none !important;
-    background: var(--bb-ui-surface-hover, rgba(46, 52, 64, 0.08)) !important;
+    background: var(--bb-ui-surface-hover, #2e344014) !important;
     box-shadow: inset 4px 0 0 var(--palette-link-active, #0069ff) !important;
 }
 

@@ -39,9 +39,14 @@ This is an independent project. It is not affiliated with, endorsed by, or offic
 - Create your own sidebar destinations, then hide or restore the group without deleting its settings.
 
 ## Version
-- v2.12.3 <br> Date: 2026/08/29
+- v2.12.4 <br> Date: 2026/08/31
 
 ## Changes
+
+v2.12.4 - 2026/08/31
+
+- Open existing Study Note notes in Preview by default while keeping newly created notes ready to edit in Write mode.
+- Replace the popup's GitHub destination and icon with the BB Better Layout website.
 
 v2.12.3 - 2026/08/29
 
