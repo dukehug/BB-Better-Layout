@@ -6,6 +6,10 @@
 
     const THEME_CONFIG = {
         'nord-snow': { themeClass: 'bb-theme-nord-snow' },
+        'nord-night': {
+            baseClass: 'bb-theme-nord-snow',
+            themeClass: 'bb-theme-nord-night'
+        },
         'paper-reading': {
             baseClass: 'bb-theme-nord-snow',
             themeClass: 'bb-theme-paper'

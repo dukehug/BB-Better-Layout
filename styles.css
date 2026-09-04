@@ -80,6 +80,8 @@ html.bb-theme-nord-snow {
     --palette-link-selected:      #5e81ac;
     --palette-selection-bg:       #4c6f99;
     --palette-selection-color:    #ffffff;
+    --palette-scrollbar-bg:       #eceff4;
+    --palette-scrollbar-thumb:    #81a1c1;
     /* 導航欄 */
     --nav-bg-color:         #e5e9f0;
     --nav-text-color:       #4c566a;
@@ -94,6 +96,58 @@ html.bb-theme-nord-snow {
     --bottom-link-text:     #4c566a;
     --bottom-link-border:   #d8dee9;
     --bottom-link-bg:       #0000000a;
+
+    --bb-ui-surface:        var(--palette-background-paper);
+    --bb-ui-surface-hover:  var(--palette-background-b2);
+    --bb-ui-field-bg:       var(--palette-background-paper);
+    --bb-ui-text-primary:   var(--palette-text-primary);
+    --bb-ui-text-secondary: var(--palette-text-secondary);
+    --bb-ui-text-muted:     var(--palette-text-disabled);
+    --bb-ui-border:         var(--palette-border-main);
+}
+
+/* --- Nord Polar Night (Dark theme) --- */
+html.bb-theme-nord-night {
+    --palette-background-default: #3b4252;
+    --palette-background-paper:   #2e3440;
+    --palette-background-b1:      #2e3440;
+    --palette-background-b2:      #3b4252;
+    --palette-background-b3:      #3b4252;
+    --palette-background-b4:      #4c566a;
+    --palette-background-b5:      #4c566a;
+    --palette-text-primary:       #eceff4;
+    --palette-text-secondary:     #e5e9f0;
+    --palette-text-hint:          #4c566a;
+    --palette-text-disabled:      #d8dee9;
+    --palette-border-main:        #4c566a;
+    --palette-border-dark:        #4c566a;
+    --palette-divider:            #3b4252;
+    --palette-action-active:      #e5e9f0;
+    --palette-action-hover:       #3b4252;
+    --palette-action-selected:    #2e3440;
+    --palette-action-disabled:    #4c566a;
+    --palette-link-active:        #4c566a;
+    --palette-link-hover:         #4c566a;
+    --palette-link-selected:      #4c566a;
+    --palette-selection-bg:       #4c566a;
+    --palette-selection-color:    #ffffff;
+    --palette-scrollbar-bg:       #2e3440;
+    --palette-scrollbar-thumb:    #4c566a;
+    --palette-formfield-border:   #4c566a;
+    /* 導航欄 */
+    --nav-bg-color:         #3b4252;
+    --nav-text-color:       #e5e9f0;
+    --nav-text-hover:       #eceff4;
+    --nav-text-active:      #eceff4;
+    --nav-active-bg:        #2e3440;
+    --nav-hover-bg:         #4c566a;
+    --nav-border-color:     #4c566a;
+    --banner-bg:            #4c566a;
+    --banner-text:          #eceff4;
+    --banner-section-color: #4c566a;
+    --bottom-link-text:     #e5e9f0;
+    --bottom-link-border:   #4c566a;
+    --bottom-link-bg:       #2e3440;
 
     --bb-ui-surface:        var(--palette-background-paper);
     --bb-ui-surface-hover:  var(--palette-background-b2);
@@ -144,14 +198,6 @@ html.bb-theme-paper {
     --bottom-link-text:     #5d4b37;
     --bottom-link-border:   #cbb991;
     --bottom-link-bg:       #7a4b180f;
-
-    --bb-ui-surface:        var(--palette-background-paper);
-    --bb-ui-surface-hover:  var(--palette-background-b2);
-    --bb-ui-field-bg:       var(--palette-background-paper);
-    --bb-ui-text-primary:   var(--palette-text-primary);
-    --bb-ui-text-secondary: var(--palette-text-secondary);
-    --bb-ui-text-muted:     var(--palette-text-disabled);
-    --bb-ui-border:         var(--palette-border-main);
 }
 
 /* --- Sage Reading（柔和鼠尾草綠）--- */
@@ -663,6 +709,15 @@ html.bb-route-stream.bb-theme-nord-snow .stream-item-container:hover .stream-ite
     background-color: var(--bb-ui-surface-hover) !important;
 }
 
+.base-recent-activity .activity-stream .activity-group .stream-item:before {
+    background-color: var(--bb-ui-surface) !important;
+}
+
+.base-recent-activity .activity-stream .activity-group .stream-item * {
+    background-color: transparent !important;
+    opacity: 1 !important;
+}
+
 /* Blackboard 主要頁面的標頭與內容使用陰影分層，避免同色背景黏在一起。 */
 html:is(
     .bb-route-stream,
@@ -712,6 +767,122 @@ html.bb-route-stream.bb-theme-nord-snow .stream-item-container .button--secondar
     background-color: var(--palette-background-b4) !important;
     border-color: var(--bb-ui-border) !important;
     color: var(--bb-ui-text-primary) !important;
+}
+
+html.bb-theme-nord-snow .itemContainer,
+html.bb-theme-nord-snow .content-list-item,
+html.bb-theme-nord-snow .content-list-item *,
+html.bb-theme-nord-snow .wants-props-update *,
+html.bb-theme-nord-snow .grading-card,
+html.bb-theme-nord-snow .grading-card *,
+html.bb-theme-nord-snow .MuiBadge-badge,
+html.bb-theme-nord-snow bb-ui-chip.react-container *,
+html.bb-theme-nord-snow input-search-box.react-container * {
+    background-color: var(--palette-background-b4) !important;
+    border: 0 !important;
+    color: var(--palette-text-primary) !important;
+}
+
+html.bb-theme-nord-snow a,
+html.bb-theme-nord-snow *:not(:is(
+        .bb-weekly-schedule-event,
+        .bb-weekly-schedule-event *,
+        .text-light,
+        div.login-page-announcements *,
+        input[name="login"],
+        nav[role="navigation"][aria-label="Main"] :is(a, button).active,
+        nav[role="navigation"][aria-label="Main"] :is(a, button).active *,
+        .bb-course-navigation nav[aria-label="course"] :is(a, button).active,
+        .bb-course-navigation nav[aria-label="course"] :is(a, button).active *,
+    )) {
+    color: var(--palette-text-primary) !important;
+}
+
+html.bb-theme-nord-snow div div div h1.MuiTypography-body1.MuiTypography-root.MuiTypography-root {
+    color: var(--palette-selection-color) !important;
+}
+
+html.bb-theme-nord-snow *[aria-busy="true"],
+html.bb-theme-nord-snow *[data-loading],
+html.bb-theme-nord-snow .MuiFormLabel-root,
+html.bb-theme-nord-snow .MuiFormLabel-root *,
+html.bb-theme-nord-snow .send-wrapper,
+html.bb-theme-nord-snow .MuiTable-root,
+html.bb-theme-nord-snow .MuiTable-root *,
+html.bb-theme-nord-snow .side-panel-content *,
+html.bb-theme-nord-snow .external-submissions-header *,
+html.bb-theme-nord-snow .button-group,
+html.bb-theme-nord-snow .button-group *,
+html.bb-theme-nord-snow bb-participants-search *,
+html.bb-theme-nord-snow course-student-grade div table,
+html.bb-theme-nord-snow course-student-grade div table *,
+html.bb-theme-nord-snow content-header,
+html.bb-theme-nord-snow content-header *,
+html.bb-theme-nord-snow institution-tools-grid,
+html.bb-theme-nord-snow institution-tools-grid *,
+html.bb-theme-nord-snow learning-module-content-navigator *,
+header.themed-logo-background-primary-fill[role="banner"],
+course-overview-management.course-overview-management *,
+.MuiFormLabel-root,
+.MuiInputLabel-root {
+    background-color: var(--palette-background-default) !important;
+    color: var(--palette-text-primary) !important;
+}
+
+html.bb-theme-nord-snow header {
+    border: 0 !important;
+}
+
+html.bb-theme-nord-snow .student-grade-overview {
+    border-bottom: 0 solid var(--palette-selection-color) !important;
+}
+
+html.bb-theme-nord-snow bb-ui-student-tabs div div div span.MuiTabs-indicator {
+    background-color: var(--palette-selection-color) !important;
+}
+
+course-overview-management.course-overview-management div:has(> * > #courses-overview-filter-search),
+button[data-analytics-id="course.pagination.size.selector.components.pagination.pageSizeDropdown.button"],
+div:has(> div[data-analytics-id="courses.overview.view.toggle"] > label[data-analytics-id="courses.overview.view.toggle.list"]),
+html.bb-theme-nord-snow .MuiFormControl-root,
+html.bb-theme-nord-snow .MuiFormControl-root * {
+    background-color: var(--palette-background-b1) !important;
+}
+
+#courses-overview-filter-terms-label,
+#courses-overview-filter-terms-label::before,
+#courses-overview-filter-search-label,
+#courses-overview-filter-search-label::before,
+#courses-overview-filter-filters-label,
+#courses-overview-filter-filters-label::before,
+#streams-filter-label,
+#streams-filter-label::before,
+.MuiFormLabel-root.MuiInputLabel-root,
+.MuiFormLabel-root.MuiInputLabel-root::before {
+    background-color: transparent !important;
+    background: none !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+div.MuiTextField-root.MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root {
+  border: 3px solid var(--palette-formfield-border) !important;
+}
+
+/* === Scrollbar === */
+
+body {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--palette-scrollbar-thumb) var(--palette-scrollbar-bg) !important; /* Thumb color | Track color */
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--palette-scrollbar-bg) !important;
+  border-radius: 8px !important;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--palette-scrollbar-thumb) !important;
+  border-radius: 8px !important;
 }
 
 /* =========================================
@@ -899,6 +1070,7 @@ html.bb-route-courses.bb-theme-nord-snow .course-element-card .element-details.s
 
 html.bb-route-courses.bb-theme-nord-snow .course-element-card .js-course-title-element,
 html.bb-route-courses.bb-theme-nord-snow .course-element-card .course-title {
+    background-color: var(--bb-ui-surface) !important;
     color: var(--bb-ui-text-primary) !important;
     opacity: 1 !important;
 }
@@ -1248,6 +1420,7 @@ html.bb-custom-course-cover course-banner [class*="courseBannerWrapper"] > [clas
 /* =========================================
    8. 課程 Banner
    ========================================= */
+
 bb-base-course-card .course-banner {
     background-image: none !important;
     background-color: var(--banner-bg) !important;
