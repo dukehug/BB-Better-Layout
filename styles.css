@@ -133,11 +133,12 @@ html.bb-theme-nord-night {
     --palette-selection-color:    #ffffff;
     --palette-scrollbar-bg:       #2e3440;
     --palette-scrollbar-thumb:    #4c566a;
+    --palette-formfield-border:   #4c566a;
     /* 導航欄 */
     --nav-bg-color:         #3b4252;
     --nav-text-color:       #e5e9f0;
     --nav-text-hover:       #eceff4;
-    --nav-text-active:      #2e3440;
+    --nav-text-active:      #eceff4;
     --nav-active-bg:        #2e3440;
     --nav-hover-bg:         #4c566a;
     --nav-border-color:     #4c566a;
@@ -803,8 +804,6 @@ html.bb-theme-nord-snow div div div h1.MuiTypography-body1.MuiTypography-root.Mu
 
 html.bb-theme-nord-snow *[aria-busy="true"],
 html.bb-theme-nord-snow *[data-loading],
-html.bb-theme-nord-snow .MuiFormControl-root,
-html.bb-theme-nord-snow .MuiFormControl-root *,
 html.bb-theme-nord-snow .MuiFormLabel-root,
 html.bb-theme-nord-snow .MuiFormLabel-root *,
 html.bb-theme-nord-snow .send-wrapper,
@@ -822,6 +821,8 @@ html.bb-theme-nord-snow content-header *,
 html.bb-theme-nord-snow institution-tools-grid,
 html.bb-theme-nord-snow institution-tools-grid *,
 html.bb-theme-nord-snow learning-module-content-navigator *,
+header.themed-logo-background-primary-fill[role="banner"],
+course-overview-management.course-overview-management *,
 .MuiFormLabel-root,
 .MuiInputLabel-root {
     background-color: var(--palette-background-default) !important;
@@ -838,6 +839,33 @@ html.bb-theme-nord-snow .student-grade-overview {
 
 html.bb-theme-nord-snow bb-ui-student-tabs div div div span.MuiTabs-indicator {
     background-color: var(--palette-selection-color) !important;
+}
+
+course-overview-management.course-overview-management div:has(> * > #courses-overview-filter-search),
+button[data-analytics-id="course.pagination.size.selector.components.pagination.pageSizeDropdown.button"],
+div:has(> div[data-analytics-id="courses.overview.view.toggle"] > label[data-analytics-id="courses.overview.view.toggle.list"]),
+html.bb-theme-nord-snow .MuiFormControl-root,
+html.bb-theme-nord-snow .MuiFormControl-root * {
+    background-color: var(--palette-background-b1) !important;
+}
+
+#courses-overview-filter-terms-label,
+#courses-overview-filter-terms-label::before,
+#courses-overview-filter-search-label,
+#courses-overview-filter-search-label::before,
+#courses-overview-filter-filters-label,
+#courses-overview-filter-filters-label::before,
+#streams-filter-label,
+#streams-filter-label::before,
+.MuiFormLabel-root.MuiInputLabel-root,
+.MuiFormLabel-root.MuiInputLabel-root::before {
+    background-color: transparent !important;
+    background: none !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+div.MuiTextField-root.MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root {
+  border: 3px solid var(--palette-formfield-border) !important;
 }
 
 /* === Scrollbar === */
