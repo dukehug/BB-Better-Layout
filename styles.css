@@ -783,11 +783,21 @@ html.bb-theme-nord-snow input-search-box.react-container * {
 }
 
 html.bb-theme-nord-snow a,
-html.bb-theme-nord-snow *:not(.bb-weekly-schedule-event):not(.bb-weekly-schedule-event *) {
+html.bb-theme-nord-snow *:not(:is(
+        .bb-weekly-schedule-event,
+        .bb-weekly-schedule-event *,
+        .text-light,
+        div.login-page-announcements *,
+        input[name="login"],
+        nav[role="navigation"][aria-label="Main"] :is(a, button).active,
+        nav[role="navigation"][aria-label="Main"] :is(a, button).active *,
+        .bb-course-navigation nav[aria-label="course"] :is(a, button).active,
+        .bb-course-navigation nav[aria-label="course"] :is(a, button).active *,
+    )) {
     color: var(--palette-text-primary) !important;
 }
 
-html.bb-theme-nord-snow h1.MuiTypography-body1.MuiTypography-root {
+html.bb-theme-nord-snow div div div h1.MuiTypography-body1.MuiTypography-root.MuiTypography-root {
     color: var(--palette-selection-color) !important;
 }
 
